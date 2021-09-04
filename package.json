@@ -1,0 +1,36 @@
+{
+  "name": "vue-vite-blog",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "daisyui": "^1.14.0",
+    "qs": "^6.10.1",
+    "vue": "^3.2.6",
+    "vue-router": "^4.0.11",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.2.9",
+    "@types/node": "^16.7.10",
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/compiler-sfc": "^3.2.6",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "autoprefixer": "^9.8.6",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^7.17.0",
+    "postcss": "^7.0.36",
+    "prettier": "^2.3.2",
+    "sass": "^1.39.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.9",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.2",
+    "vue-tsc": "^0.2.2"
+  }
+}

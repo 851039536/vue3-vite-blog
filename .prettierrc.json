@@ -1,0 +1,7 @@
+{
+  "singleQuote": true, 
+  "seme": true,
+  "tabWidth": 2,
+  "TrailingCooma": "all",
+  "bracketSpacing": true
+}
