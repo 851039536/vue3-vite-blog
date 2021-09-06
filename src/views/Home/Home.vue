@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-04 10:45:48
+ * @LastEditTime: 2021-09-06 15:21:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\home\Home.vue
@@ -10,13 +10,18 @@
 import { reactive, onMounted } from "vue";
 import { user } from "../../api/user";
 
-const state = reactive({
-  User: [],
+interface User {
+  brief: string;
+  test?: string;
+}
+
+const state: User = reactive({
+  brief: "",
 });
 const getall = async () => {
   await user.GetByIdAsync(4)
     .then((res: any) => {
-      state.User = res.data;
+      state.brief = res.data.brief;
     })
 };
 onMounted(async () => {
@@ -31,10 +36,9 @@ onMounted(async () => {
         <div class="min-h-screen hero bg-base-200">
           <div class="text-center hero-content">
             <div class="max-w-md">
-              <h1 class="mb-5 text-5xl font-bold">哈喽，我叫少年</h1>
-              <p class="mb-5">{{ state.User.brief }} 一位热爱生活、xxxxxx开发者。</p>
-              <button class="btn btn-primary" @click="skip(1)">冲冲冲！</button>
-              <button class="btn btn-link">link</button>
+              <h1 class="mb-5 text-5xl font-bold">SW内网</h1>
+              <p class="mb-5">技术文档 接口文档 开发流程汇总</p>
+              <button class="btn btn-link">GO-></button>
             </div>
           </div>
         </div>

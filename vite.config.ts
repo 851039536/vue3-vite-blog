@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-04 10:09:36
+ * @LastEditTime: 2021-09-06 12:27:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\vite.config.ts
@@ -11,7 +11,6 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 //vite.config.js
 import viteCompression from 'vite-plugin-compression'
-
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,7 +27,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve('./src')
+      '@': resolve('./src'),
     }
   },
   base: './', // 打包路径

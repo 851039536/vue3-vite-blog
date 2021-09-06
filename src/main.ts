@@ -12,6 +12,7 @@ import './index.css'
 import router from './router/index'
 import store from './store/index'
 import axios from './api/axios'
+
 // use
 const app = createApp(App);
 app.use(router)
