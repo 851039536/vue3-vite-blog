@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-04 10:20:38
+ * @LastEditTime: 2021-09-07 15:41:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\App.vue
@@ -14,13 +14,10 @@
   <router-view></router-view>
 </template>
 
-<style>
+
+<style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  @apply bg-white;
+  width: 100%;
 }
 </style>
