@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 14:54:28
- * @LastEditTime: 2021-09-07 17:04:54
+ * @LastEditTime: 2021-09-10 15:01:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\components\Header.vue
@@ -25,8 +25,8 @@
 
 
 <style lang="scss" scoped>
-@import "../assets/sass/com";
-@import "../assets/sass/uitl";
+@import "../design/com.scss";
+@import "../design/uitl.scss";
 .header {
   @apply flex fixed top-0 left-0 z-10 shadow;
   @include w-h(100%, 7%);

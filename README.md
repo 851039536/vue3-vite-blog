@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-07 17:21:27
+ * @LastEditTime: 2021-09-07 17:36:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\README.md
@@ -23,7 +23,9 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 ### v1.0.3--2021-09-07
 
 [新增] Header头部导航栏布局
+
 [新增] Sidebar 侧边栏布局
+
 [新增] Index 主页面布局
 
 ### v1.0.0--2021-09-04
