@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 11:42:13
- * @LastEditTime: 2021-09-10 16:36:57
+ * @LastEditTime: 2021-09-24 14:11:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\Index\Index.vue
@@ -9,150 +9,489 @@
 
 <template>
   <div class="index">
-    <Header></Header>
-    <Sidebar></Sidebar>
-    <div class="index_main">
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>{{ state.te }}</a>
+    <div class="flex min-h-screen bg-gray-100">
+      <aside class="hidden sm:flex sm:flex-col">
+        <a
+          href="#"
+          class="inline-flex items-center justify-center w-20 h-20 bg-purple-600  hover:bg-purple-500 focus:bg-purple-500"
+        >
+          <svg fill="none" viewBox="0 0 64 64" class="w-12 h-12">
+            <title>Company logo</title>
+            <path
+              d="M32 14.2c-8 0-12.9 4-14.9 11.9 3-4 6.4-5.6 10.4-4.5 2.3.6 4 2.3 5.7 4 2.9 3 6.3 6.4 13.7 6.4 7.9 0 12.9-4 14.8-11.9-3 4-6.4 5.5-10.3 4.4-2.3-.5-4-2.2-5.7-4-3-3-6.3-6.3-13.7-6.3zM17.1 32C9.2 32 4.2 36 2.3 43.9c3-4 6.4-5.5 10.3-4.4 2.3.5 4 2.2 5.7 4 3 3 6.3 6.3 13.7 6.3 8 0 12.9-4 14.9-11.9-3 4-6.4 5.6-10.4 4.5-2.3-.6-4-2.3-5.7-4-2.9-3-6.3-6.4-13.7-6.4z"
+              fill="#fff"
+            />
+          </svg>
+        </a>
+        <div
+          class="flex flex-col justify-between flex-grow text-gray-500 bg-gray-800 "
+        >
+          <nav class="flex flex-col mx-4 my-6 space-y-4">
+            <a
+              href="#"
+              class="inline-flex items-center justify-center py-3 rounded-lg  hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <span class="sr-only">Folders</span>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center justify-center py-3 text-purple-600 bg-white rounded-lg "
+            >
+              <span class="sr-only">Dashboard</span>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center justify-center py-3 rounded-lg  hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <span class="sr-only">Messages</span>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center justify-center py-3 rounded-lg  hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <span class="sr-only">Documents</span>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                />
+              </svg>
+            </a>
+          </nav>
+          <div
+            class="inline-flex items-center justify-center w-20 h-20 border-t border-gray-700 "
+          >
+            <button
+              class="p-3 rounded-lg  hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700"
+            >
+              <span class="sr-only">Settings</span>
+              <svg
+                aria-hidden="true"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+            </button>
           </div>
         </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
-      </div>
+      </aside>
 
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>sw网站开发</a>
+      <div class="flex-grow text-gray-800">
+        <header class="flex items-center h-20 px-6 bg-white sm:px-10">
+          <button
+            class="relative flex-shrink-0 block p-2 mr-2 text-gray-600 rounded-full  sm:hidden hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800"
+          >
+            <span class="sr-only">Menu</span>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </button>
+          <div class="relative w-full max-w-md sm:-ml-2">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="absolute h-6 w-6 mt-2.5 ml-2 text-gray-400"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <input
+              type="text"
+              role="search"
+              placeholder="Search..."
+              class="w-full py-2 pl-10 pr-4 placeholder-gray-400 border-4 border-transparent rounded-lg  focus:bg-gray-50"
+            />
           </div>
-        </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
-      </div>
+          <div class="flex items-center flex-shrink-0 ml-auto">
+            <button
+              class="inline-flex items-center p-2 rounded-lg  hover:bg-gray-100 focus:bg-gray-100"
+            >
+              <span class="sr-only">User Menu</span>
+              <div
+                class="hidden md:flex md:flex-col md:items-end md:leading-tight"
+              >
+                <span class="font-semibold">Grace Simmons</span>
+                <span class="text-sm text-gray-600">Lecturer</span>
+              </div>
+              <span
+                class="w-12 h-12 ml-2 mr-2 overflow-hidden bg-gray-100 rounded-full  sm:ml-3"
+              >
+                <!-- <img
+                    src="https://randomuser.me/api/portraits/women/68.jpg"
+                    alt="user profile photo"
+                    class="object-cover w-full h-full"
+                  /> -->
+              </span>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                class="hidden w-6 h-6 text-gray-300 sm:block"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <div class="pl-3 ml-3 space-x-1 border-l">
+              <button
+                class="relative p-2 text-gray-400 rounded-full  hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600"
+              >
+                <span class="sr-only">Notifications</span>
+                <span
+                  class="absolute top-0 right-0 w-2 h-2 mt-1 mr-2 bg-red-500 rounded-full "
+                ></span>
+                <span
+                  class="absolute top-0 right-0 w-2 h-2 mt-1 mr-2 bg-red-500 rounded-full  animate-ping"
+                ></span>
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
+              </button>
+              <button
+                class="relative p-2 text-gray-400 rounded-full  hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600"
+              >
+                <span class="sr-only">Log out</span>
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
 
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>sw网站开发</a>
-          </div>
-        </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
-      </div>
+        <main class="p-6 space-y-6 sm:p-10">
+          <section class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <div class="flex items-center p-8 bg-white rounded-lg shadow">
+              <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mr-6 text-purple-600 bg-purple-100 rounded-full "
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <span class="block text-2xl font-bold">62</span>
+                <span class="block text-gray-500">文档</span>
+              </div>
+            </div>
+            <div class="flex items-center p-8 bg-white rounded-lg shadow">
+              <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mr-6 text-green-600 bg-green-100 rounded-full "
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <div>
+                <span class="block text-2xl font-bold">6</span>
+                <span class="block text-gray-500">新增文档</span>
+              </div>
+            </div>
+            <div class="flex items-center p-8 bg-white rounded-lg shadow">
+              <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mr-6 text-red-600 bg-red-100 rounded-full "
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <div>
+                <span class="inline-block text-2xl font-bold">9</span>
+                <span class="block text-gray-500">分类</span>
+              </div>
+            </div>
+            <div class="flex items-center p-8 bg-white rounded-lg shadow">
+              <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-16 h-16 mr-6 text-blue-600 bg-blue-100 rounded-full "
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <div>
+                <span class="block text-2xl font-bold">5</span>
+                <span class="block text-gray-500">工具软件</span>
+              </div>
+            </div>
+          </section>
 
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>sw网站开发</a>
-          </div>
-        </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
-      </div>
+          <section
+            class="grid gap-6  md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col"
+          >
+            <div class="row-span-3 bg-white rounded-lg shadow">
+              <div
+                class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100 "
+              >
+                <span>文档列表</span>
+                <button
+                  type="button"
+                  class="inline-flex justify-center px-1 -mr-1 text-sm font-medium leading-5 text-gray-500 bg-white rounded-md  hover:text-gray-600"
+                  id="options-menu"
+                  aria-haspopup="true"
+                  aria-expanded="true"
+                >
+                  全部
+                  <svg
+                    class="w-5 h-5 ml-1 -mr-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="overflow-y-auto" style="max-height: 20rem">
+                <ul class="p-6 space-y-2">
+                  <li
+                    class="flex items-center"
+                    v-for="item in state.resultData"
+                    :key="item.articleId"
+                  >
+                    <div
+                      class="w-10 h-10 mr-3 overflow-hidden bg-gray-100 rounded-full "
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        class="w-10 h-10"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        />
+                      </svg>
+                    </div>
+                    <span class="text-gray-600"
+                      ><a @click="skip(item.articleId)">{{
+                        item.title
+                      }}</a></span
+                    >
+                    <span class="ml-auto font-semibold">文档</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
 
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>sw网站开发</a>
-          </div>
-        </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
-      </div>
+          <section>
+            <div id="components-pagination-demo-mini">
+              <a-pagination
+                size="small"
+                :total="50"
+                show-size-changer
+                show-quick-jumper
+              />
+            </div>
+          </section>
 
-      <div class="index_content">
-        <div class="index_content_name">
-          <div>
-            <a>sw网站开发</a>
-          </div>
-        </div>
-        <div class="index_content_type">
-          <div>TE</div>
-          <div>2021-09-07</div>
-          <div>文档</div>
-          <div>测试</div>
-        </div>
+          <section class="font-semibold text-right text-gray-500">
+            <a href="#" class="text-purple-600 hover:underline">工程sw网</a>
+            基于
+            <a
+              href="https://tailwindcss.com/"
+              class="text-teal-400 hover:underline"
+              >Tailwind CSS</a
+            >
+            vue, 生产制作
+          </section>
+        </main>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import Header from "../../components/Header.vue";
-import Sidebar from "../../components/Sidebar.vue";
-import { test } from "../../api/test";
-import { onMounted, reactive } from "vue";
+import Header from '../../components/Header.vue';
+import { onMounted, reactive } from 'vue';
+import { article } from '../../api/index';
+import { routerId } from '../../hooks/routers';
 
 interface State {
-  te: string
+  resultData: any;
 }
-const state: State = reactive({ te: "" })
-const tests = async () => {
-  await test.GetAll().then((res: any) => {
-    console.log(res.data[0].navTitle);
-    state.te = res.data[0].navTitle;
-  })
+const state: State = reactive({ resultData: [] });
+
+async function GetFyTit() {
+  await article.GetFyTitleAsync(1, 10).then((res) => {
+    state.resultData = res.data;
+  });
+}
+async function skip(id: number) {
+  routerId('/vmdContent', id);
 }
 
 onMounted(async () => {
-  await tests();
+  await GetFyTit();
 });
-
 </script>
 
 <style lang="scss" scoped>
-@import "../../design/com.scss";
-@import "../../design/uitl.scss";
+@import '../../design/com.scss';
+@import '../../design/uitl.scss';
+#components-pagination-demo-mini .ant-pagination:not(:last-child) {
+  margin-bottom: 24px;
+}
+
 .index {
-  @apply fixed bg-gray-100 overflow-auto;
-  @include w-h(78%, 100%);
-  top: 7.5%;
-  left: 1%;
-  .index_main {
-    @apply container mx-auto;
-    .index_content {
-      @include w-h(95%, 130px);
-      @apply shadow m-auto mt-2 cursor-pointer bg-white rounded;
-
-      .index_content_name {
-        @apply text-2xl;
-        height: 40%;
-
-        div {
-          line-height: 45px;
-          @apply m-1 p-1;
-        }
-      }
-      .index_content_type {
-        @apply flex;
-        height: 60%;
-        div {
-          line-height: 90px;
-          @apply m-1 p-1;
-        }
-      }
-    }
-  }
+  // @apply fixed bg-gray-100 overflow-auto;
+  // @include w-h(100%, 100%);
+  // top: 7.5%;
+  // left: 0;
 }
 </style>

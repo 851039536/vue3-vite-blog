@@ -3,6 +3,7 @@
 
 #home {
 
+  @apply z-10;
   .home_main {
     margin: auto;
     @include w-h(90%, 100%);

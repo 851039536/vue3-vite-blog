@@ -1,16 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-07 15:24:25
+ * @LastEditTime: 2021-09-24 10:20:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\home\Home.vue
 -->
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 const router = useRouter();
 const skip = async () => {
-  router.push('/index')
+  router.push('/index');
 };
 </script>
 
@@ -31,5 +31,5 @@ const skip = async () => {
 </template>
 
 <style lang="scss" scoped>
-@import "./index.scss";
+@import './index.scss';
 </style>
