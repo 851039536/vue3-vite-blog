@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 11:33:56
- * @LastEditTime: 2021-09-24 09:27:09
+ * @LastEditTime: 2021-10-26 14:55:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\api\article.js
@@ -10,46 +10,37 @@ import request from './axios'
 
 export class article {
 
-  static async GetAll(state: number): Promise<any> {
-    return request
-      .all([
-        // 读取详情页数据
-        request.get("/api/SnArticle/AsyGetTestID?id=" + state),
-      ])
-
+  static async GetFyAll(Page: number, Size: number, pof: string) {
+    return await request({
+      url: "/api/v1/article?Page=" + Page + "&Size=" + Size + "&PageOffset=" + pof,
+      method: 'get'
+    })
   }
   //查询总条数
-  static async GetCountAsync(): Promise<any> {
+  static async GetCount(name: string): Promise<any> {
     return await request({
-      url: "/api/SnArticle/GetCountAsync",
-      method: 'get',
+      url: "/api/v1/article/count/" + name,
+      method: 'POST',
     })
   }
 
-  //查询分类总条数
-  static async ConutSort(id: number): Promise<any> {
-    return await request({
-      url: "/api/SnArticle/GetConutSortAsync?type=" + id + "&cache=true",
-      method: 'get',
-    })
-  }
-  //模糊查询
-  static async GetContainsAsync(name: string): Promise<any> {
-    return await request({
-      url: "/api/SnArticle/GetContainsAsync?name=" + name + "&cache=true",
-      method: 'get',
-    })
-  }
+
 
   //主键查询
-  static async GetByIdAsync(id: number, cache: boolean): Promise<any> {
+  static async GetByIdAsync(id: number): Promise<any> {
     return await request({
-      url: "/api/SnArticle/GetByIdAsync?id=" + id + "&cache=" + cache,
+      url: "/api/v1/article/" + id,
+      method: 'get',
+    })
+  }
+  static async contains(name: string): Promise<any> {
+    return await request({
+      url: "/api/v1/article/contains/" + name,
       method: 'get',
     })
   }
   //按标签条件查询
-  static async GetTagtextAsync(id: number, cache: boolean): Promise<any> {
+  static async GetTagTextAsync(id: number, cache: boolean): Promise<any> {
     return await request({
       url: "/api/SnArticle/GetTagAsync?labelId=" + id + "&isDesc=true&cache=" + cache,
       method: 'get',
@@ -87,45 +78,5 @@ export class article {
       })
   }
 
-
 }
 
-
-// export default article;
-
-
-// export function fetchArticle(id) {
-//   return request({
-//     url: '/vue-element-admin/article/detail',
-//     method: 'get',
-//     params: {
-//       id
-//     }
-//   })
-// }
-
-// export function fetchPv(pv) {
-//   return request({
-//     url: '/vue-element-admin/article/pv',
-//     method: 'get',
-//     params: {
-//       pv
-//     }
-//   })
-// }
-
-// export function createArticle(data) {
-//   return request({
-//     url: '/vue-element-admin/article/create',
-//     method: 'post',
-//     data
-//   })
-// }
-
-// export function updateArticle(data) {
-//   return request({
-//     url: '/vue-element-admin/article/update',
-//     method: 'post',
-//     data
-//   })
-// }
