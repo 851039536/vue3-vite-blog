@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 11:42:13
- * @LastEditTime: 2021-10-26 15:35:27
+ * @LastEditTime: 2021-10-27 14:33:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\Index\Index.vue
@@ -61,23 +61,12 @@
                 <span class="font-semibold">Grace Simmons</span>
                 <span class="text-sm text-gray-600">Lecturer</span>
               </div>
-              <span
-                class="
-                  w-12
-                  h-12
-                  ml-2
-                  mr-2
-                  overflow-hidden
-                  bg-gray-100
-                  rounded-full
-                  sm:ml-3
-                "
-              >
-                <!-- <img
-                  src="https://randomuser.me/api/portraits/women/68.jpg"
+              <span class="h-12 ml-2 mr-2 overflow-hidden bg-gray-100 sm:ml-3">
+                <img
+                  src="../../assets/img/mech.png"
                   alt="user profile photo"
                   class="object-cover w-full h-full"
-                /> -->
+                />
               </span>
               <svg
                 aria-hidden="true"
@@ -155,6 +144,7 @@
                   hover:bg-gray-100 hover:text-gray-600
                   focus:bg-gray-100 focus:text-gray-600
                 "
+                @click="message.info('开发中')"
               >
                 <span class="sr-only">Log out</span>
                 <svg
@@ -244,7 +234,9 @@
                 </svg>
               </div>
               <div>
-                <span class="block text-2xl font-bold">6</span>
+                <span class="block text-2xl font-bold">{{
+                  state.tagsCount
+                }}</span>
                 <span class="block text-gray-500">标签</span>
               </div>
             </div>
@@ -279,7 +271,9 @@
                 </svg>
               </div>
               <div>
-                <span class="inline-block text-2xl font-bold">9</span>
+                <span class="inline-block text-2xl font-bold">{{
+                  state.classifyCount
+                }}</span>
                 <span class="block text-gray-500">分类</span>
               </div>
             </div>
@@ -341,39 +335,15 @@
                 "
               >
                 <span>文档列表</span>
-                <button
-                  type="button"
-                  class="
-                    inline-flex
-                    justify-center
-                    px-1
-                    -mr-1
-                    text-sm
-                    font-medium
-                    leading-5
-                    text-gray-500
-                    bg-white
-                    rounded-md
-                    hover:text-gray-600
-                  "
-                  id="options-menu"
-                  aria-haspopup="true"
-                  aria-expanded="true"
+                <!-- <a-select
+                  ref="select"
+                  v-model:value="value1"
+                  style="width: 120px"
+                  @change="handleChange"
                 >
-                  全部
-                  <svg
-                    class="w-5 h-5 ml-1 -mr-1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                </button>
+                  <a-select-option value="jack">Jack</a-select-option>
+                  <a-select-option value="lucy">Lucy</a-select-option>
+                </a-select> -->
               </div>
               <div class="overflow-y-auto" style="max-height: 20rem">
                 <ul class="p-6 space-y-2">
@@ -451,24 +421,11 @@
 </template>
 <script lang="ts" setup>
 import Header from '../../components/Header.vue';
-import { onMounted, reactive } from 'vue';
-import { article } from '../../api/index';
+import { onMounted } from 'vue';
+import { article, tags, classify } from '../../api/index';
 import { routerId } from '../../hooks/routers';
-
-interface State {
-  resultData: any;
-  count: number;
-  page: number; //页码
-  pagesize: number; //每页条数
-  ipuName: string;
-}
-const state: State = reactive({
-  resultData: [],
-  count: 0,
-  page: 1, //页码
-  pagesize: 5, //每页条数
-  ipuName: '',
-});
+import { state } from './data';
+import { message } from 'ant-design-vue';
 
 async function GetFyTit() {
   await article.GetFyAll(state.page, state.pagesize, '1').then((res) => {
@@ -497,6 +454,12 @@ onMounted(async () => {
   await GetFyTit();
   await article.GetCount('ALL').then((res) => {
     state.count = res.data.data;
+  });
+  await tags.GetCount('ALL').then((res) => {
+    state.tagsCount = res.data.data;
+  });
+  await classify.GetCount('ALL').then((res) => {
+    state.classifyCount = res.data.data;
   });
 });
 </script>

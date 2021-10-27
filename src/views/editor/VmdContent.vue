@@ -1,18 +1,20 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-22 13:52:06
- * @LastEditTime: 2021-10-26 13:38:11
+ * @LastEditTime: 2021-10-27 11:05:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\components\editor\VmdContent.vue
 -->
 
 <template>
+  <a-back-top />
   <div class="vmdcontent">
-    <a-back-top />
-    <a-skeleton :loading="false" :paragraph="{ rows: 15 }" active />
-    <a-page-header :title="state.title" @back="() => router.back()" />
-    <v-md-preview :text="state.result" :include-level="[3, 4]"></v-md-preview>
+    <div class="main">
+      <a-skeleton :loading="false" :paragraph="{ rows: 15 }" active />
+      <a-page-header :title="state.title" @back="() => router.back()" />
+      <v-md-preview :text="state.result"></v-md-preview>
+    </div>
   </div>
 </template>
 
@@ -36,17 +38,18 @@ const state: State = reactive({
 article.GetByIdAsync(state.id).then((res: any) => {
   state.result = res.data.data.description;
   state.title = res.data.data.title;
-  console.log(
-    '%c [ res ]',
-    'font-size:13px; background:pink; color:#bf2c9f;',
-    res.data.data.description
-  );
 });
 </script>
 
 <style lang="scss" scoped>
 .vmdcontent {
-  @apply mt-8;
-  // width: 90%;
+  @apply bg-gray-50;
+  .main {
+    @apply m-auto;
+    width: 80%;
+    .ant-page-header-ghost {
+      @apply bg-gray-200 shadow;
+    }
+  }
 }
 </style>
