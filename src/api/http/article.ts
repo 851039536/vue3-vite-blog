@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 11:33:56
- * @LastEditTime: 2021-10-26 14:55:52
+ * @LastEditTime: 2021-10-29 14:23:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\api\article.js
@@ -10,9 +10,9 @@ import request from './axios'
 
 export class article {
 
-  static async GetFyAll(Page: number, Size: number, pof: string) {
+  static async GetFyAll(Page: number, Size: number) {
     return await request({
-      url: "/api/v1/article?Page=" + Page + "&Size=" + Size + "&PageOffset=" + pof,
+      url: "/api/v1/article/page-all/" + Page + "/" + Size,
       method: 'get'
     })
   }
@@ -23,7 +23,6 @@ export class article {
       method: 'POST',
     })
   }
-
 
 
   //主键查询
@@ -39,31 +38,11 @@ export class article {
       method: 'get',
     })
   }
-  //按标签条件查询
-  static async GetTagTextAsync(id: number, cache: boolean): Promise<any> {
-    return await request({
-      url: "/api/SnArticle/GetTagAsync?labelId=" + id + "&isDesc=true&cache=" + cache,
-      method: 'get',
-    })
-  }
-  //标签分页查询
-  static async GetFyTitleAsync(page: number, pagesize: number): Promise<any> {
-    return await request({
-      url:
-        "/api/SnArticle/GetFyTitleAsync?" +
-        "&pageIndex=" +
-        page +
-        "&pageSize=" +
-        pagesize +
-        "&isDesc=true",
-      method: 'get',
-    })
-  }
 
   //分类分页查询
-  static async GetFySortTitleAsync(page: number, pagesize: number): Promise<any> {
+  static async GetClassify(id: string, page: number, pagesize: number): Promise<any> {
     return await request({
-      url: "/api/SnArticle/GetfySortTestAsync?type=7&pageIndex=" + page + "&pageSize=" + pagesize + "&isDesc=true&cache=true",
+      url: "/api/v1/article/type-page-all/" + id + "/" + page + "/" + pagesize,
       method: 'get',
     })
   }

@@ -1,11 +1,12 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-07 17:36:49
+ * @LastEditTime: 2021-10-29 15:59:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\README.md
 -->
+
 # Vue 3 + Typescript + Vite
 
 This template should help get you started developing with Vue 3 and Typescript in Vite.
@@ -20,9 +21,19 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 ## vue3 + ts + vite + tailwind -demo
 
+### v1.0.3--2021-10-29
+
+[新增] 分类查询,分页查询,文档搜索
+
+[新增] 后台系统入口集成
+
+[修复] 分页 bug 修复
+
+[优化] Header 页面优化
+
 ### v1.0.3--2021-09-07
 
-[新增] Header头部导航栏布局
+[新增] Header 头部导航栏布局
 
 [新增] Sidebar 侧边栏布局
 

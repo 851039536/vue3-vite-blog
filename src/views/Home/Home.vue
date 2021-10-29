@@ -1,21 +1,28 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-10-27 10:04:07
+ * @LastEditTime: 2021-10-29 09:00:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\home\Home.vue
 -->
 <script lang="ts" setup>
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import { toScss } from '../../hooks/dynamicScss';
+
 const router = useRouter();
 const skip = async () => {
   router.push('/index');
 };
+
+onMounted(async () => {
+  await toScss('common');
+});
 </script>
 
 <template>
-  <div id="home">
+  <div id="home fade-in-fwd">
     <div class="home_main">
       <div class="min-h-screen hero bg-base-200">
         <div class="text-center hero-content">

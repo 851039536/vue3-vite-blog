@@ -1,7 +1,7 @@
 /*
  * @Author: Axios封装
  * @Date: 2020-12-08 10:39:03
- * @LastEditTime: 2021-09-06 13:55:01
+ * @LastEditTime: 2021-10-29 08:13:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\api\index.ts
@@ -28,12 +28,10 @@ axios.interceptors.request.use(function (config: any) {
   ) {
     // 序列化
     config.data = qs.parse(config.data);
-    // console.log("qs:" + config.data);
   }
   // 若是有做鉴权token , 就给头部带上token
   if (store.state.token) {
     config.headers.Authorization = store.state.token;
-    // console.log("token:" + store.state.token);
   }
   return config;
 }, (error: { data: { error: { message: any; }; }; }) => {
@@ -118,13 +116,6 @@ axios.interceptors.response.use(function (config: any) {
       // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
       store.commit('changeNetwork', false);
     }
-
-
   }
-
 )
-
-
-
-
 export default axios

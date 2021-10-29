@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "@kangc/v-md-editor": "^2.3.10",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.21.1",
