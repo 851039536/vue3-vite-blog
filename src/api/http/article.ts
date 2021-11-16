@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 11:33:56
- * @LastEditTime: 2021-10-29 14:23:46
+ * @LastEditTime: 2021-11-16 17:04:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\api\article.js
@@ -10,9 +10,19 @@ import request from './axios'
 
 export class article {
 
-  static async GetFyAll(Page: number, Size: number) {
+  /**
+   * 分页查询
+   * @param identity 所有:0 || 分类:1 || 用户:2
+   * @param type 查询参数
+   * @param page 当前页码
+   * @param size 每页记录条数
+   * @param ordering 排序条件[data:时间 按id排序]
+   * @param isdesc 是否倒序[true/false]
+   * @returns 
+   */
+  static async GetFy(identity: number, type: string, page: number, size: number, ordering: string, isdesc: boolean) {
     return await request({
-      url: "/api/v1/article/page-all/" + Page + "/" + Size,
+      url: "/api/v1/article/fy/" + identity + "/" + type + "/" + page + "/" + size + "/" + ordering + "/" + isdesc,
       method: 'get'
     })
   }
@@ -32,9 +42,15 @@ export class article {
       method: 'get',
     })
   }
-  static async contains(name: string): Promise<any> {
+  /**
+   * 模糊查询
+   * @param identity 无条件:0 || 分类:1 || 用户:2
+   * @param type 查询条件
+   * @param name 查询字段
+   */
+  static async contains(identity: number, type: string, name: string): Promise<any> {
     return await request({
-      url: "/api/v1/article/contains/" + name,
+      url: "/api/v1/article/contains/" + identity + "/" + type + "/" + name,
       method: 'get',
     })
   }

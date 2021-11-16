@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 14:54:28
- * @LastEditTime: 2021-10-29 15:15:02
+ * @LastEditTime: 2021-11-16 17:08:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\components\Header.vue
@@ -10,14 +10,14 @@
 import { message } from 'ant-design-vue';
 import { article } from '../api/http/article';
 import { state } from '../views/Index/data';
-import { method } from '../views/Index/index';
+// import { method } from '../views/Index/index';
 
 async function search() {
-  await article.contains(state.ipuName).then((res) => {
+  await article.contains(0, 'null', state.ipuName).then((res) => {
     state.resultData = res.data.data;
-    if (state.ipuName === '') {
-      method.GetFyTit();
-    }
+    // if (state.ipuName === 'null') {
+    //   method.GetFyTit();
+    // }
   });
 }
 </script>

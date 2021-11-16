@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 11:42:13
- * @LastEditTime: 2021-10-29 15:46:35
+ * @LastEditTime: 2021-11-16 17:01:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\Index\Index.vue
@@ -199,7 +199,7 @@
                 >
                   <a-select-option value="ALL">ALL</a-select-option>
                   <a-select-option
-                    :value="item.id"
+                    :value="item.name"
                     v-for="item in state.classifyData"
                     :key="item.id"
                     >{{ item.name }}</a-select-option
