@@ -1,24 +1,11 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-22 13:52:06
- * @LastEditTime: 2021-10-29 14:24:38
+ * @LastEditTime: 2021-11-18 15:21:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\components\editor\VmdContent.vue
 -->
-
-<template>
-  <a-back-top />
-  <div class="vmdcontent fade-in-fwd">
-    <div class="main">
-      <a-skeleton :loading="false" :paragraph="{ rows: 15 }" active />
-      <!--  @back="() => router.back()"  -->
-      <a-page-header :title="state.title" />
-      <v-md-preview :text="state.result"></v-md-preview>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
@@ -37,7 +24,7 @@ const state: State = reactive({
 });
 
 article.GetByIdAsync(state.id).then((res: any) => {
-  state.result = res.data.data.description;
+  state.result = res.data.data.content;
   state.title = res.data.data.title;
 });
 
@@ -45,6 +32,15 @@ onMounted(async () => {
   await toScss('common');
 });
 </script>
+<template>
+  <a-back-top visibilityHeight="200" />
+  <div class="vmdcontent fade-in-fwd">
+    <div class="main">
+      <a-page-header :title="state.title" />
+      <v-md-preview :text="state.result"></v-md-preview>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .vmdcontent {

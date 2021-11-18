@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 14:54:28
- * @LastEditTime: 2021-11-16 17:08:45
+ * @LastEditTime: 2021-11-18 15:28:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\components\Header.vue
@@ -10,14 +10,16 @@
 import { message } from 'ant-design-vue';
 import { article } from '../api/http/article';
 import { state } from '../views/Index/data';
-// import { method } from '../views/Index/index';
+import { method } from '../views/Index/index';
+import { winUrl } from '../hooks/routers';
 
 async function search() {
+  if (state.ipuName === '') {
+    method.GetFyTit();
+    return;
+  }
   await article.contains(0, 'null', state.ipuName).then((res) => {
     state.resultData = res.data.data;
-    // if (state.ipuName === 'null') {
-    //   method.GetFyTit();
-    // }
   });
 }
 </script>
@@ -67,14 +69,14 @@ async function search() {
       <div class="inline-flex items-center text-xl mx-2">
         <a
           class="w-full max-w-xs text-gray-700"
-          href="http://10.55.22.34:9124/index.html#/model"
+          @click="winUrl('http://10.55.22.34:9124/index.html#/model')"
           >后台系统</a
         >
       </div>
       <div class="inline-flex items-center text-xl mx-2">
         <a
           class="w-full max-w-xs text-gray-700"
-          href="http://10.55.22.34:9124/index.html#/model"
+          @click="winUrl('http://10.55.22.34:9124/index.html#/model')"
           >资产管理</a
         >
       </div>

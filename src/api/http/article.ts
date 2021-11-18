@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-05-08 11:33:56
- * @LastEditTime: 2021-11-16 17:04:08
+ * @LastEditTime: 2021-11-18 15:15:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \blogs-s\src\api\article.js
@@ -38,7 +38,7 @@ export class article {
   //主键查询
   static async GetByIdAsync(id: number): Promise<any> {
     return await request({
-      url: "/api/v1/article/" + id,
+      url: "/api/v1/article/by-id/" + id,
       method: 'get',
     })
   }

@@ -1,11 +1,36 @@
 <!--
  * @Author: your name
  * @Date: 2021-09-07 11:42:13
- * @LastEditTime: 2021-11-16 17:01:20
+ * @LastEditTime: 2021-11-18 15:05:31
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\Index\Index.vue
 -->
+
+<script lang="ts" setup>
+import { onMounted } from 'vue';
+import { tags, classify } from '../../api/index';
+import { state } from './data';
+import { ProfileOutlined, FileSearchOutlined } from '@ant-design/icons-vue';
+import { toScss } from '../../hooks/dynamicScss';
+import { method } from './index';
+import Headers from '../../components/Headers.vue';
+
+onMounted(async () => {
+  await method.GetFyTit();
+
+  await tags.GetCount('ALL').then((res) => {
+    state.tagsCount = res.data.data;
+  });
+  await classify.GetCount('ALL').then((res) => {
+    state.classifyCount = res.data.data;
+  });
+  await classify.GetAll().then((res) => {
+    state.classifyData = res.data.data;
+  });
+  await toScss('common');
+});
+</script>
 
 <template>
   <div class="index fade-in-fwd">
@@ -342,30 +367,6 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
-import { onMounted } from 'vue';
-import { tags, classify } from '../../api/index';
-import { state } from './data';
-import { ProfileOutlined, FileSearchOutlined } from '@ant-design/icons-vue';
-import { toScss } from '../../hooks/dynamicScss';
-import { method } from './index';
-import Headers from '../../components/Headers.vue';
-
-onMounted(async () => {
-  await method.GetFyTit();
-
-  await tags.GetCount('ALL').then((res) => {
-    state.tagsCount = res.data.data;
-  });
-  await classify.GetCount('ALL').then((res) => {
-    state.classifyCount = res.data.data;
-  });
-  await classify.GetAll().then((res) => {
-    state.classifyData = res.data.data;
-  });
-  await toScss('common');
-});
-</script>
 
 <style lang="scss" scoped>
 @import '../../design/com.scss';

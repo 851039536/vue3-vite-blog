@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 14:59:25
- * @LastEditTime: 2021-11-16 17:06:34
+ * @LastEditTime: 2021-11-18 15:04:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-vite-blog\src\views\Index\index.ts
@@ -40,11 +40,8 @@ class method {
     } else {
       state.current = 1
       await article.GetFy(1, state.navStr, state.current, state.pagesize, "id", true)
-
         .then((res) => {
-          console.log('%c [ state.navStr ]', 'font-size:13px; background:pink; color:#bf2c9f;', state.navStr)
           state.resultData = res.data.data.items;
-          console.log('%c [ res.data.data.items ]', 'font-size:13px; background:pink; color:#bf2c9f;', res.data.data.items)
           state.count = res.data.data.totalCount;
         });
     }
