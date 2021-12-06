@@ -1,11 +1,4 @@
-/*
- * @Author: Axios封装
- * @Date: 2020-12-08 10:39:03
- * @LastEditTime: 2021-10-29 08:13:30
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \blogs-s\src\api\index.ts
- */
+
 import axios from 'axios'
 import qs from "qs";
 import store from "../../store/index";
@@ -35,12 +28,7 @@ axios.interceptors.request.use(function (config: any) {
   }
   return config;
 }, (error: { data: { error: { message: any; }; }; }) => {
-  // Message({
-  //   //  饿了么的消息弹窗组件,类似toast
-  //   showClose: true,
-  //   message: error,
-  //   type: "error.data.error.message"
-  // });
+
   return Promise.reject(error.data.error.message);
 })
 
@@ -55,6 +43,7 @@ axios.interceptors.response.use(function (config: any) {
   // return config;
 },
   function (error: { response: { status: any; }; }) {
+    console.log('%c [ error ]-46', 'font-size:13px; background:pink; color:#bf2c9f;', error)
     // return Promise.reject(error)
 
     if (error.response.status) {

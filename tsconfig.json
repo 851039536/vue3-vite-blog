@@ -3,12 +3,23 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true,
+    "isolatedModules": false,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "lib": ["dom", "esnext"]
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "types": ["vite/client"],
+    "baseUrl": ".",
+    "lib": ["dom", "esnext"],
+    "paths": {
+      "@/*": ["src/*"],
+      "@comp/*": ["src/components/*"],
+      "@api/*": ["src/api/*"],
+      "@vi/*": ["src/views/*"],
+      "@h/*": ["src/hooks/*"]
+    }
   },
   "exclude": ["node_modules", "dist"]
 }

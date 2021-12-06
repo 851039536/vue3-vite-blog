@@ -1,26 +1,18 @@
-<!--
- * @Author: your name
- * @Date: 2021-09-07 14:54:28
- * @LastEditTime: 2021-11-18 15:28:39
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\src\components\Header.vue
--->
 <script setup lang="ts">
-import { message } from 'ant-design-vue';
-import { article } from '../api/http/article';
-import { state } from '../views/Index/data';
-import { method } from '../views/Index/index';
-import { winUrl } from '../hooks/routers';
+import { message } from 'ant-design-vue'
+import { article } from '../api/http/article'
+import { state } from '../views/Index/data'
+import { method } from '../views/Index/index'
+import { winUrl } from '../hooks/routers'
 
 async function search() {
   if (state.ipuName === '') {
-    method.GetFyTit();
-    return;
+    method.GetFyTit()
+    return
   }
   await article.contains(0, 'null', state.ipuName).then((res) => {
-    state.resultData = res.data.data;
-  });
+    state.resultData = res.data.data
+  })
 }
 </script>
 <template>
@@ -44,41 +36,17 @@ async function search() {
         placeholder="Search..."
         v-model="state.ipuName"
         @input="search()"
-        class="
-          w-full
-          py-2
-          pl-10
-          pr-4
-          placeholder-gray-400
-          border-4 border-transparent
-          rounded-lg
-          focus:bg-gray-50
-        "
+        class="w-full py-2 pl-10 pr-4 placeholder-gray-400 border-4 border-transparent rounded-lg focus:bg-gray-50"
       />
     </div>
-    <div
-      class="
-        flex
-        items-center
-        flex-shrink-0
-        ml-auto
-        cursor-pointer
-        font-semibold
-      "
-    >
+    <div class="flex items-center flex-shrink-0 ml-auto cursor-pointer font-semibold">
       <div class="inline-flex items-center text-xl mx-2">
-        <a
-          class="w-full max-w-xs text-gray-700"
-          @click="winUrl('http://10.55.22.34:9124/index.html#/model')"
+        <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:9124/#/login?redirect=%2Fmodel')"
           >后台系统</a
         >
       </div>
       <div class="inline-flex items-center text-xl mx-2">
-        <a
-          class="w-full max-w-xs text-gray-700"
-          @click="winUrl('http://10.55.22.34:9124/index.html#/model')"
-          >资产管理</a
-        >
+        <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:17777/#/login')">资产管理</a>
       </div>
 
       <div class="inline-flex items-center mx-2">
@@ -91,11 +59,7 @@ async function search() {
       </div>
       <div class="inline-flex items-center">
         <span class="h-12 ml-2 mr-2 overflow-hidden bg-gray-100 sm:ml-3">
-          <img
-            src="../assets/img/mech.png"
-            alt="user profile photo"
-            class="object-cover w-full h-full"
-          />
+          <img src="../assets/img/mech.png" alt="user profile photo" class="object-cover w-full h-full" />
         </span>
       </div>
 
@@ -110,40 +74,9 @@ async function search() {
             focus:bg-gray-100 focus:text-gray-600
           "
         >
-          <span
-            class="
-              absolute
-              top-0
-              right-0
-              w-2
-              h-2
-              mt-1
-              mr-2
-              bg-red-500
-              rounded-full
-            "
-          ></span>
-          <span
-            class="
-              absolute
-              top-0
-              right-0
-              w-2
-              h-2
-              mt-1
-              mr-2
-              bg-red-500
-              rounded-full
-              animate-ping
-            "
-          ></span>
-          <svg
-            aria-hidden="true"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
+          <span class="absolute top-0 right-0 w-2 h-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
+          <span class="absolute top-0 right-0 w-2 h-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
+          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -164,13 +97,7 @@ async function search() {
           @click="message.info('开发中')"
         >
           <span class="sr-only">Log out</span>
-          <svg
-            aria-hidden="true"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
+          <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"

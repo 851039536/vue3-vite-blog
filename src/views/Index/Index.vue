@@ -8,28 +8,28 @@
 -->
 
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { tags, classify } from '../../api/index';
-import { state } from './data';
-import { ProfileOutlined, FileSearchOutlined } from '@ant-design/icons-vue';
-import { toScss } from '../../hooks/dynamicScss';
-import { method } from './index';
-import Headers from '../../components/Headers.vue';
+import { onMounted } from 'vue'
+import { tags, classify } from '../../api/index'
+import { state } from './data'
+
+import { toScss } from '../../hooks/dynamicScss'
+import { method } from './index'
+import Headers from '../../components/Headers.vue'
 
 onMounted(async () => {
-  await method.GetFyTit();
+  await method.GetFyTit()
 
   await tags.GetCount('ALL').then((res) => {
-    state.tagsCount = res.data.data;
-  });
+    state.tagsCount = res.data.data
+  })
   await classify.GetCount('ALL').then((res) => {
-    state.classifyCount = res.data.data;
-  });
+    state.classifyCount = res.data.data
+  })
   await classify.GetAll().then((res) => {
-    state.classifyData = res.data.data;
-  });
-  await toScss('common');
-});
+    state.classifyData = res.data.data
+  })
+  await toScss('common')
+})
 </script>
 
 <template>
@@ -42,17 +42,7 @@ onMounted(async () => {
 
         <main class="p-6 space-y-6 sm:p-10">
           <!-- 分类页 -->
-          <section
-            class="
-              grid
-              gap-6
-              md:grid-cols-2
-              lg:grid-cols-4
-              xl:grid-cols-4
-              2xl:grid-cols-4
-              cursor-pointer
-            "
-          >
+          <section class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 cursor-pointer">
             <div class="flex items-center p-8 bg-white rounded-lg shadow">
               <div
                 class="
@@ -68,13 +58,7 @@ onMounted(async () => {
                   rounded-full
                 "
               >
-                <svg
-                  aria-hidden="true"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -103,13 +87,7 @@ onMounted(async () => {
                   rounded-full
                 "
               >
-                <svg
-                  aria-hidden="true"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -119,9 +97,7 @@ onMounted(async () => {
                 </svg>
               </div>
               <div>
-                <span class="block text-2xl font-bold">{{
-                  state.tagsCount
-                }}</span>
+                <span class="block text-2xl font-bold">{{ state.tagsCount }}</span>
                 <span class="block text-gray-500">标签</span>
               </div>
             </div>
@@ -140,13 +116,7 @@ onMounted(async () => {
                   rounded-full
                 "
               >
-                <svg
-                  aria-hidden="true"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -156,9 +126,7 @@ onMounted(async () => {
                 </svg>
               </div>
               <div>
-                <span class="inline-block text-2xl font-bold">{{
-                  state.classifyCount
-                }}</span>
+                <span class="inline-block text-2xl font-bold">{{ state.classifyCount }}</span>
                 <span class="block text-gray-500">分类</span>
               </div>
             </div>
@@ -177,13 +145,7 @@ onMounted(async () => {
                   rounded-full
                 "
               >
-                <svg
-                  aria-hidden="true"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
+                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -200,20 +162,11 @@ onMounted(async () => {
           </section>
           <!-- end  分类页-->
 
+          <router-view></router-view>
           <!-- 文档列表 -->
-          <section class="flex">
+          <!-- <section class="flex">
             <div class="w-3/4 mr-6 row-span-3 bg-white rounded-lg shadow">
-              <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  px-6
-                  py-5
-                  font-semibold
-                  border-b border-gray-100
-                "
-              >
+              <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
                 <span>文档列表</span>
                 <a-select
                   ref="select"
@@ -223,123 +176,47 @@ onMounted(async () => {
                   @change="method.handleChange"
                 >
                   <a-select-option value="ALL">ALL</a-select-option>
-                  <a-select-option
-                    :value="item.name"
-                    v-for="item in state.classifyData"
-                    :key="item.id"
-                    >{{ item.name }}</a-select-option
-                  >
+                  <a-select-option :value="item.name" v-for="item in state.classifyData" :key="item.id">{{
+                    item.name
+                  }}</a-select-option>
                 </a-select>
               </div>
               <div class="overflow-y-auto" style="max-height: 20rem">
                 <ul class="p-6 space-y-2">
-                  <li
-                    class="flex items-center"
-                    v-for="item in state.resultData"
-                    :key="item.id"
-                  >
+                  <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
                     <div class="mr-1">
                       <FileSearchOutlined :style="{ fontSize: '24px' }" />
                     </div>
                     <span class=""
-                      ><a
-                        class="text-lg text-gray-600"
-                        @click="method.skip(item.id)"
-                        >{{ item.title }}</a
-                      >
+                      ><a class="text-lg text-gray-600" @click="method.skip(item.id)">{{ item.title }}</a>
                     </span>
 
-                    <span class="ml-auto text-lg">{{
-                      item.classify.name
-                    }}</span>
+                    <span class="ml-auto text-lg">{{ item.classify.name }}</span>
                   </li>
                 </ul>
               </div>
             </div>
 
             <div class="w-1/4 row-span-3 bg-white rounded-lg shadow">
-              <div
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  px-6
-                  py-5
-                  font-semibold
-                  border-b border-gray-100
-                "
-              >
+              <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
                 <span>其他</span>
               </div>
               <div class="overflow-y-auto" style="max-height: 20rem">
                 <ul class="p-6 space-y-2">
-                  <li class="flex items-center">
+                  <li class="flex items-center" v-for="item in state.classifyData" :key="item.id">
                     <div class="mr-1">
                       <ProfileOutlined :style="{ fontSize: '24px' }" />
                     </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
-                  </li>
-
-                  <li class="flex items-center">
-                    <div class="mr-1">
-                      <ProfileOutlined :style="{ fontSize: '24px' }" />
-                    </div>
-                    <span
-                      ><a class="text-lg text-gray-600">Visual Studio Code</a>
-                    </span>
+                    <span><a class="text-lg text-gray-600">{{item.name}}</a> </span>
                   </li>
                 </ul>
               </div>
             </div>
-          </section>
+          </section> -->
           <!-- end 文档列表-->
 
           <!-- 分页 -->
-          <section>
+          <!-- <section>
             <div class="blogs-page">
               <a-pagination
                 @change="method.currentchange"
@@ -349,17 +226,13 @@ onMounted(async () => {
                 show-quick-jumper
               ></a-pagination>
             </div>
-          </section>
+          </section> -->
           <!-- end 分页 -->
 
           <section class="font-semibold text-right text-gray-500">
             <a href="#" class="text-purple-600 hover:underline">工程sw网</a>
             基于
-            <a
-              href="https://tailwindcss.com/"
-              class="text-teal-400 hover:underline"
-              >Tailwind CSS</a
-            >
+            <a href="https://tailwindcss.com/" class="text-teal-400 hover:underline">Tailwind CSS</a>
             vue, 生产制作
           </section>
         </main>
@@ -369,12 +242,6 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-@import '../../design/com.scss';
-@import '../../design/uitl.scss';
-#components-pagination-demo-mini .ant-pagination:not(:last-child) {
-  margin-bottom: 24px;
-}
-
 .index {
   width: 98%;
   @apply m-auto;

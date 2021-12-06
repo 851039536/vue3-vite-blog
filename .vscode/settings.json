@@ -6,8 +6,13 @@
     "currentchange",
     "daisyui",
     "echarts",
+    "imgurl",
     "isdesc",
     "kangc",
+    "prismjs",
+    "semibold",
+    "unplugin",
+    "vuepress",
     "vuex"
   ]
 }

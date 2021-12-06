@@ -1,24 +1,16 @@
-<!--
- * @Author: your name
- * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-10-29 09:00:30
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\src\views\home\Home.vue
--->
 <script lang="ts" setup>
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { toScss } from '../../hooks/dynamicScss';
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { toScss } from '../../hooks/dynamicScss'
 
-const router = useRouter();
+const router = useRouter()
 const skip = async () => {
-  router.push('/index');
-};
+  router.push('/index/indexColumn')
+}
 
 onMounted(async () => {
-  await toScss('common');
-});
+  await toScss('common')
+})
 </script>
 
 <template>

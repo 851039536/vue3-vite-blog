@@ -1,11 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2021-09-22 13:52:06
- * @LastEditTime: 2021-11-18 15:21:05
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \blogs-s\src\components\editor\VmdContent.vue
--->
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
@@ -33,8 +25,8 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <a-back-top visibilityHeight="200" />
-  <div class="vmdcontent fade-in-fwd">
+  <a-back-top :visibilityHeight="200" />
+  <div class="vmd-content fade-in-fwd">
     <div class="main">
       <a-page-header :title="state.title" />
       <v-md-preview :text="state.result"></v-md-preview>
@@ -43,7 +35,7 @@ onMounted(async () => {
 </template>
 
 <style lang="scss" scoped>
-.vmdcontent {
+.vmd-content {
   @apply bg-gray-50;
   .main {
     @apply m-auto;

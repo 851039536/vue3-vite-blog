@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-10-29 14:59:25
- * @LastEditTime: 2021-11-18 15:04:40
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\src\views\Index\index.ts
- */
+
 
 import { article } from "../../api";
 import { resolveId } from "../../hooks/routers";

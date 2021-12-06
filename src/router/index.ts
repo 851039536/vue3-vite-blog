@@ -1,11 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2021-09-04 08:43:27
- * @LastEditTime: 2021-10-29 11:45:28
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\src\router\index.ts
- */
+
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
@@ -18,6 +11,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/index',
     name: 'index',
     component: () => import('../views/Index/Index.vue'),
+    children: [
+      // 添加子路由
+      {
+        path: 'indexColumn',
+        name: 'indexColumn',
+        component: () => import('../views/Index/components/IndexColumn.vue')
+      }],
     meta: {
       keepAlive: true
     }

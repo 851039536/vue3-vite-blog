@@ -1,13 +1,4 @@
-/*
- * @Author: your name
- * @Date: 2020-12-08 09:43:09
- * @LastEditTime: 2021-09-23 15:14:01
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \blogs-s\tailwind.config.js
- */
 module.exports = {
-  // purge: ['./src/**/*.{vue,js,ts,jsx,tsx}'], //删除未使用的CSS
   purge: {
     enabled: true,
     content: ['./src/**/*.{vue,js,ts,jsx,tsx}'],
