@@ -48,15 +48,25 @@ async function search() {
       <div class="inline-flex items-center text-xl mx-2">
         <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:17777/#/login')">资产管理</a>
       </div>
+      <div class="inline-flex items-center text-xl mx-2">
+        <a
+          class="w-full max-w-xs text-gray-700"
+          @click="winUrl('http://10.55.22.160:9999/#/login?redirect=%2Fdashboard')"
+          >版本管理</a
+        >
+      </div>
+      <div class="inline-flex items-center text-xl mx-2">
+        <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:8089')">查询系统</a>
+      </div>
 
-      <div class="inline-flex items-center mx-2">
+      <!-- <div class="inline-flex items-center mx-2">
         <select class="select w-full max-w-xs text-xl text-gray-700">
           <option>其他</option>
           <option>反馈</option>
           <option>工具</option>
           <option>测试</option>
         </select>
-      </div>
+      </div> -->
       <div class="inline-flex items-center">
         <span class="h-12 ml-2 mr-2 overflow-hidden bg-gray-100 sm:ml-3">
           <img src="../assets/img/mech.png" alt="user profile photo" class="object-cover w-full h-full" />

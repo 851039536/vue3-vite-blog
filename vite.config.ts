@@ -5,9 +5,11 @@ import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import viteCompression from 'vite-plugin-compression'
+import WindiCSS from 'vite-plugin-windicss'
 
 export default defineConfig({
   plugins: [vue(),
+  WindiCSS(),
   Components({
     dts: true, // ts支持
     dirs: ['src/components', 'src/views'], // 自定义路径按需导入
@@ -25,6 +27,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve('./src'),
+      '@vi': resolve('./src/views'),
+      '@api': resolve('./src/api'),
+      '@h': resolve('./src/hooks')
     }
   },
   base: '/', // 打包路径

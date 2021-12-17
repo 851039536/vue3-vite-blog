@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import { ProfileOutlined, FileSearchOutlined } from '@ant-design/icons-vue'
+import { onBeforeMount } from 'vue'
 import { state } from '../data'
 import { method } from '../index'
+import { classify } from '../../../api/index'
+
+onBeforeMount(async () => {
+  await classify.GetAll().then((res) => {
+    state.classifyData = res.data.data
+  })
+})
 </script>
 <template>
   <!-- 文档列表 -->
@@ -22,7 +30,7 @@ import { method } from '../index'
           }}</a-select-option>
         </a-select>
       </div>
-      <div class="overflow-y-auto" style="max-height: 20rem">
+      <div class="overflow-y-auto" style="max-height: 22rem">
         <ul class="p-6 space-y-2">
           <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
             <div class="mr-1">
@@ -40,16 +48,17 @@ import { method } from '../index'
 
     <div class="w-1/4 row-span-3 bg-white rounded-lg shadow">
       <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
-        <span>其他</span>
+        <span>标签</span>
+        <a-select ref="select" :bordered="false" style="width: 80px"> </a-select>
       </div>
-      <div class="overflow-y-auto" style="max-height: 20rem">
+      <div class="overflow-y-auto" style="max-height: 22rem">
         <ul class="p-6 space-y-2">
-          <li class="flex items-center" v-for="item in state.classifyData" :key="item.id">
+          <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
             <div class="mr-1">
               <ProfileOutlined :style="{ fontSize: '24px' }" />
             </div>
             <span
-              ><a class="text-lg text-gray-600">{{ item.name }}</a>
+              ><a class="text-lg text-gray-600">{{ item.tag.name }}</a>
             </span>
           </li>
         </ul>

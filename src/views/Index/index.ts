@@ -23,7 +23,11 @@ class method {
     if (state.navStr === 'ALL') {
       await method.GetFyTit();
     } else {
-      await method.handleChange();
+      await article.GetFy(1, state.navStr, state.current, state.pagesize, "id", true)
+        .then((res) => {
+          state.resultData = res.data.data.items;
+          state.count = res.data.data.totalCount;
+        });
     }
   }
 

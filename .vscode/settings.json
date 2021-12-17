@@ -9,8 +9,11 @@
     "imgurl",
     "isdesc",
     "kangc",
+    "pageindex",
     "prismjs",
     "semibold",
+    "translatex",
+    "translatey",
     "unplugin",
     "vuepress",
     "vuex"

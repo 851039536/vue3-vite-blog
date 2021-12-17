@@ -27,7 +27,7 @@ const state: State = reactive({
   classifyData: [],
   count: 0,
   page: 1, //页码
-  pagesize: 7, //每页条数
+  pagesize: 8, //每页条数
   ipuName: '',
   tagsData: [],
   tagsCount: 0,

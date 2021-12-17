@@ -13,8 +13,6 @@
     "@kangc/v-md-editor": "^2.3.10",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.21.1",
-    "daisyui": "^1.14.0",
-    "echarts": "^5.2.1",
     "qs": "^6.10.1",
     "scss": "^0.2.4",
     "vue": "^3.2.6",
@@ -22,24 +20,22 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.2.9",
     "@types/node": "^16.7.10",
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.2.6",
     "@vue/eslint-config-prettier": "^6.0.0",
-    "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.17.0",
-    "postcss": "^7.0.36",
     "prettier": "^2.3.2",
     "sass": "^1.39.0",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.9",
     "typescript": "^4.3.2",
     "unplugin-vue-components": "^0.17.5",
     "vite": "^2.5.2",
     "vite-plugin-compression": "^0.3.5",
-    "vue-tsc": "^0.2.2"
+    "vite-plugin-windicss": "^1.5.4",
+    "vue-tsc": "^0.2.2",
+    "windicss": "^3.2.1"
   }
 }

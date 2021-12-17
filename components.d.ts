@@ -14,6 +14,7 @@ declare module 'vue' {
     Index: typeof import('./src/views/Index/Index.vue')['default']
     IndexColumn: typeof import('./src/views/Index/components/IndexColumn.vue')['default']
     IndexCount: typeof import('./src/views/Index/components/IndexColumn.vue')['default']
+    Procedure: typeof import('./src/views/Procedure/Procedure.vue')['default']
     Sidebar: typeof import('./src/components/Sidebar.vue')['default']
     Tool: typeof import('./src/views/tool/Tool.vue')['default']
     VmdContent: typeof import('./src/views/editor/VmdContent.vue')['default']

@@ -1,28 +1,23 @@
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue';
-import { useRoute } from 'vue-router';
-import { article } from '../../api/index';
-import { toScss } from '../../hooks/dynamicScss';
-const route = useRoute();
+import { reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import { article } from '../../api/index'
+const route = useRoute()
 interface State {
-  title: string;
-  result: string;
-  id: any;
+  title: string
+  result: string
+  id: any
 }
 const state: State = reactive({
   result: '',
   title: '',
-  id: route.query.id,
-});
+  id: route.query.id
+})
 
 article.GetByIdAsync(state.id).then((res: any) => {
-  state.result = res.data.data.content;
-  state.title = res.data.data.title;
-});
-
-onMounted(async () => {
-  await toScss('common');
-});
+  state.result = res.data.data.content
+  state.title = res.data.data.title
+})
 </script>
 <template>
   <a-back-top :visibilityHeight="200" />

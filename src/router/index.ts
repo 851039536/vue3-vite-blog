@@ -11,22 +11,24 @@ const routes: Array<RouteRecordRaw> = [
     path: '/index',
     name: 'index',
     component: () => import('../views/Index/Index.vue'),
+    meta: {
+      keepAlive: true
+    },
     children: [
       // 添加子路由
       {
         path: 'indexColumn',
         name: 'indexColumn',
         component: () => import('../views/Index/components/IndexColumn.vue')
+      },
+      {
+        path: 'Procedure',
+        name: 'Procedure',
+        component: () => import('../views/Procedure/Procedure.vue')
       }],
-    meta: {
-      keepAlive: true
-    }
+
   },
-  {
-    path: '/tool',
-    name: 'tool',
-    component: () => import('../views/tool/Tool.vue')
-  },
+
   {
     path: '/vmdContent',
     name: 'vmdContent',
