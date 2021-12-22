@@ -1,14 +1,10 @@
 <script lang="ts" setup>
 import { reactive } from 'vue'
 import { useRoute } from 'vue-router'
-import { article } from '../../api/index'
+import { article } from '@/api/index'
 const route = useRoute()
-interface State {
-  title: string
-  result: string
-  id: any
-}
-const state: State = reactive({
+
+const state: any = reactive({
   result: '',
   title: '',
   id: route.query.id

@@ -1,5 +1,6 @@
 
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import NProgress from 'nprogress'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -41,5 +42,13 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
-
+// 页面切换之前取消上一个路由中未完成的请求
+router.beforeEach((_to, _from, next) => {
+  NProgress.start()
+  next()
+})
+router.afterEach(() => {
+  // 进度条
+  NProgress.done()
+})
 export default router

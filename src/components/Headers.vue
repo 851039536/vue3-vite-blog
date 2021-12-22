@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue'
 import { article } from '../api/http/article'
 import { state } from '../views/Index/data'
 import { method } from '../views/Index/index'
-import { winUrl } from '../hooks/routers'
+// import { winUrl } from '../hooks/routers'
 
 async function search() {
   if (state.ipuName === '') {
@@ -41,11 +41,9 @@ async function search() {
     </div>
     <div class="flex items-center flex-shrink-0 ml-auto cursor-pointer font-semibold">
       <div class="inline-flex items-center text-xl mx-2">
-        <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:9124/#/login?redirect=%2Fmodel')"
-          >后台系统</a
-        >
+        <a class="w-full max-w-xs text-gray-700" @click="message.info('开发中')">官网后台</a>
       </div>
-      <div class="inline-flex items-center text-xl mx-2">
+      <!-- <div class="inline-flex items-center text-xl mx-2">
         <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:17777/#/login')">资产管理</a>
       </div>
       <div class="inline-flex items-center text-xl mx-2">
@@ -54,10 +52,10 @@ async function search() {
           @click="winUrl('http://10.55.22.160:9999/#/login?redirect=%2Fdashboard')"
           >版本管理</a
         >
-      </div>
-      <div class="inline-flex items-center text-xl mx-2">
+      </div> -->
+      <!-- <div class="inline-flex items-center text-xl mx-2">
         <a class="w-full max-w-xs text-gray-700" @click="winUrl('http://10.55.22.160:8089')">查询系统</a>
-      </div>
+      </div> -->
 
       <!-- <div class="inline-flex items-center mx-2">
         <select class="select w-full max-w-xs text-xl text-gray-700">

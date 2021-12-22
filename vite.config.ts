@@ -6,9 +6,15 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import viteCompression from 'vite-plugin-compression'
 import WindiCSS from 'vite-plugin-windicss'
+import { injectHtml } from 'vite-plugin-html'
 
 export default defineConfig({
   plugins: [vue(),
+  injectHtml({
+    injectData: {
+      title: 'SW网'
+    }
+  }),
   WindiCSS(),
   Components({
     dts: true, // ts支持
@@ -25,6 +31,7 @@ export default defineConfig({
 
   ],
   resolve: {
+    // extensions: ['.vue', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.node', '.scss'],
     alias: {
       '@': resolve('./src'),
       '@vi': resolve('./src/views'),

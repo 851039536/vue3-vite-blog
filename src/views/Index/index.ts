@@ -1,5 +1,3 @@
-
-
 import { article } from "../../api";
 import { resolveId } from "../../hooks/routers";
 import { state } from "./data";

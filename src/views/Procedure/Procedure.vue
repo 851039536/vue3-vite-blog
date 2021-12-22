@@ -1,22 +1,37 @@
 <script lang="ts" setup>
+import { message } from 'ant-design-vue'
 import { reactive } from 'vue'
-import { software, common } from '../../api/index'
+import { software, common } from '@/api/index'
 
 const resData: any = reactive({
   resultData: [],
-  totalCount: 0
+  page: 1,
+  pagesize: 9,
+  count: 0,
+  current: 1,
+  ipuName: ''
 })
-software.GetFy(0, 'null', 1, 10, 'id', true).then((res) => {
+software.GetFy(0, 'null', 1, 9, 'id', true).then((res) => {
   resData.resultData = res.data.data.items
-  resData.totalCount = res.data.data.totalCount
+  resData.count = res.data.data.totalCount
+  resData.page = res.data.data.pageIndex
+  resData.pagesize = res.data.data.pageSize
 })
 
-const Skip = async (path: string) => {
+const currentchange = async (val: number) => {
+  resData.page = val
+  await software.GetFy(0, 'null', resData.page, resData.pagesize, 'id', true).then((res: any) => {
+    resData.resultData = res.data.data.items
+  })
+}
+
+const confirm = async (names: string, path: string) => {
+  let fileName = names + path.slice(-4)
   await common.FileDownload(path).then((res: any) => {
     // 地址转换
     let url = window.URL.createObjectURL(res.data)
     // 文件名
-    let fileName: string = 'fileName.pdf'
+
     const a = document.createElement('a')
     a.setAttribute('href', url)
     a.setAttribute('download', fileName)
@@ -24,16 +39,38 @@ const Skip = async (path: string) => {
     a.click()
     document.body.removeChild(a)
   })
+  message.success('Click on Yes')
+}
+
+const search = async () => {
+  if (resData.ipuName === '') {
+    software.GetFy(0, 'null', 1, 9, 'id', true).then((res) => {
+      resData.resultData = res.data.data.items
+      resData.count = res.data.data.totalCount
+      resData.page = res.data.data.pageIndex
+      resData.pagesize = res.data.data.pageSize
+    })
+    return
+  }
+  software.Contains(0, 'null', resData.ipuName).then((res) => {
+    resData.resultData = res.data.data
+  })
+}
+
+const cancel = (e: MouseEvent) => {
+  console.log(e)
+  message.error('Click on No')
 }
 </script>
 <template>
   <div class="app-container">
+    <!-- 搜素框 -->
     <div class="app-header">
       <div class="app-header-left">
         <span class="app-icon"></span>
         <p class="app-name">查询</p>
         <div class="search-wrapper">
-          <input class="search-input" type="text" placeholder="Search" />
+          <input class="search-input" type="text" placeholder="Search" v-model="resData.ipuName" @input="search()" />
           <svg
             width="20"
             height="20"
@@ -52,12 +89,15 @@ const Skip = async (path: string) => {
         </div>
       </div>
       <div class="app-header-right">
-        <button class="mode-switch" title="Switch Theme"></button>
-        <button class="add-btn" title="Add New Project"></button>
-        <button class="notification-btn"></button>
-        <button class="profile-btn">
-          <span>程序文件</span>
-        </button>
+        <!-- <button>
+          <svg t="1640155226218" viewBox="0 0 1024 1024" version="1.1" p-id="12946" width="24" height="24">
+            <path
+              d="M736 960h-448c-117.376 0-179.2-60.992-179.2-179.2v-134.848h89.6V780.8c0 68.416 21.632 89.6 89.6 89.6h448c67.968 0 89.6-21.184 89.6-89.6v-134.848h89.6V780.8c0 118.208-61.824 179.2-179.2 179.2z m-197.312-196.416a34.112 34.112 0 0 1-53.44 0L259.776 473.216a30.912 30.912 0 0 1 24.768-50.816H377.6c17.152 0 44.8-26.88 44.8-44.8V108.8a44.8 44.8 0 0 1 44.8-44.8h89.6a44.8 44.8 0 0 1 44.8 44.8v268.8c0 17.92 26.304 44.8 44.8 44.8h93.056c27.584 0 41.344 29.44 24.768 50.816l-225.536 290.368z"
+              p-id="12947"
+              fill="#515151"
+            ></path>
+          </svg>
+        </button> -->
       </div>
     </div>
 
@@ -65,45 +105,9 @@ const Skip = async (path: string) => {
 
     <div class="app-content">
       <div class="projects-section">
-        <div class="projects-section-line">
-          <div class="projects-status">
-            <div class="item-status">
-              <!-- <span class="status-number">{{ resData.totalCount }}</span> -->
-              <span class="status-type">程序文件</span>
-            </div>
-            <!-- <div class="item-status">
-              <span class="status-number">24</span>
-              <span class="status-type">测试工具</span>
-            </div>
-            <div class="item-status">
-              <span class="status-number">62</span>
-              <span class="status-type">文档</span>
-            </div> -->
-          </div>
-        </div>
         <div class="project-boxes jsGridView">
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #d7ebeb">
-              <div class="project-box-header">
-                <span>测试软件</span>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">xxxxxxxxxxxx</p>
-                <p class="box-content-subheader">介绍:xxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
-              </div>
-
-              <div class="project-box-footer">
-                <div class="participants">
-                  <!-- <img alt="participant" />
-                  <img alt="participant" /> -->
-                  <button class="add-participant" style="color: #4f3ff0"></button>
-                </div>
-                <div class="days-left" style="color: #4bc7ec">下载</div>
-              </div>
-            </div>
-          </div>
           <div class="project-box-wrapper" v-for="(item, index) in resData.resultData" :key="index">
-            <div class="project-box" style="background-color: #e9e7fd">
+            <div class="project-box">
               <div class="project-box-header">
                 <span>{{ item.classifyName }}</span>
                 <div class="more-wrapper"></div>
@@ -115,30 +119,39 @@ const Skip = async (path: string) => {
 
               <div class="project-box-footer">
                 <div class="participants">
-                  <button class="add-participant" style="color: #4f3ff0"></button>
+                  <span>{{ item.version }}</span>
                 </div>
-                <div class="days-left" style="color: #4f3ff0" @click="Skip(item.relativePath)">下载</div>
+                <div class="days-left" style="color: #4f3ff0">
+                  <a-popconfirm
+                    title="是否下载?"
+                    ok-text="Yes"
+                    cancel-text="No"
+                    @confirm="confirm(item.name, item.relativePath)"
+                    @cancel="cancel"
+                  >
+                    <svg t="1640155226218" viewBox="0 0 1024 1024" version="1.1" p-id="12946" width="20" height="20">
+                      <path
+                        d="M736 960h-448c-117.376 0-179.2-60.992-179.2-179.2v-134.848h89.6V780.8c0 68.416 21.632 89.6 89.6 89.6h448c67.968 0 89.6-21.184 89.6-89.6v-134.848h89.6V780.8c0 118.208-61.824 179.2-179.2 179.2z m-197.312-196.416a34.112 34.112 0 0 1-53.44 0L259.776 473.216a30.912 30.912 0 0 1 24.768-50.816H377.6c17.152 0 44.8-26.88 44.8-44.8V108.8a44.8 44.8 0 0 1 44.8-44.8h89.6a44.8 44.8 0 0 1 44.8 44.8v268.8c0 17.92 26.304 44.8 44.8 44.8h93.056c27.584 0 41.344 29.44 24.768 50.816l-225.536 290.368z"
+                        p-id="12947"
+                        fill="#515151"
+                      ></path>
+                    </svg>
+                  </a-popconfirm>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ---------------------------- -->
-      <div class="messages-section">
-        <div class="projects-section-header">
-          <p>新发布</p>
-        </div>
-        <div class="messages">
-          <div class="message-box">
-            <div class="message-content">
-              <div class="message-header">
-                <div class="name">xxxx</div>
-              </div>
-              <p class="message-line">xxxxxxxxxxxxxxxxxx🥳 xxxxxxxxxxxxxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxxxxxxxxxxxxx.</p>
-              <p class="message-line time">2022.1.1</p>
-            </div>
-          </div>
+        <div>
+          <a-pagination
+            size="small"
+            @change="currentchange"
+            :total="resData.count"
+            :pageSize="resData.pagesize"
+            show-quick-jumper
+          />
+          <!-- end 分页-->
         </div>
       </div>
     </div>
@@ -147,7 +160,7 @@ const Skip = async (path: string) => {
 
 <style lang="scss" scoped>
 .app-header {
-  @apply bg-white rounded;
+  @apply bg-white rounded shadow;
 }
 
 .app {
@@ -156,8 +169,6 @@ const Skip = async (path: string) => {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: var(--app-container);
-    transition: 0.2s;
     max-width: 1800px;
 
     button,
@@ -236,16 +247,6 @@ const Skip = async (path: string) => {
   }
 }
 
-.mode-switch {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  color: var(--main-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .search-wrapper {
   border-radius: 20px;
   background-color: var(--search-area-bg);
@@ -259,10 +260,6 @@ const Skip = async (path: string) => {
   color: var(--light-font);
   box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
   overflow: hidden;
-
-  .dark & {
-    box-shadow: none;
-  }
 }
 
 .search-input {
@@ -281,62 +278,11 @@ const Skip = async (path: string) => {
   }
 }
 
-.add-btn {
-  color: #fff;
-  background-color: var(--button-bg);
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notification-btn {
-  color: var(--main-color);
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-btn {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
-  border-left: 2px solid #ddd;
-
-  img {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 4px;
-  }
-
-  span {
-    color: var(--main-color);
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-  }
-}
-
 .projects-section {
   flex: 2;
-  background-color: var(--projects-section);
-  border-radius: 32px;
-  padding: 32px 32px 0 32px;
   overflow: hidden;
   height: 100%;
+  @apply p-1 pl-4;
   display: flex;
   flex-direction: column;
 
@@ -362,217 +308,24 @@ const Skip = async (path: string) => {
       margin: 0;
       color: var(--main-color);
     }
-
-    .time {
-      font-size: 20px;
-    }
-  }
-}
-
-.projects-status {
-  display: flex;
-}
-
-.item-status {
-  display: flex;
-  flex-direction: column;
-  margin-right: 16px;
-
-  &:not(:last-child) .status-type:after {
-    content: '';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translatey(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    border: 1px solid var(--secondary-color);
-  }
-}
-
-.status-number {
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 700;
-  color: var(--main-color);
-}
-
-.status-type {
-  position: relative;
-  padding-right: 24px;
-  color: var(--secondary-color);
-}
-
-.messages-section {
-  flex-shrink: 0;
-  padding-bottom: 32px;
-  background-color: var(--projects-section);
-  margin-left: 24px;
-  flex: 1;
-  width: 100%;
-  border-radius: 30px;
-  position: relative;
-  overflow: auto;
-  transition: all 300ms cubic-bezier(0.19, 1, 0.56, 1);
-
-  .messages-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 3;
-    border: none;
-    background-color: transparent;
-    color: var(--main-color);
-    display: none;
-  }
-
-  .projects-section-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding: 32px 24px 0 24px;
-    background-color: var(--projects-section);
-  }
-}
-
-.message-box {
-  border-top: 1px solid var(--message-box-border);
-  padding: 16px;
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-
-  &:hover {
-    background-color: var(--message-box-hover);
-    border-top-color: var(--link-color-hover);
-
-    + .message-box {
-      border-top-color: var(--link-color-hover);
-    }
-  }
-
-  img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.message-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-
-  .name {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-    color: var(--main-color);
-    margin: 0;
-  }
-}
-
-.message-content {
-  padding-left: 16px;
-  width: 100%;
-}
-
-.message-line {
-  font-size: 14px;
-  line-height: 20px;
-  margin: 8px 0;
-  color: var(--secondary-color);
-  opacity: 0.7;
-
-  &.time {
-    text-align: right;
-    margin-bottom: 0;
   }
 }
 
 .project-boxes {
-  @apply cursor-pointer;
+  @apply cursor-pointer overflow-y-auto;
   margin: 0 -8px;
-  overflow-y: auto;
 
   &.jsGridView {
     display: flex;
     flex-wrap: wrap;
-
     .project-box-wrapper {
-      width: 33.3%;
-    }
-  }
-
-  &.jsListView {
-    .project-box {
-      display: flex;
-      border-radius: 10px;
-      position: relative;
-      > * {
-        margin-right: 24px;
-      }
-    }
-
-    .more-wrapper {
-      position: absolute;
-      right: 16px;
-      top: 16px;
-    }
-
-    .project-box-content-header {
-      order: 1;
-      max-width: 120px;
-    }
-
-    .project-box-header {
-      order: 2;
-    }
-
-    .project-box-footer {
-      order: 3;
-      padding-top: 0;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .project-box-footer:after {
-      display: none;
-    }
-
-    .participants {
-      margin-bottom: 8px;
-    }
-
-    .project-box-content-header p {
-      text-align: left;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .project-box-header > span {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      font-size: 12px;
-    }
-
-    .box-progress-wrapper {
-      order: 3;
-      flex: 1;
+      width: 25%;
     }
   }
 }
 
 .project-box {
-  --main-color-card: #dbf6fd;
-  border-radius: 30px;
-  padding: 16px;
-  background-color: var(--main-color-card);
+  @apply p-4 bg-white rounded-xl shadow;
 
   &-header {
     display: flex;
@@ -583,9 +336,7 @@ const Skip = async (path: string) => {
 
     span {
       color: #4a4a4a;
-      opacity: 0.7;
-      font-size: 14px;
-      line-height: 16px;
+      @apply text-base;
     }
   }
 
@@ -609,10 +360,8 @@ const Skip = async (path: string) => {
 }
 
 .box-content-header {
-  font-size: 16px;
-  line-height: 24px;
+  @apply text-lg;
   font-weight: 700;
-  opacity: 0.7;
 }
 
 .box-content-subheader {
@@ -641,31 +390,6 @@ const Skip = async (path: string) => {
 .participants {
   display: flex;
   align-items: center;
-
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    overflow: hidden;
-    object-fit: cover;
-
-    &:not(:first-child) {
-      margin-left: -8px;
-    }
-  }
-}
-
-.add-participant {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.6);
-  margin-left: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
 }
 
 .days-left {
@@ -677,62 +401,15 @@ const Skip = async (path: string) => {
   font-weight: 700;
 }
 
-.mode-switch.active .moon {
-  fill: var(--main-color);
-}
-
 @media screen and (max-width: 980px) {
   .project-boxes.jsGridView .project-box-wrapper {
     width: 50%;
   }
-
-  .status-number,
-  .status-type {
-    font-size: 14px;
-  }
-
-  .status-type:after {
-    width: 4px;
-    height: 4px;
-  }
-
-  .item-status {
-    margin-right: 0;
-  }
-}
-
-@media screen and (max-width: 880px) {
-  .messages-section {
-    transform: translateX(100%);
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-
-    .messages-close {
-      display: block;
-    }
-  }
 }
 
 @media screen and (max-width: 720px) {
-  .app-name,
-  .profile-btn span {
+  .app-name {
     display: none;
-  }
-
-  .add-btn,
-  .notification-btn,
-  .mode-switch {
-    width: 20px;
-    height: 20px;
-
-    svg {
-      width: 16px;
-      height: 16px;
-    }
   }
 
   .app-header-right button {
@@ -748,7 +425,6 @@ const Skip = async (path: string) => {
     overflow-y: visible;
   }
 
-  .app-sidebar,
   .app-icon {
     display: none;
   }
@@ -756,11 +432,6 @@ const Skip = async (path: string) => {
   .app-content {
     @apply bg-white;
     padding: 16px 12px 24px 12px;
-  }
-
-  .status-number,
-  .status-type {
-    font-size: 10px;
   }
 
   .app-header {
@@ -779,26 +450,8 @@ const Skip = async (path: string) => {
     padding: 24px 16px 0 16px;
   }
 
-  .profile-btn img {
-    width: 24px;
-    height: 24px;
-  }
-
   .app-header {
     padding: 10px;
-  }
-
-  .projects-section-header p,
-  .projects-section-header .time {
-    font-size: 18px;
-  }
-
-  .status-type {
-    padding-right: 4px;
-
-    &:after {
-      display: none;
-    }
   }
 
   .search-input {
@@ -813,10 +466,6 @@ const Skip = async (path: string) => {
   .box-content-subheader {
     font-size: 12px;
     line-height: 16px;
-  }
-
-  .project-boxes.jsListView .project-box-header > span {
-    font-size: 10px;
   }
 
   .days-left {

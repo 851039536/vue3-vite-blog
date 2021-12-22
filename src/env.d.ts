@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-09-24 10:01:34
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\src\env.d.ts
- */
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
@@ -29,3 +21,4 @@ declare module '@kangc/v-md-editor/lib/theme/hljs';
 declare module '@kangc/v-md-editor/lib/plugins/line-number/index';
 declare module '@kangc/v-md-editor/lib/preview';
 declare module '@kangc/v-md-editor/lib/theme/vuepress.js';
+declare module 'nprogress';

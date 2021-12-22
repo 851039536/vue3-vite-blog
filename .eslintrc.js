@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-09-04 09:13:13
- * @LastEditTime: 2021-09-04 11:01:06
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\.eslintrc.js
- */
 //.eslintrc.js
 module.exports = {
   root: true,

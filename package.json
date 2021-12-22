@@ -13,6 +13,7 @@
     "@kangc/v-md-editor": "^2.3.10",
     "ant-design-vue": "^2.2.8",
     "axios": "^0.21.1",
+    "nprogress": "^0.2.0",
     "qs": "^6.10.1",
     "scss": "^0.2.4",
     "vue": "^3.2.6",
@@ -34,6 +35,7 @@
     "unplugin-vue-components": "^0.17.5",
     "vite": "^2.5.2",
     "vite-plugin-compression": "^0.3.5",
+    "vite-plugin-html": "^2.1.1",
     "vite-plugin-windicss": "^1.5.4",
     "vue-tsc": "^0.2.2",
     "windicss": "^3.2.1"

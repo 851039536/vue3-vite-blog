@@ -1,23 +1,5 @@
 
 
-$back_sidebar:#fffffe;
-$back_headers:#fffffe;
-
-// 侧边栏偏移值
-$sidebar_r_t:60px;
-$sidebar_r_b:3%;
-$sidebar_r_l:3%;
-$sidebar_r_r:3%;
-//内容高度
-$Text_height:7.2%;
-/* 背景3d边框*/
-
-
-$w:50%;
-$ml:25%;
-
-
-
 // 下划线
 @mixin underline {
   border-bottom: 1px dashed #f1f1f1;
@@ -165,12 +147,6 @@ w:默认100% h:默认100%
 
 }
 
-
-
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
-
 /* 自定义初始化样式 */
 @layer base {
 
@@ -178,7 +154,6 @@ w:默认100% h:默认100%
     @apply antialiased;
 
   }
-
   body {}
 
 }

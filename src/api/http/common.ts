@@ -11,9 +11,11 @@ export class common {
     })
   }
   static async FileDownload(path: string) {
-    console.log('F%3A%5C%5CBooks%5C%5C.NETCore%E6%8C%87%E5%8D%97.pdf', path)
+    console.log(path)
+    let paths = encodeURIComponent(path)
+    console.log(paths)
     return request({
-      url: "/api/v1/common/file-download/" + path,
+      url: "/api/v1/common/file-download/" + paths,
       method: 'get',
       responseType: 'blob',
     })
