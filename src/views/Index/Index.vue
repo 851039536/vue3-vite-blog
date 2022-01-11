@@ -3,12 +3,6 @@ import { onMounted } from 'vue'
 import { tags, classify } from '../../api/index'
 import { state } from './data'
 import { method } from './index'
-// import Headers from '@/components/Headers.vue'
-
-// const classFun = async (names: string) => {
-//   state.navStr = names
-//   await method.handleChange()
-// }
 
 onMounted(async () => {
   await method.GetFyTit()

@@ -1,5 +1,5 @@
 
-import router from '../router/index';
+import router from '@/router/index';
 
 const routers = async (path: string) => {
   await router.push({

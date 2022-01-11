@@ -1809,6 +1809,11 @@
   dependencies:
     "get-stdin" "^6.0.0"
 
+"eslint-config-vue-global-api@0.4.1":
+  "integrity" "sha1-9zW4thvZSUgTFgTA8+Squlgkk6U="
+  "resolved" "https://registry.nlark.com/eslint-config-vue-global-api/download/eslint-config-vue-global-api-0.4.1.tgz"
+  "version" "0.4.1"
+
 "eslint-plugin-prettier@^3.1.0", "eslint-plugin-prettier@^4.0.0":
   "integrity" "sha1-i5nR5LiySnYkcrRWeZICNhnLmOA="
   "resolved" "https://registry.nlark.com/eslint-plugin-prettier/download/eslint-plugin-prettier-4.0.0.tgz"
@@ -4236,6 +4241,11 @@
     "vscode-pug-languageservice" "^0.27.13"
     "vscode-typescript-languageservice" "^0.27.13"
 
+"vue-demi@latest":
+  "integrity" "sha1-9+GO++z/0RqwadFHLXoG4xm0F0w="
+  "resolved" "https://registry.npmmirror.com/vue-demi/download/vue-demi-0.12.1.tgz"
+  "version" "0.12.1"
+
 "vue-eslint-parser@^7.10.0":
   "integrity" "sha1-IUtd6pYQB/z/su5luJEjB2KNDa8="
   "resolved" "https://registry.nlark.com/vue-eslint-parser/download/vue-eslint-parser-7.11.0.tgz?cache=0&sync_timestamp=1630882911486&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue-eslint-parser%2Fdownload%2Fvue-eslint-parser-7.11.0.tgz"
@@ -4248,6 +4258,14 @@
     "esquery" "^1.4.0"
     "lodash" "^4.17.21"
     "semver" "^6.3.0"
+
+"vue-global-api@^0.4.1":
+  "integrity" "sha1-smaAIA6E2WgphtAli4JrUazQdTE="
+  "resolved" "https://registry.nlark.com/vue-global-api/download/vue-global-api-0.4.1.tgz"
+  "version" "0.4.1"
+  dependencies:
+    "eslint-config-vue-global-api" "0.4.1"
+    "vue-demi" "latest"
 
 "vue-router@^4.0.11":
   "integrity" "sha1-zWSaCUHGNSgXY6IJZbWZZD3caO0="
@@ -4270,7 +4288,7 @@
   dependencies:
     "is-plain-object" "3.0.1"
 
-"vue@^3.0.0", "vue@^3.0.2", "vue@^3.2.6", "vue@>=3.0.3", "vue@>=3.1.0", "vue@2 || 3":
+"vue@^3.0.0", "vue@^3.0.0-0 || ^2.6.0", "vue@^3.0.2", "vue@^3.2.6", "vue@>=3.0.3", "vue@>=3.1.0", "vue@2 || 3":
   "integrity" "sha1-kSTkwx68nFkrK58pPfXJqIp46UQ="
   "resolved" "https://registry.nlark.com/vue/download/vue-3.2.8.tgz?cache=0&sync_timestamp=1630608473072&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue%2Fdownload%2Fvue-3.2.8.tgz"
   "version" "3.2.8"

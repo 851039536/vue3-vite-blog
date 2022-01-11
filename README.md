@@ -1,12 +1,3 @@
-<!--
- * @Author: your name
- * @Date: 2021-09-04 08:39:20
- * @LastEditTime: 2021-10-29 15:59:28
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-vite-blog\README.md
--->
-
 # Vue 3 + Typescript + Vite
 
 This template should help get you started developing with Vue 3 and Typescript in Vite.

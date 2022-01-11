@@ -12,9 +12,9 @@ onBeforeMount(async () => {
 </script>
 <template>
   <!-- 文档列表 -->
-  <section class="flex">
-    <div class="w-3/4 mr-6 row-span-3 bg-white rounded-lg shadow">
-      <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
+  <section class="flex fade-in">
+    <div class="bg-white rounded-lg shadow mr-6 w-3/4 row-span-3">
+      <div class="border-b flex font-semibold border-gray-100 py-5 px-6 items-center justify-between">
         <span>文档列表</span>
         <a-select
           ref="select"
@@ -30,7 +30,7 @@ onBeforeMount(async () => {
         </a-select>
       </div>
       <div class="overflow-y-auto" style="max-height: 22rem">
-        <ul class="p-6 space-y-2">
+        <ul class="space-y-2 p-6">
           <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
             <div class="mr-1">
               <!-- <FileSearchOutlined :style="{ fontSize: '24px' }" /> -->
@@ -72,13 +72,13 @@ onBeforeMount(async () => {
       </div>
     </div>
 
-    <div class="w-1/4 row-span-3 bg-white rounded-lg shadow">
-      <div class="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
+    <div class="bg-white rounded-lg shadow w-1/4 row-span-3">
+      <div class="border-b flex font-semibold border-gray-100 py-5 px-6 items-center justify-between">
         <span>标签</span>
         <a-select ref="select" :bordered="false" style="width: 80px"> </a-select>
       </div>
       <div class="overflow-y-auto" style="max-height: 22rem">
-        <ul class="p-6 space-y-2">
+        <ul class="space-y-2 p-6">
           <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
             <div class="mr-1">
               <!-- <ProfileOutlined :style="{ fontSize: '24px' }" /> -->

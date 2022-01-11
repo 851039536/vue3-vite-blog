@@ -63,7 +63,7 @@ const cancel = (e: MouseEvent) => {
 }
 </script>
 <template>
-  <div class="app-container">
+  <div class="fade-in">
     <!-- 搜素框 -->
     <div class="app-header">
       <div class="app-header-left">
@@ -325,7 +325,7 @@ const cancel = (e: MouseEvent) => {
 }
 
 .project-box {
-  @apply p-4 bg-white rounded-xl shadow;
+  @apply bg-white rounded-xl shadow p-4;
 
   &-header {
     display: flex;

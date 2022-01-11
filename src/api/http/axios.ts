@@ -1,8 +1,8 @@
 
 import axios from 'axios'
 import qs from "qs";
-import store from "../../store/index";
-import router from '../../router';
+import store from "@/store/index";
+import router from '@/router/index';
 
 console.log(import.meta.env.VITE_API_DOMAIN)
 axios.defaults.baseURL = import.meta.env.VITE_API_DOMAIN,

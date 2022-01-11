@@ -26,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'Procedure',
         name: 'Procedure',
         component: () => import('../views/Procedure/Procedure.vue')
+      },
+      {
+        path: 'Exception',
+        name: 'Exception',
+        component: () => import('../views/Exception/Exception.vue')
       }],
 
   },
