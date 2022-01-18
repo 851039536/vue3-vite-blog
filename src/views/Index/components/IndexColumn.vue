@@ -63,7 +63,7 @@ onBeforeMount(async () => {
               </svg>
             </div>
             <span class=""
-              ><a class="text-lg text-gray-600" @click="method.skip(item.id)">{{ item.title }}</a>
+              ><a class="text-lg" @click="method.skip(item.id)">{{ item.title }}</a>
             </span>
 
             <span class="ml-auto text-lg">{{ item.classify.name }}</span>
@@ -76,7 +76,7 @@ onBeforeMount(async () => {
       <div class="border-b flex font-semibold border-gray-100 py-5 px-6 items-center justify-between">
         <span>标签</span>
         <a-select ref="select" :bordered="false" style="width: 80px"> </a-select>
-      </div>
+      </div> 
       <div class="overflow-y-auto" style="max-height: 22rem">
         <ul class="space-y-2 p-6">
           <li class="flex items-center" v-for="item in state.resultData" :key="item.id">
@@ -91,7 +91,7 @@ onBeforeMount(async () => {
               </svg>
             </div>
             <span
-              ><a class="text-lg text-gray-600">{{ item.tag.name }}</a>
+              ><a class="text-lg">{{ item.tag.name }}</a>
             </span>
           </li>
         </ul>
