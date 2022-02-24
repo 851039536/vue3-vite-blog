@@ -1,12 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import saspin from './components/aspin/SAspin.vue'
+</script>
 
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component" v-if="$route.meta.keepAlive" />
-    </keep-alive>
-    <component :is="Component" v-if="!$route.meta.keepAlive" />
-  </router-view>
+  <div id="app">
+    <router-view v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" v-if="$route.meta.keepAlive" />
+      </keep-alive>
+      <component :is="Component" v-if="!$route.meta.keepAlive" />
+    </router-view>
+
+    <saspin></saspin>
+  </div>
 </template>
 
 <style lang="scss">

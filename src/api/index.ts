@@ -5,6 +5,8 @@ import { classify } from "./http/classify";
 import { common } from "./http/common";
 import { software } from "./http/software"
 import { exception } from "./http/exception"
+import { user } from "./http/user"
+
 
 export {
   article,
@@ -12,5 +14,6 @@ export {
   classify,
   common,
   software,
-  exception
+  exception,
+  user,
 }

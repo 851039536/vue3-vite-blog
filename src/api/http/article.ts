@@ -37,7 +37,7 @@ export class article {
   }
   /**
    * 模糊查询
-   * @param identity 无条件:0 || 分类:1 || 用户:2
+   * @param identity 无条件:0 || 分类:1 || 用户账号:2 || 昵称:3
    * @param type 查询条件
    * @param name 查询字段
    */
@@ -56,14 +56,39 @@ export class article {
     })
   }
 
-  static async UpdatePortionAsync(resultData: any, type: string): Promise<any> {
+  /**更新 */
+  static async Update(resultData: any): Promise<any> {
     return await
       request({
-        // 更新
-        url: "/api/SnArticle/UpdatePortionAsync?type=" + type,
+        url: "/api/v1/article",
         method: "put",
         data: resultData,
       })
+  }
+
+  /**
+ * @description: 删除
+ * @param {number} id
+ * @return {*}
+ */
+  static async DeleteAsync(id: number) {
+    return request({
+      url: "/api/v1/article/" + id,
+      method: 'delete'
+    })
+  }
+
+  /**
+* @description: 添加
+* @param {number} data
+* @return {*}
+*/
+  static async Add(data: any) {
+    return request({
+      url: "/api/v1/article",
+      method: 'post',
+      data
+    })
   }
 
 }

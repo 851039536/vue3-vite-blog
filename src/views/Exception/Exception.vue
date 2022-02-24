@@ -17,9 +17,9 @@
           </a-form-item>
 
           <a-form-item :name="['particulars']" label="异常详情" :rules="[{ required: true }]">
-            <a-textarea v-model:value="formState.particulars" :rows="12" />
+            <a-textarea v-model:value="formState.particulars" :rows="8" />
           </a-form-item>
-          <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 8 }">
+          <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 4 }">
             <a-button type="primary" html-type="submit">提交</a-button>
           </a-form-item>
         </a-form>
@@ -41,8 +41,15 @@
             </div>
 
             <div class="rounded font-light bg-gray-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">
-              {{ item.particulars.substr(1, 20) }}...
+              {{ item.particulars.substr(0, 15) }}...
             </div>
+
+            <a
+              class="rounded font-light bg-lime-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent"
+              @click="showModal(item.id)"
+            >
+              详情
+            </a>
           </div>
 
           <a-pagination
@@ -60,28 +67,19 @@
             <div class="my-1 text-lg ml-2 parent">
               {{ item.issue }}
             </div>
-
             <div class="rounded bg-gray-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">
               {{ item.name }}
             </div>
 
             <div class="rounded bg-green-300 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">完成</div>
-            <div class="rounded bg-yellow-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">
-              {{ item.createTime }}
-            </div>
-
-            <div class="rounded font-light bg-gray-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">
-              {{ item.particulars.substr(1, 10) }}...
-            </div>
 
             <a
               class="rounded font-light bg-lime-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent"
-              @click="showModal"
+              @click="showModal(item.id)"
             >
               详情
             </a>
           </div>
-
           <a-pagination
             @change="currentchange2"
             :total="state2.count"
@@ -94,45 +92,48 @@
     </a-tabs>
   </section>
 
-  <div>
+  <section>
     <a-modal
-      v-model:visible="visible"
+      v-model:visible="state.visible"
       :footer="null"
       :mask="false"
-      title="测试"
+      :title="resData.resultData3.issue"
       :centered="true"
       width="70%"
       wrap-class-name="full-modal"
-      @ok="handleOk"
     >
-      <p>进行中...</p>
-      <p>进行中...</p>
-      <p>进行中...</p>
-      <p>进行中...</p>
+      <div class="font-bold mx-8 text-xl mb-4 p-1">
+        <p>问题描述</p>
+      </div>
+      <div class="mx-8 p-1">
+        <p>{{ resData.resultData3.particulars }}</p>
+      </div>
+
+      <div class="font-bold mx-8 mt-4 text-xl p-1">
+        <p>解决方案</p>
+      </div>
+      <div><v-md-preview :text="resData.resultData3.reply"></v-md-preview></div>
     </a-modal>
-  </div>
+  </section>
 </template>
 <script lang="ts" setup>
 import { reactive, ref, onMounted } from 'vue'
 import { exception } from '@api/index'
 import { message } from 'ant-design-vue'
 
-const visible = ref<boolean>(false)
+const showModal = async (id: number) => {
+  state.visible = true
 
-const showModal = () => {
-  visible.value = true
+  await exception.GetById(id).then((result) => {
+    resData.resultData3 = result.data.data
+  })
 }
-
-const handleOk = (e: MouseEvent) => {
-  console.log(e)
-  visible.value = false
-}
-
 const state: any = reactive({
   count: 0,
   page: 1, //页码
   pagesize: 10, //每页条数
-  current: 1
+  current: 1,
+  visible: false
 })
 
 const state2: any = reactive({
@@ -187,7 +188,8 @@ const onFinish = async () => {
 }
 const resData: any = reactive({
   resultData: [],
-  resultData2: []
+  resultData2: [],
+  resultData3: []
 })
 const GetFy1 = async () => {
   await exception.GetFy(0, state.page, state.pagesize, 'id', true).then((result) => {
@@ -202,6 +204,7 @@ const GetFy2 = async () => {
     state2.count = result.data.data.totalCount
   })
 }
+
 onMounted(async () => {
   await GetFy1()
   await GetFy2()

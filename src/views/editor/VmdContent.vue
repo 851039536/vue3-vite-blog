@@ -27,12 +27,12 @@ article.GetByIdAsync(state.id).then((res: any) => {
 
 <style lang="scss" scoped>
 .vmd-content {
-  @apply bg-gray-50;
   .main {
-    @apply m-auto;
-    width: 80%;
+    @apply m-auto w-[80%];
+    @apply bg-white shadow;
+
     .ant-page-header-ghost {
-      @apply bg-gray-200 shadow;
+      @apply bg-gray-50 shadow;
     }
   }
 }

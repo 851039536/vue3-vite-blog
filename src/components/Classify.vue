@@ -1,8 +1,35 @@
 <script lang="ts" setup>
 import { routers, winUrl } from '@/hooks/routers'
+import { ref } from 'vue'
 
 const skip = (name: string) => {
   routers(name)
+}
+const NewPage = (name: number) => {
+  state.visible = true
+  num.value = name
+}
+const state = reactive({
+  visible: false
+})
+const num = ref(0)
+
+const handleOk = () => {
+  state.visible = false
+  switch (num.value) {
+    case 1:
+      winUrl('http://10.55.22.160:8089')
+      break
+    case 2:
+      winUrl('http://10.55.22.160:9125')
+      break
+    case 3:
+      winUrl('http://10.55.22.160:17777/#/login')
+      break
+    case 4:
+      winUrl('http://10.55.22.160:9999/#/login?redirect=%2Fdashboard')
+      break
+  }
 }
 </script>
 <template>
@@ -89,7 +116,7 @@ const skip = (name: string) => {
         </svg>
       </div>
       <div class="text-base">
-        <a @click="winUrl('http://10.55.22.160:8089')">查询系统</a>
+        <a @click="NewPage(1)">查询系统</a>
       </div>
     </div>
 
@@ -104,7 +131,7 @@ const skip = (name: string) => {
         </svg>
       </div>
       <div class="text-base">
-        <a @click="winUrl('http://10.55.22.160:9125')">后台系统</a>
+        <a @click="NewPage(2)">后台系统</a>
       </div>
     </div>
 
@@ -129,7 +156,7 @@ const skip = (name: string) => {
         </svg>
       </div>
       <div class="text-base">
-        <a @click="winUrl('http://10.55.22.160:17777/#/login')">资产管理</a>
+        <a @click="NewPage(3)">资产管理</a>
       </div>
     </div>
     <div class="main-class">
@@ -153,18 +180,32 @@ const skip = (name: string) => {
         </svg>
       </div>
       <div class="text-base">
-        <a @click="winUrl('http://10.55.22.160:9999/#/login?redirect=%2Fdashboard')">版本管理</a>
+        <a @click="NewPage(4)">版本管理</a>
       </div>
     </div>
+  </section>
+
+  <section>
+    <a-modal
+      v-model:visible="state.visible"
+      ok-text="跳转"
+      cancel-text="取消"
+      :width="250"
+      :closable="false"
+      @ok="handleOk"
+    >
+      <p>跳转新页面...</p>
+    </a-modal>
   </section>
 </template>
 
 <style lang="scss" scoped>
 .main-class {
-  @apply bg-white rounded-lg flex shadow p-3 items-center;
+  @apply flex p-3;
+  @apply bg-white rounded-lg shadow items-center;
   .main-content {
-    @apply flex-shrink-0 inline-flex items-center justify-center;
-    @apply rounded-full bg-gray-100 h-10   mr-2 w-10;
+    @apply flex-shrink-0 h-10 mr-2 w-10 inline-flex items-center justify-center;
+    @apply rounded-full bg-gray-100;
   }
 }
 </style>

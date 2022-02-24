@@ -11,9 +11,7 @@ export class common {
     })
   }
   static async FileDownload(path: string) {
-    console.log(path)
     let paths = encodeURIComponent(path)
-    console.log(paths)
     return request({
       url: "/api/v1/common/file-download/" + paths,
       method: 'get',
@@ -21,5 +19,20 @@ export class common {
     })
   }
 
+  static async uploadImg(data: FormData) {
+    return request({
+      url: "/api/v1/common/upload-file",
+      method: 'post',
+      headers: { "Content-Type": "multipart/form-data" },
+      data: data
+    })
+  }
+  static async uploadFile(data: FormData) {
+    return request({
+      url: "/api/v1/common/file-save",
+      method: 'post',
+      headers: { "Content-Type": "multipart/form-data" },
+      data: data
+    })
+  }
 }
-

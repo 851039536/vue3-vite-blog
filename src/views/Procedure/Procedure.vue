@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { reactive } from 'vue'
 import { software, common } from '@/api/index'
 
 const resData: any = reactive({
@@ -24,14 +23,12 @@ const currentchange = async (val: number) => {
     resData.resultData = res.data.data.items
   })
 }
-
 const confirm = async (names: string, path: string) => {
   let fileName = names + path.slice(-4)
   await common.FileDownload(path).then((res: any) => {
     // 地址转换
     let url = window.URL.createObjectURL(res.data)
     // 文件名
-
     const a = document.createElement('a')
     a.setAttribute('href', url)
     a.setAttribute('download', fileName)
@@ -63,30 +60,27 @@ const cancel = (e: MouseEvent) => {
 }
 </script>
 <template>
-  <div class="fade-in">
+  <section class="fade-in">
     <!-- 搜素框 -->
     <div class="app-header">
-      <div class="app-header-left">
-        <span class="app-icon"></span>
-        <p class="app-name">查询</p>
-        <div class="search-wrapper">
-          <input class="search-input" type="text" placeholder="Search" v-model="resData.ipuName" @input="search()" />
-          <svg
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            class="feather feather-search"
-            viewBox="0 0 24 24"
-          >
-            <defs></defs>
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
-          </svg>
-        </div>
+      <div><p class="app-name">查询</p></div>
+      <div class="search-wrapper">
+        <input class="search-input" type="text" placeholder="Search" v-model="resData.ipuName" @input="search()" />
+        <svg
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="feather feather-search"
+          viewBox="0 0 24 24"
+        >
+          <defs></defs>
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="M21 21l-4.35-4.35"></path>
+        </svg>
       </div>
       <div class="app-header-right">
         <!-- <button>
@@ -155,126 +149,39 @@ const cancel = (e: MouseEvent) => {
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>
 .app-header {
-  @apply bg-white rounded shadow;
-}
-
-.app {
-  &-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    max-width: 1800px;
-
-    button,
-    input,
-    optgroup,
-    select,
-    textarea {
-      font-family: 'DM Sans', sans-serif;
-    }
+  @apply flex h-15;
+  @apply bg-white rounded shadow items-center;
+  .app-name {
+    @apply text-lg ml-9;
   }
-
-  &-content {
-    display: flex;
-    height: 100%;
-    overflow: hidden;
-    padding: 16px 24px 24px 0;
-  }
-
-  &-header {
-    display: flex;
+  .search-wrapper {
+    @apply flex bg-gray-100 h-40px ml-2 pr-3;
+    @apply rounded items-center overflow-hidden;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
-    padding: 16px 24px;
-    position: relative;
+    max-width: 550px;
+    color: var(--light-font);
 
-    &-left,
-    &-right {
-      display: flex;
-      align-items: center;
+    .search-input {
+      border: none;
+      flex: 1;
+      outline: none;
+      height: 100%;
+      padding: 0 20px;
+      font-size: 16px;
+      background-color: var(--search-area-bg);
+      color: var(--main-color);
+
+      &:placeholder {
+        color: var(--main-color);
+        opacity: 0.6;
+      }
     }
-
-    &-left {
-      flex-grow: 1;
-    }
-
-    &-right button {
-      margin-left: 10px;
-    }
-  }
-
-  &-icon {
-    width: 26px;
-    height: 2px;
-    border-radius: 4px;
-    background-color: var(--main-color);
-    position: relative;
-
-    &:before,
-    &:after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 2px;
-      border-radius: 4px;
-      background-color: var(--main-color);
-      left: 50%;
-      transform: translatex(-50%);
-    }
-
-    &:before {
-      top: -6px;
-    }
-    &:after {
-      bottom: -6px;
-    }
-  }
-
-  &-name {
-    color: var(--main-color);
-    margin: 0;
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 700;
-    margin: 0 32px;
-  }
-}
-
-.search-wrapper {
-  border-radius: 20px;
-  background-color: var(--search-area-bg);
-  padding-right: 12px;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 480px;
-  color: var(--light-font);
-  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2), 0 24px 20px -24px rgba(71, 82, 107, 0.1);
-  overflow: hidden;
-}
-
-.search-input {
-  border: none;
-  flex: 1;
-  outline: none;
-  height: 100%;
-  padding: 0 20px;
-  font-size: 16px;
-  background-color: var(--search-area-bg);
-  color: var(--main-color);
-
-  &:placeholder {
-    color: var(--main-color);
-    opacity: 0.6;
   }
 }
 

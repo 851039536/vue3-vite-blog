@@ -4,7 +4,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended'],
+  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', 'vue-global-api'],
   parserOptions: {
     parser: 'babel-eslint',
   },
@@ -13,6 +13,12 @@ module.exports = {
     'no-unused-vars': 0, // 定义未使用的变量
     "prettier/prettier": "off", //关闭prettier的提示
   },
-
+  globals: {
+    defineProps: true,
+    defineEmits: true,
+    useRoute: true,
+    useRouter: true,
+    axios: true
+  }
 
 };

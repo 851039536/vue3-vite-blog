@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import { tags, classify } from '../../api/index'
+import { tags, classify } from '@/api/index'
 import { state } from './data'
 import { method } from './index'
+import SFooter from '../../components/SFooter.vue'
 
 onMounted(async () => {
   await method.GetFyTit()
@@ -17,35 +17,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="index fade-in-fwd">
-    <div class="flex min-h-screen bg-gray-100">
-      <div class="flex-grow text-gray-800">
-        <!-- 头部 -->
-        <Headers></Headers>
-        <!-- end  头部-->
-
-        <main class="p-3 space-y-3 sm:p-6">
-          <!-- 分类页 -->
-          <Classify></Classify>
-          <!-- end  分类页-->
-
-          <router-view></router-view>
-
-          <section class="font-semibold text-right text-gray-500">
-            <a href="#" class="text-purple-600 hover:underline">工程sw网</a>
-            基于
-            <a class="text-teal-400 hover:underline"> VUE</a>
-            生产开发
-          </section>
-        </main>
-      </div>
-    </div>
+  <div class="index">
+    <Headers></Headers>
+    <main>
+      <Classify></Classify>
+      <router-view></router-view>
+      <SFooter></SFooter>
+    </main>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .index {
-  width: 98%;
-  @apply m-auto;
+  @apply m-auto min-h-screen bg-gray-100 w-[98%];
+  main {
+    @apply space-y-3 p-3 sm:p-6;
+  }
 }
 </style>

@@ -3,24 +3,29 @@ import axios from 'axios'
 import qs from "qs";
 import store from "@/store/index";
 import router from '@/router/index';
+import { resData } from '@/components/aspin/data'
+import { message } from 'ant-design-vue/es';
 
 console.log(import.meta.env.VITE_API_DOMAIN)
 axios.defaults.baseURL = import.meta.env.VITE_API_DOMAIN,
   axios.defaults.timeout = 12000;
 // axios.defaults.headers.common['token'] =  AUTH_TOKEN
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.post["Access-Control-Allow-Origin-Type"] = "*"; // 允许跨域
-
+// "Content-Type": "multipart/form-data" 
 axios.interceptors.request.use(function (config: any) {
 
+  resData.show = true
   // 在发送请求之前做某件事
   if (
     config.method === "post" ||
     config.method === "put" ||
     config.method === "delete"
   ) {
-    // 序列化
-    config.data = qs.parse(config.data);
+    if (config.method !== 'post' && config.headers['Content-Type'] !== 'multipart/form-data') {
+      config.data = qs.parse(config.data);
+    }
   }
   // 若是有做鉴权token , 就给头部带上token
   if (store.state.token) {
@@ -34,6 +39,7 @@ axios.interceptors.request.use(function (config: any) {
 
 axios.interceptors.response.use(function (config: any) {
 
+  resData.show = false
   if (config.status === 200 || config.status === 204) {
     return Promise.resolve(config);
   } else {
@@ -42,10 +48,8 @@ axios.interceptors.response.use(function (config: any) {
 
   // return config;
 },
-  function (error: { response: { status: any; }; }) {
-    console.log('%c [ error ]-46', 'font-size:13px; background:pink; color:#bf2c9f;', error)
-    // return Promise.reject(error)
-
+  function (error) {
+    console.log('%c [ error ]-46', 'font-size:16px; background:pink; color:#bf2c9f;', error.response)
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
@@ -91,13 +95,11 @@ axios.interceptors.response.use(function (config: any) {
           break;
         // 其他错误，直接抛出错误提示
         default:
-        // Toast({
-        //   message: error.response.data.message,
-        //   duration: 1500,
-        //   forbidClick: true
-        // });
+          message.error(error.response.status + ":" + error.response.statusText);
+
       }
-      return Promise.reject(error.response);
+      resData.show = false
+      return Promise.reject(error);
     } else {
       // 处理断网的情况
       // eg:请求超时或断网时，更新state的network状态

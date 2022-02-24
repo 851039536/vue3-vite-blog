@@ -7,6 +7,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import viteCompression from 'vite-plugin-compression'
 import WindiCSS from 'vite-plugin-windicss'
 import { injectHtml } from 'vite-plugin-html'
+import AutoImport from 'unplugin-auto-import/vite'
 
 export default defineConfig({
   plugins: [vue(),
@@ -14,6 +15,20 @@ export default defineConfig({
     injectData: {
       title: 'SW网'
     }
+  }),
+  AutoImport({
+    imports: [
+      'vue',
+      'vue-router',
+      {
+        axios: [
+          ['default', 'axios'] // import { default as axios } from 'axios',
+        ]
+      }
+    ],
+    resolvers: [
+      /* ... */
+    ]
   }),
   WindiCSS(),
   Components({
@@ -31,7 +46,7 @@ export default defineConfig({
 
   ],
   resolve: {
-    // extensions: ['.vue', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.node', '.scss'],
+    //extensions: ['.vue', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.node', '.scss'],
     alias: {
       '@': resolve('./src'),
       '@vi': resolve('./src/views'),
@@ -43,7 +58,10 @@ export default defineConfig({
   server: {
     port: 4000, // 服务端口号
     open: true, // 服务启动时是否自动打开浏览器
-    cors: true // 允许跨域
+    cors: true, // 允许跨域
+    fs: {
+      strict: false
+    }
   },
   css: {
     preprocessorOptions: {

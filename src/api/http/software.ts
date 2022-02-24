@@ -26,7 +26,7 @@ export class software {
     })
   }
   /**
-   * 
+   * 模糊查询
    * @param identity 无条件:0 || 分类:1 || 用户:2
    * @param type 查询条件
    * @param name 查询字段
@@ -35,7 +35,32 @@ export class software {
   static async Contains(identity: number, type: string, name: string) {
     return request({
       url: "/api/software/contains/" + identity + "/" + type + "/" + name,
-      method: 'get'
+      method: 'get',
+    })
+  }
+
+  /**
+   * 删除
+   * @param id 主键
+   * @returns 实体
+   */
+  static async Delete(id: number) {
+    return request({
+      url: "/api/software/" + id,
+      method: 'delete'
+    })
+  }
+
+  /**
+   * 添加
+   * @param entity 
+   * @returns 
+   */
+  static async Add(entity: any) {
+    return request({
+      url: "/api/software",
+      method: 'post',
+      data: entity
     })
   }
 
