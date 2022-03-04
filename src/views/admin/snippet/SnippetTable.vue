@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
 import { columns, state } from './data'
-import { article, user } from '@/api'
+import { snippet, user } from '@/api'
 import { routers, routerId } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
 
 const reload: any = inject('reload')
-const confirm = async (data: any) => {
-  if (data.user.id === storage.get('id')) {
-    await article.DeleteAsync(data.id).then(() => {
+const Deletes = async (entity: any) => {
+  if (entity.users.id === storage.get('id')) {
+    await snippet.Delete(entity.id).then(() => {
       message.success('删除成功')
       reload()
     })
@@ -21,28 +21,28 @@ const cancel = () => {
   message.info('已取消')
 }
 
-const Edit = (id: number, userId: number) => {
-  if (userId === storage.get('id')) {
-    routerId('/Admin-index/ArticleEdit', id)
+const Edit = (record: any) => {
+  if (record.users.id === storage.get('id')) {
+    routerId('/Admin-index/SnippetEdit', record.id)
   } else {
     message.success('无权限!')
   }
 }
 
-async function GetContains(datas: any) {
-  if (datas.data === null && state.labelStr === 'ALL') {
+async function GetContains(entity: any) {
+  if (entity.data === null && state.labelStr === 'ALL') {
     await QueryFyAll(true)
   } else if (state.labelStr === 'ALL') {
-    state.dataResult = await (await article.contains(0, '0', datas.data)).data.data
+    state.dataResult = await (await snippet.GetContains(0, 'null', entity.data)).data.data.items
   } else {
-    state.dataResult = await (await article.contains(3, state.labelStr, datas.data)).data.data
+    state.dataResult = await (await snippet.GetContains(3, state.labelStr, entity.data)).data.data.items
   }
 }
-async function GetTag() {
+async function GetUsers() {
   if (state.labelStr === 'ALL') {
     await QueryFyAll(true)
   } else {
-    state.dataResult = await (await article.GetFy(2, state.labelStr, 1, 1000, 'id', true)).data.data.items
+    state.dataResult = await (await snippet.GetFy(2, state.labelStr, 1, 1000, true)).data.data.items
   }
 }
 async function Ordering() {
@@ -57,26 +57,26 @@ async function Ordering() {
 
 /**查询分页所有 */
 async function QueryFyAll(order: boolean) {
-  state.dataResult = await (await article.GetFy(0, 'null', 1, 1000, 'id', order)).data.data.items
+  state.dataResult = await (await snippet.GetFy(0, 'null', 1, 1000, order)).data.data.items
 }
 onMounted(async () => {
   await QueryFyAll(true)
   state.userResult = await (await user.info(1, 100, true)).data.data
-  navName.name = '文章'
-  navName.name2 = '文章列表'
+  navName.name = '代码片段'
+  navName.name2 = '片段管理'
 })
 </script>
 <template>
   <section>
     <div class="flex table-operations">
       <div>
-        <a-button @click="routers('/Admin-index/ArticleAdd')">添加</a-button>
+        <a-button @click="routers('/Admin-index/SnippetAdd')">添加</a-button>
       </div>
       <div>
         <a-button @click="reload()">刷新</a-button>
       </div>
       <div>
-        <a-select ref="select" v-model:value="state.labelStr" @change="GetTag">
+        <a-select ref="select" v-model:value="state.labelStr" @change="GetUsers">
           <a-select-option value="ALL">ALL</a-select-option>
           <a-select-option :value="res.nickname" v-for="res in state.userResult" :key="res.id">{{
             res.nickname
@@ -102,10 +102,10 @@ onMounted(async () => {
         :scroll="{ x: 1280, y: 420 }"
       >
         <template #ed="{ record }">
-          <a type="primary" ghost @click="Edit(record.id, record.user.id)">编辑</a>
+          <a type="primary" ghost @click="Edit(record)">编辑</a>
         </template>
         <template #de="{ record }">
-          <a-popconfirm title="确认删除?" ok-text="是" cancel-text="否" @confirm="confirm(record)" @cancel="cancel">
+          <a-popconfirm title="确认删除?" ok-text="是" cancel-text="否" @confirm="Deletes(record)" @cancel="cancel">
             <a href="#">删除</a>
           </a-popconfirm>
         </template>

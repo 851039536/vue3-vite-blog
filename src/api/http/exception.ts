@@ -20,7 +20,6 @@ export class exception {
   }
 
 
-
   //主键查询
   static async GetById(id: number) {
     return await request({

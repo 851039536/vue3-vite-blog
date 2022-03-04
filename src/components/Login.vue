@@ -24,10 +24,19 @@ async function login() {
         storage.set('token', `Bearer ${res.data.data.token}`)
         storage.set('id', res.data.data.id)
         storage.set('name', res.data.data.nickname)
-        message.success('登录成功')
-        routers('/Admin-index/ArticleTable')
+        message.loading('loading..', 1.5).then(
+          () => {
+            routers('/Admin-index/ArticleTable')
+          },
+          () => {}
+        )
       } else {
-        message.error('用户或密码错误')
+        message.loading('loading..', 1.5).then(
+          () => {
+            message.error('用户或密码错误')
+          },
+          () => {}
+        )
       }
     })
     .catch((err) => {

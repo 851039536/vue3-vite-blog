@@ -21,12 +21,18 @@ const handleClick = (e: any) => {
       routers('/Admin-index/ArticleTable')
       break
     case '1-2':
-      // routers('/Admin-index/LabelTable')
+      routers('/Admin-index/ClassifyTable')
+      break
+    case '1-3':
+      routers('/Admin-index/tagTable')
       break
     case '2-1':
       routers('/Admin-index/SoftwareTable')
       break
     case '3-1':
+      break
+    case '4-1':
+      routers('/Admin-index/SnippetTable')
       break
     default:
       routers('/')
@@ -66,43 +72,54 @@ onMounted(async () => {
         </ul>
       </header>
       <a-layout>
-        <a-layout-sider breakpoint="lg" collapsed-width="0" width="200" style="background: #fff">
-          <a-menu mode="inline" @click="handleClick" :style="{ height: '100%', borderRight: 0 }">
-            <a-sub-menu key="article">
-              <template #title>
-                <span class="text-base"> 文章 </span>
-              </template>
-              <a-menu-item key="1-1">文章管理</a-menu-item>
-              <a-menu-item key="1-2">文章管理</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="sub2">
-              <template #title>
-                <span class="text-base"> 软件 </span>
-              </template>
-              <a-menu-item key="2-1">软件列表</a-menu-item>
-              <a-menu-item key="2-2">软件管理</a-menu-item>
-            </a-sub-menu>
-            <a-sub-menu key="sub3">
-              <template #title>
-                <span class="text-base"> 前端设置 </span>
-              </template>
-              <a-menu-item key="3-1">页面设置</a-menu-item>
-              <a-menu-item key="10">option10</a-menu-item>
-              <a-menu-item key="11">option11</a-menu-item>
-              <a-menu-item key="12">option12</a-menu-item>
-            </a-sub-menu>
-          </a-menu>
-        </a-layout-sider>
+        <div class="bg-warm-gray-50 shadow mt-1">
+          <a-layout-sider breakpoint="lg" collapsed-width="0" width="210">
+            <a-menu mode="inline" @click="handleClick" :style="{ height: '100%', borderRight: 0 }">
+              <a-sub-menu key="article">
+                <template #title>
+                  <span class="text-base"> 文章 </span>
+                </template>
+                <a-menu-item key="1-1">文章管理</a-menu-item>
+                <a-menu-item key="1-2">分类管理</a-menu-item>
+                <a-menu-item key="1-3">标签管理</a-menu-item>
+              </a-sub-menu>
+              <a-sub-menu key="sub2">
+                <template #title>
+                  <span class="text-base"> 软件 </span>
+                </template>
+                <a-menu-item key="2-1">软件管理</a-menu-item>
+              </a-sub-menu>
+              <a-sub-menu key="sub3">
+                <template #title>
+                  <span class="text-base"> 异常处理 </span>
+                </template>
+                <a-menu-item key="3-1">异常信息</a-menu-item>
+              </a-sub-menu>
+              <a-sub-menu key="sub4">
+                <template #title>
+                  <span class="text-base"> 代码片段 </span>
+                </template>
+                <a-menu-item key="4-1">片段管理</a-menu-item>
+              </a-sub-menu>
+              <a-sub-menu key="sub4">
+                <template #title>
+                  <span class="text-base"> 用户设置 </span>
+                </template>
+                <a-menu-item key="4-1">用户管理</a-menu-item>
+              </a-sub-menu>
+            </a-menu>
+          </a-layout-sider>
+        </div>
 
-        <a-layout style="padding: 0 8px 8px">
-          <a-breadcrumb style="margin: 8px 0">
+        <a-layout style="padding: 0 10px 10px">
+          <a-breadcrumb style="margin: 10px 0">
             <a-breadcrumb-item>{{ navName.name }}</a-breadcrumb-item>
             <a-breadcrumb-item>{{ navName.name2 }}</a-breadcrumb-item>
           </a-breadcrumb>
           <a-layout-content
             :style="{
               background: '#fff',
-              padding: '8px',
+              padding: '10px',
               margin: 0,
               minHeight: '98%'
             }"
@@ -118,12 +135,10 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .admin_index {
   @apply h-full w-full z-10 fixed;
-  @apply bg-gray-100;
 
   .header {
-    @apply bg-white  w-full;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
-    .logo {
+    @apply bg-white  shadow w-full;
+      .logo {
       display: block;
       float: left;
       padding: 10px 20px;

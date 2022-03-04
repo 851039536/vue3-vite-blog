@@ -1,22 +1,23 @@
 
 import axios from 'axios'
-import qs from "qs";
-import store from "@/store/index";
-import router from '@/router/index';
+import qs from "qs"
+import store from "@/store/index"
+import router from '@/router/index'
 import { resData } from '@/components/aspin/data'
-import { message } from 'ant-design-vue/es';
+import { message } from 'ant-design-vue/es'
+import NProgress from 'nprogress'
+
 
 console.log(import.meta.env.VITE_API_DOMAIN)
-axios.defaults.baseURL = import.meta.env.VITE_API_DOMAIN,
-  axios.defaults.timeout = 12000;
-// axios.defaults.headers.common['token'] =  AUTH_TOKEN
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-axios.defaults.headers.post["Access-Control-Allow-Origin-Type"] = "*"; // 允许跨域
-// "Content-Type": "multipart/form-data" 
+axios.defaults.baseURL = import.meta.env.VITE_API_DOMAIN
+axios.defaults.timeout = 12000
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8'
+axios.defaults.headers.post["Access-Control-Allow-Origin-Type"] = "*"
 axios.interceptors.request.use(function (config: any) {
 
+
   resData.show = true
+  NProgress.start()
   // 在发送请求之前做某件事
   if (
     config.method === "post" ||
@@ -24,32 +25,34 @@ axios.interceptors.request.use(function (config: any) {
     config.method === "delete"
   ) {
     if (config.method !== 'post' && config.headers['Content-Type'] !== 'multipart/form-data') {
-      config.data = qs.parse(config.data);
+      config.data = qs.parse(config.data)
     }
   }
   // 若是有做鉴权token , 就给头部带上token
   if (store.state.token) {
-    config.headers.Authorization = store.state.token;
+    config.headers.Authorization = store.state.token
   }
   return config;
-}, (error: { data: { error: { message: any; }; }; }) => {
+}, (error: { data: { error: { message: any; } } }) => {
 
-  return Promise.reject(error.data.error.message);
+  return Promise.reject(error.data.error.message)
 })
 
 axios.interceptors.response.use(function (config: any) {
 
   resData.show = false
+  NProgress.done()
   if (config.status === 200 || config.status === 204) {
-    return Promise.resolve(config);
+    return Promise.resolve(config)
   } else {
-    return Promise.reject(config);
+    return Promise.reject(config)
   }
 
   // return config;
 },
   function (error) {
-    console.log('%c [ error ]-46', 'font-size:16px; background:pink; color:#bf2c9f;', error.response)
+    resData.show = false
+    NProgress.done()
     if (error.response.status) {
       switch (error.response.status) {
         // 401: 未登录
@@ -95,17 +98,18 @@ axios.interceptors.response.use(function (config: any) {
           break;
         // 其他错误，直接抛出错误提示
         default:
-          message.error(error.response.status + ":" + error.response.statusText);
+          message.error(error.response.status + ":" + error.response.statusText)
 
       }
       resData.show = false
-      return Promise.reject(error);
+      NProgress.done()
+      return Promise.reject(error)
     } else {
       // 处理断网的情况
       // eg:请求超时或断网时，更新state的network状态
       // network状态在app.vue中控制着一个全局的断网提示组件的显示隐藏
       // 关于断网组件中的刷新重新获取数据，会在断网组件中说明
-      store.commit('changeNetwork', false);
+      store.commit('changeNetwork', false)
     }
   }
 )

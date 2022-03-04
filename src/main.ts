@@ -18,6 +18,7 @@ import csharp from 'highlight.js/lib/languages/csharp'
 import css from 'highlight.js/lib/languages/css'
 import javascript from 'highlight.js/lib/languages/javascript'
 import typescript from 'highlight.js/lib/languages/typescript'
+import bash from 'highlight.js/lib/languages/bash'
 
 // 显示代码行数
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index'
@@ -31,6 +32,7 @@ hljs.registerLanguage('csharp', csharp)
 hljs.registerLanguage('css', css)
 hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('typescript', typescript)
+hljs.registerLanguage('bash', bash)
 
 VueMarkdownEditor.use(githubTheme, {
   Hljs: hljs

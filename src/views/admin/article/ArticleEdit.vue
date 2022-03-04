@@ -13,8 +13,13 @@ const Rid: any = reactive({
 const onSubmit = async () => {
   await article.Update(formState).then((res) => {
     if (res.data.succeeded) {
-      message.info('更新成功')
-      routers('/Admin-index/ArticleTable')
+      message.loading('更新中..', 1.5).then(
+        () => {
+          message.success('更新成功', 1)
+          routers('/Admin-index/ArticleTable')
+        },
+        () => {}
+      )
     } else {
       message.info('更新失败')
     }
@@ -90,7 +95,7 @@ onMounted(async () => {
           :disabled-menus="[]"
           @upload-image="handleUploadImage"
           :insertWithSize="true"
-          height="300px"
+          height="350px"
         ></v-md-editor>
       </div>
 

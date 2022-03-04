@@ -12,8 +12,13 @@ const onSubmit = async () => {
   formState.authorId = Number(storage.get('id'))
   formState.relativePath = path
   await software.Add(formState).then(() => {
-    message.info('已发布')
-    routers('/Admin-index/SoftwareTable')
+    message.loading('发布中..', 1.5).then(
+      () => {
+        message.success('发布成功')
+        routers('/Admin-index/SoftwareTable')
+      },
+      () => {}
+    )
   })
 }
 
@@ -37,7 +42,7 @@ const handleChange = async (info: any) => {
 
 onMounted(async () => {
   formState.id = 0
-  formState.name = '标题'
+  formState.name = ''
   formState.version = ''
   formState.classifyName = ''
   formState.description = ''
@@ -54,14 +59,14 @@ onMounted(async () => {
   <section class="overflow-auto">
     <div class="m-auto p-1 py-2 w-[95%]">
       <div class="rounded bg-gray-50 shadow mt-2 p-2">
-        <a-input v-model:value="formState.name" />
+        <a-input v-model:value="formState.name" prefix="标题:" />
       </div>
 
       <div class="rounded flex bg-gray-50 shadow mt-2 p-2">
-        <div class="mt-auto mb-auto p-1">版本/格式</div>
-        <div><a-input v-model:value="formState.version" /></div>
-        <div class="mt-auto mb-auto ml-2 p-1">类别</div>
-        <div><a-input v-model:value="formState.classifyName" /></div>
+        <!-- <div class="mt-auto mb-auto p-1">版本/格式</div> -->
+        <div><a-input v-model:value="formState.version" prefix="版本/格式:" /></div>
+        <!-- <div class="mt-auto mb-auto ml-2 p-1">类别</div> -->
+        <div class="ml-2"><a-input v-model:value="formState.classifyName" prefix="类别:" /></div>
       </div>
 
       <div class="rounded bg-gray-50 shadow mt-2 p-2">

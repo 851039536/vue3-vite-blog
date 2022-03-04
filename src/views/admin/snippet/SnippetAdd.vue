@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { article, classify, tags, common } from '@/api'
+import { snippet, snippetType, snippetTag, common } from '@/api'
 import { formState, state } from './data'
 import { go, routers } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
 
 const onSubmit = async () => {
-  formState.userId = storage.get('id')
-  await article.Add(formState).then(() => {
+  formState.userId = Number(storage.get('id'))
+  await snippet.Add(formState).then(() => {
     message.loading('添加中..', 1.5).then(
       () => {
         message.success('添加成功', 1)
-        routers('/Admin-index/ArticleTable')
+        routers('/Admin-index/SnippetTable')
       },
       () => {}
     )
@@ -20,11 +20,11 @@ const onSubmit = async () => {
 }
 
 async function GetApi() {
-  await classify.GetAll().then((res) => {
-    state.classifyResult = res.data.data
+  await snippetType.GetFy(1, 1000).then((res) => {
+    state.resType = res.data.data.items
   })
-  await tags.GetAll().then((res) => {
-    state.tagResult = res.data.data
+  await snippetTag.GetFy(1, 1000).then((res) => {
+    state.resTag = res.data.data.items
   })
 }
 
@@ -44,17 +44,14 @@ async function handleUploadImage(_event: any, insertImage: any, files: any) {
 
 onMounted(async () => {
   formState.id = 0
-  formState.title = ''
-  formState.content = ''
-  formState.description = ''
-  formState.createTime = '2021-11-13T03:18:19.821Z'
-  formState.updateTime = '2021-11-13T03:18:20.821Z'
+  formState.name = ''
+  formState.text = ''
   formState.userId = 0
-  formState.classifyId = 1
-  formState.tagId = 10
+  formState.typeId = 1
+  formState.tagId = 1
   await GetApi()
-  navName.name = '文章管理'
-  navName.name2 = '新增文章'
+  navName.name = '代码片段'
+  navName.name2 = '新增片段'
 })
 </script>
 
@@ -65,26 +62,26 @@ onMounted(async () => {
         <div class="ml-2">
           标签
           <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.tagResult" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in state.resTag" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
         </div>
         <div class="ml-2">
           分类
-          <a-select v-model:value="formState.classifyId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.classifyResult" :key="item.id" :label="item.id" :value="item.id">{{
+          <a-select v-model:value="formState.typeId" placeholder="请选择" style="width: 120px">
+            <a-select-option v-for="item in state.resType" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
         </div>
       </div>
       <div class="rounded bg-gray-50 shadow mt-2 p-2">
-        <a-input v-model:value="formState.title" prefix="标题:" />
+        <a-input v-model:value="formState.name" prefix="标题:" />
       </div>
       <div class="rounded bg-gray-50 shadow mt-2 p-2">
         <v-md-editor
-          v-model="formState.content"
+          v-model="formState.text"
           :disabled-menus="[]"
           @upload-image="handleUploadImage"
           :insertWithSize="true"

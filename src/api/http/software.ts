@@ -9,6 +9,18 @@ export class software {
       method: 'post'
     })
   }
+
+  /**
+   * 主键查询
+   * @param id 主键
+   * @returns 
+   */
+  static async GetById(id: number) {
+    return request({
+      url: "/api/software/by-id/" + id,
+      method: 'get'
+    })
+  }
   /**
    * 分页查询
    * @param identity 所有:0 || 分类:1 || 用户:2
@@ -63,6 +75,20 @@ export class software {
       data: entity
     })
   }
+
+  /**
+   * 更新
+   * @param entity 
+   * @returns 
+   */
+  static async Update(entity: any) {
+    return request({
+      url: "/api/software",
+      method: 'put',
+      data: entity
+    })
+  }
+
 
 }
 

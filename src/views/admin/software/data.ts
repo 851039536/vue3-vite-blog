@@ -3,9 +3,6 @@ import { IntSoftware } from "@/api/data/interData";
 
 const state: any = reactive({
   dataResult: [],
-  classifyResult: [],
-  tagResult: [],
-  userResult: [],
   labelStr: 'ALL',
   order: true
 })
@@ -80,7 +77,7 @@ const columns = [
 
 const formState: IntSoftware = reactive({
   id: 0,
-  name: '标题',
+  name: '',
   version: '版本',
   classifyName: "分类",
   description: "描述",

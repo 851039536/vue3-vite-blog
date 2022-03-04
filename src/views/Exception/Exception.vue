@@ -19,6 +19,10 @@
           <a-form-item :name="['particulars']" label="异常详情" :rules="[{ required: true }]">
             <a-textarea v-model:value="formState.particulars" :rows="8" />
           </a-form-item>
+
+          <a-form-item label="效验码" :rules="[{ required: true }]">
+            <a-input-password v-model:value="checkCode" />
+          </a-form-item>
           <a-form-item :wrapper-col="{ ...layout.wrapperCol, offset: 4 }">
             <a-button type="primary" html-type="submit">提交</a-button>
           </a-form-item>
@@ -128,6 +132,7 @@ const showModal = async (id: number) => {
     resData.resultData3 = result.data.data
   })
 }
+const checkCode = ref('')
 const state: any = reactive({
   count: 0,
   page: 1, //页码
@@ -175,16 +180,20 @@ const formState: any = reactive({
   reply: ''
 })
 const onFinish = async () => {
-  await exception.Add(formState).then((result) => {
-    if (result.status === 200) {
-      message.success('已提交')
-      ;(formState.name = ''),
-        (formState.issue = ''),
-        (formState.particulars = ''),
-        (formState.create_time = ''),
-        GetFy1()
-    }
-  })
+  if (checkCode.value === 'merryte') {
+    await exception.Add(formState).then((result) => {
+      if (result.status === 200) {
+        message.success('已提交')
+        ;(formState.name = ''),
+          (formState.issue = ''),
+          (formState.particulars = ''),
+          (formState.create_time = ''),
+          GetFy1()
+      }
+    })
+  } else {
+    message.error('效验码不正确')
+  }
 }
 const resData: any = reactive({
   resultData: [],

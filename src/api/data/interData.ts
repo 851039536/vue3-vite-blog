@@ -14,3 +14,25 @@ export interface IntSoftware {
   authorId: number,
 }
 
+
+export interface IntSnippet {
+  id: number,
+  name: string,
+  text: string,
+  typeId: number,
+  tagId: number,
+  userId: number,
+}
+
+export interface IntArticle {
+  id: number,
+  title: string,
+  content: string,
+  description: string,
+  createTime: string,
+  updateTime: string,
+  userId: number,
+  tagId: number,
+  classifyId: number,
+}
+

@@ -1,15 +1,11 @@
 <script lang="ts" setup>
-import { tags, classify } from '@/api/index'
-import { state } from './data'
-import { method } from './index'
-import SFooter from '../../components/SFooter.vue'
+import { classify } from '@/api/index'
+import { state } from './data/data'
+import { method } from './data/index'
+import SFooter from '@/components/SFooter.vue'
 
 onMounted(async () => {
   await method.GetFyTit()
-
-  await tags.GetCount('ALL').then((res) => {
-    state.tagsCount = res.data.data
-  })
   await classify.GetCount('ALL').then((res) => {
     state.classifyCount = res.data.data
   })

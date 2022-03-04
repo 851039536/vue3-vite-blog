@@ -7,8 +7,6 @@ interface State {
   page: number; //页码
   pagesize: number; //每页条数
   ipuName: string;
-  tagsData: any
-  tagsCount: number
   classifyCount: number,
   navStr: string
   current: number
@@ -18,10 +16,8 @@ const state: State = reactive({
   classifyData: [],
   count: 0,
   page: 1, //页码
-  pagesize: 8, //每页条数
+  pagesize: 11, //每页条数
   ipuName: '',
-  tagsData: [],
-  tagsCount: 0,
   classifyCount: 0,
   navStr: 'ALL',
   current: 1

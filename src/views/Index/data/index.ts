@@ -1,5 +1,5 @@
-import { article } from "../../api";
-import { resolveId } from "../../hooks/routers";
+import { article } from "@api/index";
+import { resolveId } from "@/hooks/routers";
 import { state } from "./data";
 
 class method {
@@ -14,6 +14,16 @@ class method {
       state.resultData = res.data.data.items;
       state.count = res.data.data.totalCount;
     });
+  }
+
+  static async search() {
+    if (state.ipuName === '') {
+      method.GetFyTit()
+      return
+    }
+    await article.contains(0, 'null', state.ipuName).then((res) => {
+      state.resultData = res.data.data.items
+    })
   }
 
   static async currentchange(val: number) {

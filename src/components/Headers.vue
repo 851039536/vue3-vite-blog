@@ -1,18 +1,6 @@
 <script setup lang="ts">
-import { article } from '@/api/index'
-import { state } from '../views/Index/data'
-import { method } from '../views/Index/index'
 import { routers } from '@/hooks/routers'
-
-async function search() {
-  if (state.ipuName === '') {
-    method.GetFyTit()
-    return
-  }
-  await article.contains(0, 'null', state.ipuName).then((res) => {
-    state.resultData = res.data.data
-  })
-}
+import { storage } from '@/utils/storage/storage'
 </script>
 <template>
   <header class="header">
@@ -33,14 +21,19 @@ async function search() {
       <input
         type="text"
         placeholder="Search..."
-        v-model="state.ipuName"
-        @input="search()"
         class="border-transparent rounded-lg w-full py-2 pr-4 pl-10 placeholder-gray-400 focus:bg-gray-50"
       />
+      <!--  v-model="state.ipuName" -->
+      <!-- @input="search()" -->
     </div>
     <div class="cursor-pointer flex font-medium ml-auto flex-shrink-0 items-center">
       <div class="mx-2 text-lg inline-flex items-center">
-        <a class="max-w-xs w-full" @click="routers('/Login')">登录</a>
+        <div v-if="storage.get('id') === 'id'" @click="routers('/Login')">
+          <a-avatar size="large">登录</a-avatar>
+        </div>
+        <div v-else @click="routers('/Admin-index/ArticleTable')">
+          <a-avatar size="large">{{ storage.get('name') }}</a-avatar>
+        </div>
       </div>
 
       <div class="inline-flex items-center">
@@ -54,7 +47,7 @@ async function search() {
 
 <style lang="scss" scoped>
 .header {
-  @apply bg-white flex h-18 shadow px-6 items-center;
+  @apply bg-white flex h-17 shadow px-6 items-center;
   @apply sm:px-10;
 }
 </style>

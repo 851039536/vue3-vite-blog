@@ -61,41 +61,9 @@ const cancel = (e: MouseEvent) => {
 </script>
 <template>
   <section class="fade-in">
-    <!-- 搜素框 -->
-    <div class="app-header">
-      <div><p class="app-name">查询</p></div>
-      <div class="search-wrapper">
-        <input class="search-input" type="text" placeholder="Search" v-model="resData.ipuName" @input="search()" />
-        <svg
-          width="20"
-          height="20"
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          class="feather feather-search"
-          viewBox="0 0 24 24"
-        >
-          <defs></defs>
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="M21 21l-4.35-4.35"></path>
-        </svg>
-      </div>
-      <div class="app-header-right">
-        <!-- <button>
-          <svg t="1640155226218" viewBox="0 0 1024 1024" version="1.1" p-id="12946" width="24" height="24">
-            <path
-              d="M736 960h-448c-117.376 0-179.2-60.992-179.2-179.2v-134.848h89.6V780.8c0 68.416 21.632 89.6 89.6 89.6h448c67.968 0 89.6-21.184 89.6-89.6v-134.848h89.6V780.8c0 118.208-61.824 179.2-179.2 179.2z m-197.312-196.416a34.112 34.112 0 0 1-53.44 0L259.776 473.216a30.912 30.912 0 0 1 24.768-50.816H377.6c17.152 0 44.8-26.88 44.8-44.8V108.8a44.8 44.8 0 0 1 44.8-44.8h89.6a44.8 44.8 0 0 1 44.8 44.8v268.8c0 17.92 26.304 44.8 44.8 44.8h93.056c27.584 0 41.344 29.44 24.768 50.816l-225.536 290.368z"
-              p-id="12947"
-              fill="#515151"
-            ></path>
-          </svg>
-        </button> -->
-      </div>
+    <div class="bg-white rounded shadow p-2 px-[20%]">
+      <a-input-search prefix="查询:" size="large" v-model:value="resData.ipuName" @change="search()" />
     </div>
-
-    <!-- --------------------------------------- -->
 
     <div class="app-content">
       <div class="projects-section">
@@ -153,43 +121,11 @@ const cancel = (e: MouseEvent) => {
 </template>
 
 <style lang="scss" scoped>
-.app-header {
-  @apply flex h-15;
-  @apply bg-white rounded shadow items-center;
-  .app-name {
-    @apply text-lg ml-9;
-  }
-  .search-wrapper {
-    @apply flex bg-gray-100 h-40px ml-2 pr-3;
-    @apply rounded items-center overflow-hidden;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 550px;
-    color: var(--light-font);
-
-    .search-input {
-      border: none;
-      flex: 1;
-      outline: none;
-      height: 100%;
-      padding: 0 20px;
-      font-size: 16px;
-      background-color: var(--search-area-bg);
-      color: var(--main-color);
-
-      &:placeholder {
-        color: var(--main-color);
-        opacity: 0.6;
-      }
-    }
-  }
-}
-
 .projects-section {
   flex: 2;
   overflow: hidden;
   height: 100%;
-  @apply p-1 pl-4;
+  @apply p-1;
   display: flex;
   flex-direction: column;
 
@@ -226,7 +162,7 @@ const cancel = (e: MouseEvent) => {
     display: flex;
     flex-wrap: wrap;
     .project-box-wrapper {
-      width: 25%;
+      width: 20%;
     }
   }
 }
@@ -314,16 +250,6 @@ const cancel = (e: MouseEvent) => {
   }
 }
 
-@media screen and (max-width: 720px) {
-  .app-name {
-    display: none;
-  }
-
-  .app-header-right button {
-    margin-left: 4px;
-  }
-}
-
 @media screen and (max-width: 520px) {
   .projects-section {
     overflow: auto;
@@ -332,21 +258,9 @@ const cancel = (e: MouseEvent) => {
     overflow-y: visible;
   }
 
-  .app-icon {
-    display: none;
-  }
-
   .app-content {
     @apply bg-white;
     padding: 16px 12px 24px 12px;
-  }
-
-  .app-header {
-    padding: 16px 10px;
-  }
-
-  .search-input {
-    max-width: 120px;
   }
 
   .project-boxes.jsGridView .project-box-wrapper {
@@ -355,14 +269,6 @@ const cancel = (e: MouseEvent) => {
 
   .projects-section {
     padding: 24px 16px 0 16px;
-  }
-
-  .app-header {
-    padding: 10px;
-  }
-
-  .search-input {
-    font-size: 14px;
   }
 
   .box-content-header {

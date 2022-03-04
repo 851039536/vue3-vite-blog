@@ -23,34 +23,20 @@ const cancel = () => {
 
 const Edit = (id: number, userId: number) => {
   if (userId === storage.get('id')) {
-    routerId('/Admin-index/ArticleEdit', id)
+    routerId('/Admin-index/SoftwareEdit', id)
   } else {
     message.success('无权限!')
   }
 }
 
-async function GetContains(name: string) {
-  // if (name === '' && state.labelStr === 'ALL') {
-  //   await QueryFyAll(true)
-  // } else if (state.labelStr === 'ALL') {
-  //   state.dataResult = await (await software.Contains(0, '0', name)).data.data
-  // } else {
-  //   state.dataResult = await (await software.Contains(3, state.labelStr, name)).data.data
-  // }
-
-  if (name === '') {
+async function GetContains(datas: any) {
+  if (datas.data === null) {
     await QueryFyAll(true)
   } else {
-    state.dataResult = await (await software.Contains(0, '0', name)).data.data
+    state.dataResult = await (await software.Contains(0, 'null', datas.data)).data.data
   }
 }
-// async function GetTag() {
-//   if (state.labelStr === 'ALL') {
-//     await QueryFyAll(true)
-//   } else {
-//     state.dataResult = await (await article.GetFy(2, state.labelStr, 1, 1000, 'id', true)).data.data.items
-//   }
-// }
+
 async function Ordering() {
   if (state.order) {
     await QueryFyAll(true)
@@ -67,7 +53,6 @@ async function QueryFyAll(order: boolean) {
 }
 onMounted(async () => {
   await QueryFyAll(true)
-  // state.userResult = await (await user.info(1, 100, true)).data.data
   navName.name = '软件'
   navName.name2 = '软件列表'
 })
@@ -82,25 +67,8 @@ onMounted(async () => {
         <a-button @click="reload()">刷新</a-button>
       </div>
 
-      <!-- <div>
-        <a-select ref="select" v-model:value="state.labelStr" @change="GetTag">
-          <a-select-option value="ALL">ALL</a-select-option>
-          <a-select-option :value="res.nickname" v-for="res in state.userResult" :key="res.id">{{
-            res.nickname
-          }}</a-select-option>
-        </a-select>
-      </div> -->
       <div>
-        <a-select
-          show-search
-          placeholder="标题搜索"
-          style="width: 150px"
-          :default-active-first-option="false"
-          :show-arrow="false"
-          :not-found-content="null"
-          @search="GetContains"
-        >
-        </a-select>
+        <a-input-search placeholder="标题搜索" style="width: 200px" @change="GetContains" />
       </div>
       <div>
         <a-button @click="Ordering()">排序</a-button>
@@ -114,7 +82,7 @@ onMounted(async () => {
         rowKey="id"
         :data-source="state.dataResult"
         :pagination="{ pageSize: 12 }"
-        :scroll="{ x: 1500, y: 390 }"
+        :scroll="{ x: 1280, y: 420 }"
       >
         <template #ed="{ record }">
           <a type="primary" ghost @click="Edit(record.id, record.author.id)">编辑</a>

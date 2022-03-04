@@ -42,8 +42,6 @@ const columns = [
     align: 'center'
   },
 
-
-
   {
     title: '操作',
     key: '编辑',

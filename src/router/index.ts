@@ -36,7 +36,13 @@ const routes: Array<RouteRecordRaw> = [
         path: 'Exception',
         name: 'Exception',
         component: () => import('../views/Exception/Exception.vue')
-      }],
+      },
+      {
+        path: 'Snippet',
+        name: 'Snippet',
+        component: () => import('../views/snippet/Snippet.vue')
+      },
+    ],
 
   },
 
@@ -45,6 +51,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'vmdContent',
     component: () => import('../views/editor/VmdContent.vue')
   },
+
   { path: '/', redirect: { name: 'Home' } },
   // ------------------------------------------------------------------------------admin---------------------------------------------------
   // ------------------------------------------------------------------------------admin---------------------------------------------------
@@ -79,6 +86,36 @@ const routes: Array<RouteRecordRaw> = [
         path: 'SoftwareAdd',
         name: 'SoftwareAdd',
         component: () => import('@/views/admin/software/SoftwareAdd.vue')
+      },
+      {
+        path: 'SoftwareEdit',
+        name: 'SoftwareEdit',
+        component: () => import('@/views/admin/software/SoftwareEdit.vue')
+      },
+      {
+        path: 'ClassifyTable',
+        name: 'ClassifyTable',
+        component: () => import('@/views/admin/classify/ClassifyTable.vue')
+      },
+      {
+        path: 'tagTable',
+        name: 'tagTable',
+        component: () => import('@/views/admin/tag/tagTable.vue')
+      },
+      {
+        path: 'SnippetTable',
+        name: 'SnippetTable',
+        component: () => import('@/views/admin/snippet/SnippetTable.vue')
+      },
+      {
+        path: 'SnippetAdd',
+        name: 'SnippetAdd',
+        component: () => import('@/views/admin/snippet/SnippetAdd.vue')
+      },
+      {
+        path: 'SnippetEdit',
+        name: 'SnippetEdit',
+        component: () => import('@/views/admin/snippet/SnippetEdit.vue')
       },
 
     ]

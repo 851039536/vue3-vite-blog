@@ -6,6 +6,9 @@ import { common } from "./http/common";
 import { software } from "./http/software"
 import { exception } from "./http/exception"
 import { user } from "./http/user"
+import { snippet } from "./http/snippet"
+import { snippetType } from "./http/snippetType"
+import { snippetTag } from "./http/snippetTag"
 
 
 export {
@@ -16,4 +19,7 @@ export {
   software,
   exception,
   user,
+  snippet,
+  snippetType,
+  snippetTag,
 }
