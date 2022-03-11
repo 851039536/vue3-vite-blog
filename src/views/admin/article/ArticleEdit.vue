@@ -1,14 +1,12 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
 import { article, classify, tags, common } from '@/api'
-import { formState, state } from './data'
+import { formState, resClassify, resTag } from './data'
 import { go, routers } from '@/hooks/routers'
 import { navName } from '../utils/data'
 
 const route = useRoute()
-const Rid: any = reactive({
-  id: route.query.id
-})
+const rid: any = route.query.id
 
 const onSubmit = async () => {
   await article.Update(formState).then((res) => {
@@ -42,12 +40,12 @@ async function handleUploadImage(_event: any, insertImage: any, files: any) {
 
 async function GetApi() {
   await classify.GetAll().then((res) => {
-    state.classifyResult = res.data.data
+    resClassify.value = res.data.data
   })
   await tags.GetAll().then((res) => {
-    state.tagResult = res.data.data
+    resTag.value = res.data.data
   })
-  await article.GetByIdAsync(Rid.id).then((res) => {
+  await article.GetByIdAsync(rid).then((res) => {
     formState.id = res.data.data.id
     formState.title = res.data.data.title
     formState.content = res.data.data.content
@@ -72,7 +70,7 @@ onMounted(async () => {
         <div class="ml-2">
           标签
           <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.tagResult" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resTag" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
@@ -80,7 +78,7 @@ onMounted(async () => {
         <div class="ml-2">
           分类
           <a-select v-model:value="formState.classifyId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.classifyResult" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resClassify" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>

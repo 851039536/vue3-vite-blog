@@ -6,7 +6,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name: 'Home',
-    component: () => import('../views/Home/Home.vue')
+    component: () => import('../views/home/Home.vue')
   },
   {
     path: '/Login',
@@ -30,12 +30,12 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'Procedure',
         name: 'Procedure',
-        component: () => import('../views/Procedure/Procedure.vue')
+        component: () => import('../views/procedure/Procedure.vue')
       },
       {
         path: 'Exception',
         name: 'Exception',
-        component: () => import('../views/Exception/Exception.vue')
+        component: () => import('../views/exception/Exception.vue')
       },
       {
         path: 'Snippet',

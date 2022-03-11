@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { columns, state } from './data'
-import { snippet, user } from '@/api'
+import { columns, state, resUser, resType } from './data'
+import { snippet, user, snippetType } from '@/api'
 import { routers, routerId } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
@@ -29,22 +29,43 @@ const Edit = (record: any) => {
   }
 }
 
-async function GetContains(entity: any) {
-  if (entity.data === null && state.labelStr === 'ALL') {
+async function GetContain(entity: any) {
+  if (entity.data === null && state.userStr === 'ALL') {
     await QueryFyAll(true)
-  } else if (state.labelStr === 'ALL') {
-    state.dataResult = await (await snippet.GetContains(0, 'null', entity.data)).data.data.items
+  } else if (state.userStr === 'ALL') {
+    state.resData = await (await snippet.GetContain(0, 'null', entity.data)).data.data.items
   } else {
-    state.dataResult = await (await snippet.GetContains(3, state.labelStr, entity.data)).data.data.items
+    state.resData = await (await snippet.GetContain(3, state.userStr, entity.data)).data.data.items
   }
 }
-async function GetUsers() {
-  if (state.labelStr === 'ALL') {
-    await QueryFyAll(true)
-  } else {
-    state.dataResult = await (await snippet.GetFy(2, state.labelStr, 1, 1000, true)).data.data.items
+
+/**
+ * 选择框条件查询
+ * @param key 分类
+ */
+async function GetType(key: number) {
+  switch (key) {
+    case 1:
+      if (state.userStr === 'userStr' && state.typeStr === 'typeStr') {
+        await QueryFyAll(true)
+      } else {
+        state.resData = await (await snippet.GetFy(2, state.userStr, 1, 1000, true)).data.data.items
+      }
+      break
+    case 2:
+      if (state.typeStr === 'typeStr' && state.userStr === 'userStr') {
+        await QueryFyAll(true)
+      } else if (state.userStr === 'userStr') {
+        state.resData = await (await snippet.GetFy(1, state.typeStr, 1, 1000, true)).data.data.items
+      } else {
+        state.resData = await (
+          await snippet.GetFy(4, state.userStr + ',' + state.typeStr, 1, 1000, true)
+        ).data.data.items
+      }
+      break
   }
 }
+
 async function Ordering() {
   if (state.order) {
     await QueryFyAll(true)
@@ -57,11 +78,12 @@ async function Ordering() {
 
 /**查询分页所有 */
 async function QueryFyAll(order: boolean) {
-  state.dataResult = await (await snippet.GetFy(0, 'null', 1, 1000, order)).data.data.items
+  state.resData = await (await snippet.GetFy(0, 'null', 1, 1000, order)).data.data.items
 }
 onMounted(async () => {
   await QueryFyAll(true)
-  state.userResult = await (await user.info(1, 100, true)).data.data
+  resUser.value = await (await user.info(1, 100, true)).data.data
+  resType.value = await (await snippetType.GetFy(1, 100)).data.data.items
   navName.name = '代码片段'
   navName.name2 = '片段管理'
 })
@@ -76,16 +98,22 @@ onMounted(async () => {
         <a-button @click="reload()">刷新</a-button>
       </div>
       <div>
-        <a-select ref="select" v-model:value="state.labelStr" @change="GetUsers">
-          <a-select-option value="ALL">ALL</a-select-option>
-          <a-select-option :value="res.nickname" v-for="res in state.userResult" :key="res.id">{{
+        <a-select ref="select" v-model:value="state.userStr" style="width: 90px" @change="GetType(1)">
+          <a-select-option value="userStr">userStr</a-select-option>
+          <a-select-option :value="res.nickname" v-for="res in resUser" :key="res.id">{{
             res.nickname
           }}</a-select-option>
         </a-select>
       </div>
+      <div>
+        <a-select ref="select" v-model:value="state.typeStr" style="width: 90px" @change="GetType(2)">
+          <a-select-option value="typeStr">typeStr</a-select-option>
+          <a-select-option :value="res.name" v-for="res in resType" :key="res.id">{{ res.name }}</a-select-option>
+        </a-select>
+      </div>
 
       <div>
-        <a-input-search placeholder="标题搜索" style="width: 200px" @change="GetContains" />
+        <a-input-search placeholder="标题搜索" style="width: 200px" @change="GetContain" />
       </div>
       <div>
         <a-button @click="Ordering()">排序</a-button>
@@ -97,7 +125,7 @@ onMounted(async () => {
         :bordered="true"
         :columns="columns"
         rowKey="id"
-        :data-source="state.dataResult"
+        :dataSource="state.resData"
         :pagination="{ pageSize: 12 }"
         :scroll="{ x: 1280, y: 420 }"
       >

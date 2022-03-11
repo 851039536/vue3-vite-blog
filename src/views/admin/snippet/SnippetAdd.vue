@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
 import { snippet, snippetType, snippetTag, common } from '@/api'
-import { formState, state } from './data'
+import { formState, resTag, resType } from './data'
 import { go, routers } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
@@ -21,10 +21,10 @@ const onSubmit = async () => {
 
 async function GetApi() {
   await snippetType.GetFy(1, 1000).then((res) => {
-    state.resType = res.data.data.items
+    resType.value = res.data.data.items
   })
   await snippetTag.GetFy(1, 1000).then((res) => {
-    state.resTag = res.data.data.items
+    resTag.value = res.data.data.items
   })
 }
 
@@ -62,7 +62,7 @@ onMounted(async () => {
         <div class="ml-2">
           标签
           <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.resTag" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resTag" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
@@ -70,7 +70,7 @@ onMounted(async () => {
         <div class="ml-2">
           分类
           <a-select v-model:value="formState.typeId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.resType" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resType" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>

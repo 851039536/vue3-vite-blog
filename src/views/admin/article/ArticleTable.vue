@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { columns, state } from './data'
+import { columns, state, resUser } from './data'
 import { article, user } from '@/api'
 import { routers, routerId } from '@/hooks/routers'
 import { navName } from '../utils/data'
@@ -31,37 +31,37 @@ const Edit = (id: number, userId: number) => {
 
 async function GetContains(datas: any) {
   if (datas.data === null && state.labelStr === 'ALL') {
-    await QueryFyAll(true)
+    await GetFy(true)
   } else if (state.labelStr === 'ALL') {
-    state.dataResult = await (await article.contains(0, '0', datas.data)).data.data
+    state.resData = await (await article.contains(0, '0', datas.data)).data.data
   } else {
-    state.dataResult = await (await article.contains(3, state.labelStr, datas.data)).data.data
+    state.resData = await (await article.contains(3, state.labelStr, datas.data)).data.data
   }
 }
 async function GetTag() {
   if (state.labelStr === 'ALL') {
-    await QueryFyAll(true)
+    await GetFy(true)
   } else {
-    state.dataResult = await (await article.GetFy(2, state.labelStr, 1, 1000, 'id', true)).data.data.items
+    state.resData = await (await article.GetFy(2, state.labelStr, 1, 1000, 'id', true)).data.data.items
   }
 }
 async function Ordering() {
   if (state.order) {
-    await QueryFyAll(true)
+    await GetFy(true)
     state.order = false
   } else {
-    await QueryFyAll(false)
+    await GetFy(false)
     state.order = true
   }
 }
 
 /**查询分页所有 */
-async function QueryFyAll(order: boolean) {
-  state.dataResult = await (await article.GetFy(0, 'null', 1, 1000, 'id', order)).data.data.items
+async function GetFy(order: boolean) {
+  state.resData = await (await article.GetFy(0, 'null', 1, 1000, 'id', order)).data.data.items
 }
 onMounted(async () => {
-  await QueryFyAll(true)
-  state.userResult = await (await user.info(1, 100, true)).data.data
+  await GetFy(true)
+  resUser.value = await (await user.info(1, 100, true)).data.data
   navName.name = '文章'
   navName.name2 = '文章列表'
 })
@@ -78,7 +78,7 @@ onMounted(async () => {
       <div>
         <a-select ref="select" v-model:value="state.labelStr" @change="GetTag">
           <a-select-option value="ALL">ALL</a-select-option>
-          <a-select-option :value="res.nickname" v-for="res in state.userResult" :key="res.id">{{
+          <a-select-option :value="res.nickname" v-for="res in resUser" :key="res.id">{{
             res.nickname
           }}</a-select-option>
         </a-select>
@@ -97,7 +97,7 @@ onMounted(async () => {
         :bordered="true"
         :columns="columns"
         rowKey="id"
-        :data-source="state.dataResult"
+        :data-source="state.resData"
         :pagination="{ pageSize: 12 }"
         :scroll="{ x: 1280, y: 420 }"
       >

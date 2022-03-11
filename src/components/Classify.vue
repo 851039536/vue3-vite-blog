@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 import { routers, winUrl } from '@/hooks/routers'
+
+const visible = ref(false)
+const num = ref(0)
+
 const skip = (name: string) => {
   routers(name)
 }
 const NewPage = (name: number) => {
-  state.visible = true
+  visible.value = true
   num.value = name
 }
-const state = reactive({
-  visible: false
-})
-const num = ref(0)
 
 const handleOk = () => {
-  state.visible = false
+  visible.value = false
   switch (num.value) {
     case 1:
       winUrl('http://10.55.22.160:8089')
@@ -201,14 +201,7 @@ const handleOk = () => {
   </section>
 
   <section>
-    <a-modal
-      v-model:visible="state.visible"
-      ok-text="跳转"
-      cancel-text="取消"
-      :width="250"
-      :closable="false"
-      @ok="handleOk"
-    >
+    <a-modal v-model:visible="visible" ok-text="跳转" cancel-text="取消" :width="250" :closable="false" @ok="handleOk">
       <p>跳转新页面...</p>
     </a-modal>
   </section>

@@ -3,7 +3,7 @@ import axios from 'axios'
 import qs from "qs"
 import store from "@/store/index"
 import router from '@/router/index'
-import { resData } from '@/components/aspin/data'
+import { aspShow } from '@/hooks/data'
 import { message } from 'ant-design-vue/es'
 import NProgress from 'nprogress'
 
@@ -16,7 +16,7 @@ axios.defaults.headers.post["Access-Control-Allow-Origin-Type"] = "*"
 axios.interceptors.request.use(function (config: any) {
 
 
-  resData.show = true
+  aspShow.value = true
   NProgress.start()
   // 在发送请求之前做某件事
   if (
@@ -40,7 +40,7 @@ axios.interceptors.request.use(function (config: any) {
 
 axios.interceptors.response.use(function (config: any) {
 
-  resData.show = false
+  aspShow.value = false
   NProgress.done()
   if (config.status === 200 || config.status === 204) {
     return Promise.resolve(config)
@@ -51,7 +51,7 @@ axios.interceptors.response.use(function (config: any) {
   // return config;
 },
   function (error) {
-    resData.show = false
+    aspShow.value = false
     NProgress.done()
     if (error.response.status) {
       switch (error.response.status) {
@@ -101,7 +101,7 @@ axios.interceptors.response.use(function (config: any) {
           message.error(error.response.status + ":" + error.response.statusText)
 
       }
-      resData.show = false
+      aspShow.value = false
       NProgress.done()
       return Promise.reject(error)
     } else {

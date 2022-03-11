@@ -14,8 +14,7 @@ export interface IntSoftware {
   authorId: number,
 }
 
-
-export interface IntSnippet {
+export interface Snippet {
   id: number,
   name: string,
   text: string,
@@ -23,7 +22,13 @@ export interface IntSnippet {
   tagId: number,
   userId: number,
 }
+export interface IntUser {
+  id: number,
+  username: string,
+  password: string,
+  nickname: string,
 
+}
 export interface IntArticle {
   id: number,
   title: string,

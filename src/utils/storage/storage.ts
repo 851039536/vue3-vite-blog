@@ -1,5 +1,5 @@
 /**
- * 封装操作localstorage本地存储的方法
+ * localstorage本地存储的方法
  */
 export const storage = {
   // 存储
@@ -21,7 +21,7 @@ export const storage = {
 }
 
 /**
- * 封装操作sessionStorage本地存储的方法
+ * sessionStorage本地存储的方法
  */
 export const sessionStorage = {
   /**
@@ -35,7 +35,6 @@ export const sessionStorage = {
   /**
    * 取出数据
    * @param key
-   * @param value
    */
   get(key: string) {
     const value = window.sessionStorage.getItem(key)

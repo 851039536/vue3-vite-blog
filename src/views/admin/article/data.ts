@@ -1,14 +1,20 @@
+interface State {
+  resData: [],
+  labelStr: string,
+  order: boolean
+}
 
-const state: any = reactive({
-  dataResult: [],
-  classifyResult: [],
-  tagResult: [],
-  userResult: [],
+export const state: State = reactive({
+  resData: [],
   labelStr: 'ALL',
   order: true
 })
 
-const columns = [
+export const resTag: any = ref([])
+export const resUser: any = ref([])
+export const resClassify: any = ref([])
+
+export const columns = [
   { title: '标题', width: 50, dataIndex: 'title', key: 'title', fixed: 'left', ellipsis: true },
   {
     title: '用户',
@@ -60,7 +66,7 @@ const columns = [
   }
 ]
 
-const formState: any = reactive({
+export const formState: any = reactive({
   id: 0,
   title: '标题',
   content: '',
@@ -72,4 +78,3 @@ const formState: any = reactive({
   tagId: 10
 })
 
-export { columns, state, formState }

@@ -2,8 +2,8 @@
 import { message } from 'ant-design-vue'
 import { software, common } from '@/api/index'
 
-const resData: any = reactive({
-  resultData: [],
+const state: any = reactive({
+  resData: [],
   page: 1,
   pagesize: 9,
   count: 0,
@@ -11,16 +11,16 @@ const resData: any = reactive({
   ipuName: ''
 })
 software.GetFy(0, 'null', 1, 9, 'id', true).then((res) => {
-  resData.resultData = res.data.data.items
-  resData.count = res.data.data.totalCount
-  resData.page = res.data.data.pageIndex
-  resData.pagesize = res.data.data.pageSize
+  state.resultData = res.data.data.items
+  state.count = res.data.data.totalCount
+  state.page = res.data.data.pageIndex
+  state.pagesize = res.data.data.pageSize
 })
 
 const currentchange = async (val: number) => {
-  resData.page = val
-  await software.GetFy(0, 'null', resData.page, resData.pagesize, 'id', true).then((res: any) => {
-    resData.resultData = res.data.data.items
+  state.page = val
+  await software.GetFy(0, 'null', state.page, state.pagesize, 'id', true).then((res: any) => {
+    state.resultData = res.data.data.items
   })
 }
 const confirm = async (names: string, path: string) => {
@@ -40,17 +40,17 @@ const confirm = async (names: string, path: string) => {
 }
 
 const search = async () => {
-  if (resData.ipuName === '') {
+  if (state.ipuName === '') {
     software.GetFy(0, 'null', 1, 9, 'id', true).then((res) => {
-      resData.resultData = res.data.data.items
-      resData.count = res.data.data.totalCount
-      resData.page = res.data.data.pageIndex
-      resData.pagesize = res.data.data.pageSize
+      state.resultData = res.data.data.items
+      state.count = res.data.data.totalCount
+      state.page = res.data.data.pageIndex
+      state.pagesize = res.data.data.pageSize
     })
     return
   }
-  software.Contains(0, 'null', resData.ipuName).then((res) => {
-    resData.resultData = res.data.data
+  software.Contains(0, 'null', state.ipuName).then((res) => {
+    state.resultData = res.data.data
   })
 }
 
@@ -62,13 +62,13 @@ const cancel = (e: MouseEvent) => {
 <template>
   <section class="fade-in">
     <div class="bg-white rounded shadow p-2 px-[20%]">
-      <a-input-search prefix="查询:" size="large" v-model:value="resData.ipuName" @change="search()" />
+      <a-input-search prefix="查询:" size="large" v-model:value="state.ipuName" @change="search()" />
     </div>
 
     <div class="app-content">
       <div class="projects-section">
         <div class="project-boxes jsGridView">
-          <div class="project-box-wrapper" v-for="(item, index) in resData.resultData" :key="index">
+          <div class="project-box-wrapper" v-for="(item, index) in state.resultData" :key="index">
             <div class="project-box">
               <div class="project-box-header">
                 <span>{{ item.classifyName }}</span>
@@ -109,8 +109,8 @@ const cancel = (e: MouseEvent) => {
           <a-pagination
             size="small"
             @change="currentchange"
-            :total="resData.count"
-            :pageSize="resData.pagesize"
+            :total="state.count"
+            :pageSize="state.pagesize"
             show-quick-jumper
           />
           <!-- end 分页-->

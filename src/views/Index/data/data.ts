@@ -1,19 +1,18 @@
-import { reactive } from "@vue/runtime-dom";
-
 interface State {
-  resultData: any;
-  classifyData: any;
+  resData: any;
+  resClassify: any;
   count: number;
-  page: number; //页码
-  pagesize: number; //每页条数
+  page: number;
+  pagesize: number;
   ipuName: string;
   classifyCount: number,
   navStr: string
   current: number
 }
+
 const state: State = reactive({
-  resultData: [],
-  classifyData: [],
+  resData: [],
+  resClassify: [],
   count: 0,
   page: 1, //页码
   pagesize: 11, //每页条数

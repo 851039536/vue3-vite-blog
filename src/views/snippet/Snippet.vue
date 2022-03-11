@@ -1,22 +1,5 @@
 <script lang="ts" setup>
-import { reactive, watch } from 'vue'
 import { snippet, snippetType } from '@/api'
-
-async function GetApi() {
-  await snippetType.GetFy(1, 1000).then((res) => {
-    resType.value = res.data.data.items
-  })
-}
-async function clickName(id: number) {
-  await snippet.GetById(id).then((res) => {
-    resText.value = res.data.data.text
-  })
-}
-async function GetKey(e: any) {
-  await snippet.GetFy(1, e, 1, 10, true).then((res) => {
-    resDate.value = res.data.data.items
-  })
-}
 
 const resDate: any = ref([])
 const resText: any = ref('')
@@ -27,6 +10,22 @@ const state = reactive({
   openKeys: ['sub1'],
   preOpenKeys: ['sub1']
 })
+const GetApi = async () => {
+  await snippetType.GetFy(1, 1000).then((res) => {
+    resType.value = res.data.data.items
+  })
+}
+
+async function clickName(id: number) {
+  await snippet.GetById(id).then((res) => {
+    resText.value = res.data.data.text
+  })
+}
+async function GetKey(e: any) {
+  await snippet.GetFy(1, e, 1, 10, true).then((res) => {
+    resDate.value = res.data.data.items
+  })
+}
 
 watch(
   () => state.openKeys,
@@ -42,7 +41,7 @@ onMounted(async () => {
 
 <template>
   <section class="rounded flex bg-gray-200 h-480px shadow p-4">
-    <div class="w-[12%] overflow-auto">
+    <div class="text-center w-[12%] overflow-auto scro">
       <a-menu
         v-model:openKeys="state.openKeys"
         v-model:selectedKeys="state.selectedKeys"

@@ -54,14 +54,13 @@ const edit = (id: number) => {
   edVisible.value = true
 }
 
-/**查询所有 */
-async function QueryFyAll() {
+async function GetApi() {
   await classify.GetAll().then((res) => {
     state.dataResult = res.data.data
   })
 }
 onMounted(async () => {
-  await QueryFyAll()
+  await GetApi()
   navName.name = '文章'
   navName.name2 = '分类管理'
 })

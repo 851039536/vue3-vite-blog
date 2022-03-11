@@ -5,7 +5,7 @@ import { classify } from '@/api/index'
 
 onBeforeMount(async () => {
   await classify.GetAll().then((res) => {
-    state.classifyData = res.data.data
+    state.resClassify = res.data.data
   })
 })
 </script>
@@ -24,7 +24,7 @@ onBeforeMount(async () => {
           @change="method.handleChange"
         >
           <a-select-option value="ALL">ALL</a-select-option>
-          <a-select-option :value="item.name" v-for="item in state.classifyData" :key="item.id">{{
+          <a-select-option :value="item.name" v-for="item in state.resClassify" :key="item.id">{{
             item.name
           }}</a-select-option>
         </a-select>
@@ -32,7 +32,7 @@ onBeforeMount(async () => {
     </div>
 
     <div class="bg-white rounded shadow my-2 p-2">
-      <div class="flex m-2 px-4 items-center" v-for="item in state.resultData" :key="item?.id">
+      <div class="flex m-2 px-4 items-center" v-for="item in state.resData" :key="item?.id">
         <div class="flex text-lg w-[50%]">
           <div class="mr-1">
             <svg t="1640151371338" viewBox="0 0 1024 1024" version="1.1" p-id="11994" width="24" height="24">
@@ -74,7 +74,6 @@ onBeforeMount(async () => {
     </div>
   </section>
 
-  <!-- 分页 -->
   <section>
     <div class="blogs-page">
       <a-pagination
@@ -86,7 +85,4 @@ onBeforeMount(async () => {
       ></a-pagination>
     </div>
   </section>
-  <!-- end 分页 -->
 </template>
-
-<style lang="scss" scoped></style>

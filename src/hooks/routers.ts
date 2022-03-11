@@ -1,6 +1,10 @@
 
 import router from '@/router/index';
 
+/**
+ * 跳转页面
+ * @param path 路径
+ */
 const routers = async (path: string) => {
   await router.push({
     path: path,
@@ -10,21 +14,32 @@ const routers = async (path: string) => {
   })
 };
 
-const routerId = async (path: string, id: number) => {
+/**
+ * 传值跳转
+ * @param path 路径
+ * @param value 值
+ */
+const routerId = async (path: string, value: number | string) => {
   await router.push({
     path: path,
     query: {
-      id: id,
+      id: value,
       t: +new Date()
     }
   })
 };
 
-async function resolve(path: string, id: number) {
+/**
+ * 
+ * @param path 路径
+ * @param value 值
+ * @returns 
+ */
+async function resolve(path: string, value: number | string) {
   return router.resolve({
     path: path,
     query: {
-      id: id,
+      id: value,
       t: +new Date(),
     },
   })

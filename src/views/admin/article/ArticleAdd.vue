@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
 import { article, classify, tags, common } from '@/api'
-import { formState, state } from './data'
+import { formState, resTag, resClassify } from './data'
 import { go, routers } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
@@ -21,10 +21,10 @@ const onSubmit = async () => {
 
 async function GetApi() {
   await classify.GetAll().then((res) => {
-    state.classifyResult = res.data.data
+    resClassify.value = res.data.data
   })
   await tags.GetAll().then((res) => {
-    state.tagResult = res.data.data
+    resTag.value = res.data.data
   })
 }
 
@@ -42,7 +42,7 @@ async function handleUploadImage(_event: any, insertImage: any, files: any) {
   })
 }
 
-onMounted(async () => {
+const initialize = async () => {
   formState.id = 0
   formState.title = ''
   formState.content = ''
@@ -52,6 +52,10 @@ onMounted(async () => {
   formState.userId = 0
   formState.classifyId = 1
   formState.tagId = 10
+}
+
+onMounted(async () => {
+  await initialize()
   await GetApi()
   navName.name = '文章管理'
   navName.name2 = '新增文章'
@@ -65,7 +69,7 @@ onMounted(async () => {
         <div class="ml-2">
           标签
           <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.tagResult" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resTag" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
@@ -73,7 +77,7 @@ onMounted(async () => {
         <div class="ml-2">
           分类
           <a-select v-model:value="formState.classifyId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in state.classifyResult" :key="item.id" :label="item.id" :value="item.id">{{
+            <a-select-option v-for="item in resClassify" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>

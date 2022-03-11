@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { resData } from './data'
+import { aspShow } from '@/hooks/data'
 </script>
+
 <template>
-  <section v-show="resData.show">
-    <div class="aspin_main">
+  <section v-show="aspShow">
+    <div>
       <a-spin size="large" tip="Loading..." />
     </div>
   </section>
@@ -13,7 +14,7 @@ import { resData } from './data'
 section {
   @apply top-0 left-0 z-20 fixed;
   @apply h-full w-full;
-  .aspin_main {
+  div {
     @apply top-5/10 left-5/10 absolute;
   }
 }

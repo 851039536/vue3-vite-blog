@@ -1,15 +1,22 @@
-import { IntSnippet } from "@/api/data/interData"
+import { Snippet as s } from "@/api/data/interData"
 
-const state: any = reactive({
-  dataResult: [],
-  resType: [],
-  resTag: [],
-  userResult: [],
-  labelStr: 'ALL',
+interface State {
+  resData: any,
+  userStr: string,
+  typeStr: string,
+  order: boolean
+}
+const state: State = reactive({
+  resData: [],
+  userStr: 'userStr',
+  typeStr: 'typeStr',
   order: true
 })
+const resUser: any = ref([])
+const resType: any = ref([])
+const resTag: any = ref([])
 
-const formState: IntSnippet = reactive({
+const formState: s = reactive({
   id: 0,
   name: '',
   text: '',
@@ -19,6 +26,25 @@ const formState: IntSnippet = reactive({
 })
 const columns = [
   { title: '标题', width: 40, dataIndex: 'name', key: 'id', fixed: 'left', ellipsis: true },
+  {
+    title: '用户',
+    dataIndex: 'users.nickname',
+    width: 20,
+    align: 'center'
+  },
+  {
+    title: '分类',
+    dataIndex: 'types.name',
+    width: 20,
+    align: 'center'
+  },
+  {
+    title: '标签',
+    dataIndex: 'tags.name',
+    width: 20,
+    align: 'center'
+  },
+
   {
     title: '主键',
     dataIndex: 'id',
@@ -32,25 +58,7 @@ const columns = [
     align: 'center',
     ellipsis: true
   },
-  {
-    title: '标签',
-    dataIndex: 'tags.name',
-    width: 20,
-    align: 'center'
-  },
-  {
-    title: '分类',
-    dataIndex: 'types.name',
-    width: 20,
-    align: 'center'
-  },
 
-  {
-    title: '用户',
-    dataIndex: 'users.nickname',
-    width: 20,
-    align: 'center'
-  },
 
   {
     title: '操作',
@@ -70,4 +78,4 @@ const columns = [
   }
 ]
 
-export { columns, state, formState }
+export { columns, state, formState, resUser, resType, resTag }

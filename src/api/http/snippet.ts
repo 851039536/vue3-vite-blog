@@ -4,7 +4,7 @@ export class snippet {
 
   /**
    * 分页查询
-   * @param identity 所有:0 || 分类:1 || 用户:2 || 标签:3
+   * @param identity 所有:0 || 分类:1 || 用户:2 || 标签:3 || 用户-分类:4
    * @param type 查询参数
    * @param pageindex 当前页码
    * @param pagesize 每页记录条数
@@ -32,7 +32,7 @@ export class snippet {
    * @param name 查询字段
    * @returns 
    */
-  static async GetContains(identity: number, type: string, name: string) {
+  static async GetContain(identity: number, type: string, name: string) {
     return get("/api/snippet/contains/" + identity + "/" + type + "/" + name);
   }
   static async Delete(id: number) {

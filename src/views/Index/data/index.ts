@@ -9,9 +9,8 @@ class method {
   }
 
   static async GetFyTit() {
-
     await article.GetFy(0, "NULL", state.current, state.pagesize, "id", true).then((res) => {
-      state.resultData = res.data.data.items;
+      state.resData = res.data.data.items;
       state.count = res.data.data.totalCount;
     });
   }
@@ -22,7 +21,7 @@ class method {
       return
     }
     await article.contains(0, 'null', state.ipuName).then((res) => {
-      state.resultData = res.data.data.items
+      state.resData = res.data.data.items
     })
   }
 
@@ -33,7 +32,7 @@ class method {
     } else {
       await article.GetFy(1, state.navStr, state.current, state.pagesize, "id", true)
         .then((res) => {
-          state.resultData = res.data.data.items;
+          state.resData = res.data.data.items;
           state.count = res.data.data.totalCount;
         });
     }
@@ -46,7 +45,7 @@ class method {
       state.current = 1
       await article.GetFy(1, state.navStr, state.current, state.pagesize, "id", true)
         .then((res) => {
-          state.resultData = res.data.data.items;
+          state.resData = res.data.data.items;
           state.count = res.data.data.totalCount;
         });
     }

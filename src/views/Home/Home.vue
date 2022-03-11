@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-const router = useRouter()
-const skip = async () => {
-  router.push('/index/indexColumn')
-}
+import { routers } from '@/hooks/routers'
 </script>
 
 <template>
@@ -14,7 +11,7 @@ const skip = async () => {
         <p>异常解决方案、技术文档、接口文档 、程序开发流程汇总。</p>
       </div>
       <div class="mt-4 p-1">
-        <a class="text-2xl" @click="skip">进入</a>
+        <a class="text-2xl" @click="routers('/index/indexColumn')">进入</a>
       </div>
     </div>
   </div>

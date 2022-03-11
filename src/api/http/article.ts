@@ -14,14 +14,14 @@ export class article {
    * @returns 
    */
   static async GetFy(identity: number, type: string, page: number, size: number, ordering: string, isdesc: boolean) {
-    return await request({
+    return request({
       url: "/api/v1/article/fy/" + identity + "/" + type + "/" + page + "/" + size + "/" + ordering + "/" + isdesc,
       method: 'get'
     })
   }
   //查询总条数
-  static async GetCount(name: string): Promise<any> {
-    return await request({
+  static async GetCount(name: string) {
+    return request({
       url: "/api/v1/article/count/" + name,
       method: 'POST',
     })
@@ -29,8 +29,8 @@ export class article {
 
 
   //主键查询
-  static async GetByIdAsync(id: number): Promise<any> {
-    return await request({
+  static async GetByIdAsync(id: number) {
+    return request({
       url: "/api/v1/article/by-id/" + id,
       method: 'get',
     })
@@ -41,29 +41,28 @@ export class article {
    * @param type 查询条件
    * @param name 查询字段
    */
-  static async contains(identity: number, type: string, name: string): Promise<any> {
-    return await request({
+  static async contains(identity: number, type: string, name: string) {
+    return request({
       url: "/api/v1/article/contains/" + identity + "/" + type + "/" + name,
       method: 'get',
     })
   }
 
   //分类分页查询
-  static async GetClassify(id: string, page: number, pagesize: number): Promise<any> {
-    return await request({
+  static async GetClassify(id: string, page: number, pagesize: number) {
+    return request({
       url: "/api/v1/article/type-page-all/" + id + "/" + page + "/" + pagesize,
       method: 'get',
     })
   }
 
   /**更新 */
-  static async Update(resultData: any): Promise<any> {
-    return await
-      request({
-        url: "/api/v1/article",
-        method: "put",
-        data: resultData,
-      })
+  static async Update(resultData: any) {
+    return request({
+      url: "/api/v1/article",
+      method: "put",
+      data: resultData,
+    })
   }
 
   /**
