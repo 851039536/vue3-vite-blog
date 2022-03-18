@@ -1,15 +1,5 @@
 <script lang="ts" setup>
-import { classify } from '@/api/index'
-import { state } from './data/data'
-import { method } from './data/index'
 import SFooter from '@/components/SFooter.vue'
-
-onMounted(async () => {
-  await method.GetFyTit()
-  await classify.GetCount('ALL').then((res) => {
-    state.classifyCount = res.data.data
-  })
-})
 </script>
 
 <template>

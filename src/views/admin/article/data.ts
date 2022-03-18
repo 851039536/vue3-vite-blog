@@ -1,18 +1,23 @@
 interface State {
   resData: [],
-  labelStr: string,
+  userStr: string,
+  ClassifyStr: string,
+  tagStr: string,
   order: boolean
 }
 
 export const state: State = reactive({
   resData: [],
-  labelStr: 'ALL',
+  userStr: '所有用户',
+  ClassifyStr: '所有分类',
+  tagStr: '所有标签',
   order: true
 })
 
 export const resTag: any = ref([])
 export const resUser: any = ref([])
 export const resClassify: any = ref([])
+export const resClassifyType: any = ref([])
 
 export const columns = [
   { title: '标题', width: 50, dataIndex: 'title', key: 'title', fixed: 'left', ellipsis: true },
@@ -25,6 +30,12 @@ export const columns = [
   {
     title: '分类',
     dataIndex: 'classify.name',
+    width: 30,
+    align: 'center'
+  },
+  {
+    title: '子分类',
+    dataIndex: 'classifyType.name',
     width: 30,
     align: 'center'
   },
@@ -75,6 +86,7 @@ export const formState: any = reactive({
   updateTime: '2021-11-13T03:18:20.821Z',
   userId: 0,
   classifyId: 1,
-  tagId: 10
+  tagId: 10,
+  classifyTypeId: 0,
 })
 

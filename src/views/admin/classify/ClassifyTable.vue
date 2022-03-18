@@ -1,39 +1,17 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { columns, state, formState } from './data'
-import { classify } from '@/api'
+import { columns, state, classifyState, resClassifyType, quVisible, invisible, edVisible } from './data'
+import { classify, classifyType } from '@/api'
 import { navName } from '../utils/data'
+import ClQuType from './components/ClQuType.vue'
+import ClInType from './components/ClInType.vue'
+import ClEdType from './components/ClEdType.vue'
 
 const reload: any = inject('reload')
-const visible = ref<boolean>(false)
-const edVisible = ref<boolean>(false)
-
-const handleOk = () => {
-  classify.Add(formState).then((res) => {
-    if (res.data.succeeded) {
-      message.success('添加成功')
-      visible.value = false
-      reload()
-    } else {
-      message.error('添加失败')
-    }
-  })
-}
-const handleEd = () => {
-  classify.Update(formState).then((res) => {
-    if (res.data.succeeded) {
-      message.success('更新成功')
-      edVisible.value = false
-      reload()
-    } else {
-      message.error('更新失败')
-    }
-  })
-}
 
 const showModal = () => {
-  visible.value = true
-  formState.name = ''
+  invisible.value = true
+  classifyState.name = ''
 }
 const confirm = async (data: any) => {
   await classify.Delete(data.id).then((res) => {
@@ -48,19 +26,24 @@ const cancel = () => {
 }
 const edit = (id: number) => {
   classify.GetById(id).then((res) => {
-    formState.name = res.data.data.name
-    formState.id = res.data.data.id
+    classifyState.name = res.data.data.name
+    classifyState.id = res.data.data.id
   })
   edVisible.value = true
 }
 
-async function GetApi() {
-  await classify.GetAll().then((res) => {
-    state.dataResult = res.data.data
+const quit = async (id: any) => {
+  quVisible.value = true
+  state.classTypeId = id
+  await classifyType.GetFy(3, state.classTypeId, 1, 100).then((res) => {
+    resClassifyType.value = res.data.data.items
   })
 }
+
 onMounted(async () => {
-  await GetApi()
+  await classify.GetAll().then((res) => {
+    state.resData = res.data.data
+  })
   navName.name = '文章'
   navName.name2 = '分类管理'
 })
@@ -81,10 +64,13 @@ onMounted(async () => {
         :bordered="true"
         :columns="columns"
         rowKey="id"
-        :data-source="state.dataResult"
+        :data-source="state.resData"
         :pagination="{ pageSize: 12 }"
         :scroll="{ y: 390 }"
       >
+        <template #qu="{ record }">
+          <a ghost @click="quit(record.id)">子类</a>
+        </template>
         <template #ed="{ record }">
           <a type="primary" ghost @click="edit(record.id)">编辑</a>
         </template>
@@ -96,32 +82,9 @@ onMounted(async () => {
       </a-table>
     </div>
 
-    <div>
-      <a-modal
-        v-model:visible="visible"
-        title="添加分类"
-        @ok="handleOk"
-        cancelText="取消"
-        :centered="true"
-        okText="添加"
-        :closable="false"
-      >
-        <a-input v-model:value="formState.name" prefix="分类名称:" />
-      </a-modal>
-    </div>
-    <div>
-      <a-modal
-        v-model:visible="edVisible"
-        title="编辑分类"
-        @ok="handleEd"
-        cancelText="取消"
-        :centered="true"
-        okText="更新"
-        :closable="false"
-      >
-        <a-input v-model:value="formState.name" prefix="分类名称:" />
-      </a-modal>
-    </div>
+    <cl-qu-type></cl-qu-type>
+    <cl-in-type></cl-in-type>
+    <cl-ed-type></cl-ed-type>
   </section>
 </template>
 

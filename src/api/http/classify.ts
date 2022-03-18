@@ -1,4 +1,5 @@
 import { get, add, del, update } from '@api/data/funApi';
+import { Classify } from '../data/interData';
 /**
  * 分类
  */
@@ -32,7 +33,7 @@ export class classify {
    * @param entity 实体
    * @returns 
    */
-  static async Add(entity: string): Promise<any> {
+  static async Add(entity: Classify): Promise<any> {
     return add("/api/v1/classify", entity)
   }
   /**

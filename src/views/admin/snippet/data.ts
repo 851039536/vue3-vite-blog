@@ -8,8 +8,8 @@ interface State {
 }
 const state: State = reactive({
   resData: [],
-  userStr: 'userStr',
-  typeStr: 'typeStr',
+  userStr: '所有用户',
+  typeStr: '所有分类',
   order: true
 })
 const resUser: any = ref([])

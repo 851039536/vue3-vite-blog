@@ -27,7 +27,7 @@ export class snippet {
 
   /**
    * 模糊查询
-   * @param identity 所有:0 || 分类:1 || 标签:2 || 用户:3
+   * @param identity 所有:0 || 分类:1 || 标签:2 || 用户:3 || 用户/分类:4( ','分割)
    * @param type 查询参数 identity为0默认null
    * @param name 查询字段
    * @returns 

@@ -41,3 +41,25 @@ export interface IntArticle {
   classifyId: number,
 }
 
+export interface ExceptionType {
+  id: number,
+  name: string,
+  issue: string,
+  particulars: string,
+  create_time: string,
+  identity: 0,
+  reply: string,
+  phone: string,
+  typeId: number
+}
+
+export interface Classify {
+  id: number,
+  name: string,
+}
+export interface ClassifyType {
+  id: number,
+  name: string,
+  classifyId: number,
+}
+

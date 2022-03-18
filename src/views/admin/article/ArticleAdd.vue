@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { article, classify, tags, common } from '@/api'
-import { formState, resTag, resClassify } from './data'
+import { article, classify, tags, common, classifyType } from '@/api'
+import { formState, resTag, resClassify, resClassifyType } from './data'
 import { go, routers } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
@@ -26,6 +26,21 @@ async function GetApi() {
   await tags.GetAll().then((res) => {
     resTag.value = res.data.data
   })
+
+  await handleChange()
+}
+
+const handleChange = async () => {
+  classifyType
+    .GetFy(3, formState.classifyId, 1, 100)
+    .then((res) => {
+      resClassifyType.value = res.data.data.items
+      formState.classifyTypeId = res.data.data.items[0].id
+    })
+    .catch(() => {
+      message.error('子类不存在!请添加子类型')
+      formState.classifyTypeId = null
+    })
 }
 
 async function handleUploadImage(_event: any, insertImage: any, files: any) {
@@ -52,6 +67,7 @@ const initialize = async () => {
   formState.userId = 0
   formState.classifyId = 1
   formState.tagId = 10
+  formState.classifyTypeId = 0
 }
 
 onMounted(async () => {
@@ -67,17 +83,30 @@ onMounted(async () => {
     <div class="m-auto p-1 py-2 w-[95%]">
       <div class="rounded flex m-auto bg-gray-50 shadow p-2">
         <div class="ml-2">
-          标签
-          <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in resTag" :key="item.id" :label="item.id" :value="item.id">{{
+          分类
+          <a-select
+            v-model:value="formState.classifyId"
+            placeholder="请选择"
+            style="width: 120px"
+            @change="handleChange"
+          >
+            <a-select-option v-for="item in resClassify" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>
         </div>
         <div class="ml-2">
-          分类
-          <a-select v-model:value="formState.classifyId" placeholder="请选择" style="width: 120px">
-            <a-select-option v-for="item in resClassify" :key="item.id" :label="item.id" :value="item.id">{{
+          子分类
+          <a-select v-model:value="formState.classifyTypeId" placeholder="请选择" style="width: 120px">
+            <a-select-option v-for="item in resClassifyType" :key="item.id" :label="item.id" :value="item.id">{{
+              item.name
+            }}</a-select-option>
+          </a-select>
+        </div>
+        <div class="ml-2">
+          标签
+          <a-select v-model:value="formState.tagId" placeholder="请选择" style="width: 120px">
+            <a-select-option v-for="item in resTag" :key="item.id" :label="item.id" :value="item.id">{{
               item.name
             }}</a-select-option>
           </a-select>

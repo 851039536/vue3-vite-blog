@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { message } from 'ant-design-vue'
-import { columns, state, resUser } from './data'
-import { article, user } from '@/api'
+import { columns, state, resUser, resClassify } from './data'
+import { article, user, classify, tags } from '@/api'
 import { routers, routerId } from '@/hooks/routers'
 import { navName } from '../utils/data'
 import { storage } from '@/utils/storage/storage'
+import { resTag } from '../snippet/data'
 
 const reload: any = inject('reload')
 const confirm = async (data: any) => {
@@ -22,7 +23,7 @@ const cancel = () => {
 }
 
 const Edit = (id: number, userId: number) => {
-  if (userId === storage.get('id')) {
+  if (userId === storage.get('id') || 42 === storage.get('id')) {
     routerId('/Admin-index/ArticleEdit', id)
   } else {
     message.success('无权限!')
@@ -30,38 +31,48 @@ const Edit = (id: number, userId: number) => {
 }
 
 async function GetContains(datas: any) {
-  if (datas.data === null && state.labelStr === 'ALL') {
-    await GetFy(true)
-  } else if (state.labelStr === 'ALL') {
-    state.resData = await (await article.contains(0, '0', datas.data)).data.data
+  if (datas.data === null) {
+    await GetFy(0, 'null', state.order)
   } else {
-    state.resData = await (await article.contains(3, state.labelStr, datas.data)).data.data
+    state.resData = await (await article.contains(0, '0', datas.data)).data.data.items
   }
 }
-async function GetTag() {
-  if (state.labelStr === 'ALL') {
-    await GetFy(true)
+async function GetType() {
+  if (state.userStr === '所有用户' && state.ClassifyStr === '所有分类' && state.tagStr === '所有标签') {
+    await GetFy(0, 'null', state.order)
+  } else if (state.ClassifyStr != '所有分类' && state.userStr === '所有用户' && state.tagStr === '所有标签') {
+    await GetFy(1, state.ClassifyStr, state.order)
+  } else if (state.ClassifyStr === '所有分类' && state.userStr != '所有用户' && state.tagStr === '所有标签') {
+    await GetFy(2, state.userStr, state.order)
+  } else if (state.ClassifyStr === '所有分类' && state.userStr === '所有用户' && state.tagStr != '所有标签') {
+    await GetFy(4, state.tagStr, state.order)
   } else {
-    state.resData = await (await article.GetFy(2, state.labelStr, 1, 1000, 'id', true)).data.data.items
-  }
-}
-async function Ordering() {
-  if (state.order) {
-    await GetFy(true)
-    state.order = false
-  } else {
-    await GetFy(false)
-    state.order = true
+    await GetFy(3, state.userStr + ',' + state.ClassifyStr, state.order)
   }
 }
 
-/**查询分页所有 */
-async function GetFy(order: boolean) {
-  state.resData = await (await article.GetFy(0, 'null', 1, 1000, 'id', order)).data.data.items
+const cz = () => {
+  state.tagStr = '所有标签'
+  state.userStr = '所有用户'
+  state.ClassifyStr = '所有分类'
+  reload()
+}
+
+/**
+ * 分页查询
+ * @param identity 所有:0 || 分类:1 || 用户:2 || 用户/分类(','分割):3 || 标签:4
+ * @param type 查询参数
+ * @param order 排序条件[data:时间 按id排序]
+ * @returns
+ */
+async function GetFy(identity: number, type: string, order: boolean) {
+  state.resData = await (await article.GetFy(identity, type, 1, 1000, 'id', order)).data.data.items
 }
 onMounted(async () => {
-  await GetFy(true)
+  await GetFy(0, 'null', state.order)
   resUser.value = await (await user.info(1, 100, true)).data.data
+  resClassify.value = await (await classify.GetAll()).data.data
+  resTag.value = await (await tags.GetAll()).data.data
   navName.name = '文章'
   navName.name2 = '文章列表'
 })
@@ -73,11 +84,11 @@ onMounted(async () => {
         <a-button @click="routers('/Admin-index/ArticleAdd')">添加</a-button>
       </div>
       <div>
-        <a-button @click="reload()">刷新</a-button>
+        <a-button @click="cz()">刷新</a-button>
       </div>
       <div>
-        <a-select ref="select" v-model:value="state.labelStr" @change="GetTag">
-          <a-select-option value="ALL">ALL</a-select-option>
+        <a-select ref="select" v-model:value="state.userStr" @change="GetType" style="width: 105px">
+          <a-select-option value="所有用户">所有用户</a-select-option>
           <a-select-option :value="res.nickname" v-for="res in resUser" :key="res.id">{{
             res.nickname
           }}</a-select-option>
@@ -85,10 +96,20 @@ onMounted(async () => {
       </div>
 
       <div>
-        <a-input-search placeholder="标题搜索" style="width: 200px" @change="GetContains" />
+        <a-select ref="select" v-model:value="state.ClassifyStr" @change="GetType" style="width: 105px">
+          <a-select-option value="所有分类">所有分类</a-select-option>
+          <a-select-option :value="res.name" v-for="res in resClassify" :key="res.id">{{ res.name }}</a-select-option>
+        </a-select>
       </div>
       <div>
-        <a-button @click="Ordering()">排序</a-button>
+        <a-select ref="select" v-model:value="state.tagStr" @change="GetType" style="width: 105px">
+          <a-select-option value="所有标签">所有标签</a-select-option>
+          <a-select-option :value="res.name" v-for="res in resTag" :key="res.id">{{ res.name }}</a-select-option>
+        </a-select>
+      </div>
+
+      <div>
+        <a-input-search placeholder="标题搜索" style="width: 200px" @change="GetContains" />
       </div>
     </div>
     <div>

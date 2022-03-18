@@ -47,8 +47,6 @@ axios.interceptors.response.use(function (config: any) {
   } else {
     return Promise.reject(config)
   }
-
-  // return config;
 },
   function (error) {
     aspShow.value = false
@@ -62,14 +60,10 @@ axios.interceptors.response.use(function (config: any) {
           router.replace({
             path: '/login',
             query: {
-              // redirect: router.currentRoute.fullPath
             }
           });
           break;
         // 403 token过期
-        // 登录过期对用户进行提示
-        // 清除本地token和清空vuex中token对象
-        // 跳转登录页面                
         case 403:
           // Toast({
           //   message: '登录过期，请重新登录',

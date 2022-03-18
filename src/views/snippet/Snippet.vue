@@ -14,6 +14,9 @@ const GetApi = async () => {
   await snippetType.GetFy(1, 1000).then((res) => {
     resType.value = res.data.data.items
   })
+
+  await GetKey('Csharp')
+  await clickName(30)
 }
 
 async function clickName(id: number) {
@@ -40,8 +43,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="rounded flex bg-gray-200 h-480px shadow p-4">
-    <div class="text-center w-[12%] overflow-auto scro">
+  <section class="rounded flex bg-gray-200 h-500px shadow p-4">
+    <div class="text-center w-[15%] overflow-auto scro">
       <a-menu
         v-model:openKeys="state.openKeys"
         v-model:selectedKeys="state.selectedKeys"
@@ -57,15 +60,15 @@ onMounted(async () => {
         </a-menu-item>
       </a-menu>
     </div>
-    <div class="mx-1 text-center w-[15%] scro overflow-auto">
+    <div class="mx-1 text-center w-[20%] scro overflow-auto">
       <div class="mb-1"><a-input-search></a-input-search></div>
       <div v-for="item in resDate" :key="item.id">
-        <div class="cursor-pointer bg-gray-50 text-base py-2 hover:text-blue-400" @click="clickName(item.id)">
+        <div class="bg-white cursor-pointer text-base py-2 hover:text-blue-400" @click="clickName(item.id)">
           <span>{{ item.name }}</span>
         </div>
       </div>
     </div>
-    <div class="bg-white w-[73%] overflow-auto">
+    <div class="bg-white w-[65%] overflow-auto">
       <div>
         <v-md-preview :text="resText"></v-md-preview>
       </div>

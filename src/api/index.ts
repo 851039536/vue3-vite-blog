@@ -9,6 +9,8 @@ import { user } from "./http/user"
 import { snippet } from "./http/snippet"
 import { snippetType } from "./http/snippetType"
 import { snippetTag } from "./http/snippetTag"
+import { exceptionType } from "./http/exceptionType"
+import { classifyType } from "./http/classifyType"
 
 
 export {
@@ -22,4 +24,6 @@ export {
   snippet,
   snippetType,
   snippetTag,
+  exceptionType,
+  classifyType
 }

@@ -32,7 +32,8 @@
     "Updata",
     "vuepress",
     "vueuse",
-    "vuex"
+    "vuex",
+    "ztype"
   ],
   "commentTranslate.hover.enabled": true
 }

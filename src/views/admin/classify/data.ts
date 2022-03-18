@@ -1,9 +1,29 @@
+import { Classify, ClassifyType } from "@/api/data/interData"
 
-const state: any = reactive({
-  dataResult: [],
-  labelStr: 'ALL',
+interface State {
+  resData?: any,
+  classTypeId: number,
+}
+const state: State = reactive({
+  resData: [],
+  classTypeId: 0,
+})
+export const classifyState: Classify = reactive({
+  id: 0,
+  name: '',
+})
+export const classifyTypeState: ClassifyType = reactive({
+  id: 0,
+  name: '',
+  classifyId: 0,
 })
 
+export const resClassifyType: any = ref([])
+export const resClassify: any = ref([])
+export const invisible = ref<boolean>(false)
+export const quVisible = ref<boolean>(false)
+export const quVisible2 = ref<boolean>(false)
+export const edVisible = ref<boolean>(false)
 const columns = [
   { title: '名称', width: 40, dataIndex: 'name', key: 'id' },
 
@@ -12,6 +32,13 @@ const columns = [
     dataIndex: 'id',
     width: 40,
     align: 'center'
+  },
+  {
+    title: '操作',
+    key: '子类',
+    align: 'center',
+    width: 10,
+    slots: { customRender: 'qu' } // 绑定插槽
   },
   {
     title: '操作',
@@ -29,9 +56,4 @@ const columns = [
   }
 ]
 
-const formState: any = reactive({
-  id: 0,
-  name: '',
-})
-
-export { columns, state, formState }
+export { columns, state }

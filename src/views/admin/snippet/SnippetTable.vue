@@ -30,12 +30,14 @@ const Edit = (record: any) => {
 }
 
 async function GetContain(entity: any) {
-  if (entity.data === null && state.userStr === 'ALL') {
+  if (entity.data === null && state.userStr === '所有用户') {
     await QueryFyAll(true)
-  } else if (state.userStr === 'ALL') {
+  } else if (state.userStr === '所有用户' && state.typeStr === '所有分类') {
     state.resData = await (await snippet.GetContain(0, 'null', entity.data)).data.data.items
   } else {
-    state.resData = await (await snippet.GetContain(3, state.userStr, entity.data)).data.data.items
+    state.resData = await (
+      await snippet.GetContain(4, state.userStr + ',' + state.typeStr, entity.data)
+    ).data.data.items
   }
 }
 
@@ -46,16 +48,16 @@ async function GetContain(entity: any) {
 async function GetType(key: number) {
   switch (key) {
     case 1:
-      if (state.userStr === 'userStr' && state.typeStr === 'typeStr') {
+      if (state.userStr === '所有用户' && state.typeStr === '所有分类') {
         await QueryFyAll(true)
       } else {
         state.resData = await (await snippet.GetFy(2, state.userStr, 1, 1000, true)).data.data.items
       }
       break
     case 2:
-      if (state.typeStr === 'typeStr' && state.userStr === 'userStr') {
+      if (state.typeStr === '所有分类' && state.userStr === '所有用户') {
         await QueryFyAll(true)
-      } else if (state.userStr === 'userStr') {
+      } else if (state.userStr === '所有用户') {
         state.resData = await (await snippet.GetFy(1, state.typeStr, 1, 1000, true)).data.data.items
       } else {
         state.resData = await (
@@ -98,16 +100,16 @@ onMounted(async () => {
         <a-button @click="reload()">刷新</a-button>
       </div>
       <div>
-        <a-select ref="select" v-model:value="state.userStr" style="width: 90px" @change="GetType(1)">
-          <a-select-option value="userStr">userStr</a-select-option>
+        <a-select ref="select" v-model:value="state.userStr" style="width: 105px" @change="GetType(1)">
+          <a-select-option value="所有用户">所有用户</a-select-option>
           <a-select-option :value="res.nickname" v-for="res in resUser" :key="res.id">{{
             res.nickname
           }}</a-select-option>
         </a-select>
       </div>
       <div>
-        <a-select ref="select" v-model:value="state.typeStr" style="width: 90px" @change="GetType(2)">
-          <a-select-option value="typeStr">typeStr</a-select-option>
+        <a-select ref="select" v-model:value="state.typeStr" style="width: 105px" @change="GetType(2)">
+          <a-select-option value="所有分类">所有分类</a-select-option>
           <a-select-option :value="res.name" v-for="res in resType" :key="res.id">{{ res.name }}</a-select-option>
         </a-select>
       </div>
