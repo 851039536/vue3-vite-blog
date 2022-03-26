@@ -30,6 +30,7 @@ const handleClick = (e: any) => {
       routers('/Admin-index/SoftwareTable')
       break
     case '3-1':
+      routers('/Admin-index/ExceptionTable')
       break
     case '4-1':
       routers('/Admin-index/SnippetTable')
@@ -93,7 +94,7 @@ onMounted(async () => {
                 <template #title>
                   <span class="text-base"> 异常处理 </span>
                 </template>
-                <a-menu-item key="3-1">异常信息</a-menu-item>
+                <a-menu-item key="3-1">异常管理</a-menu-item>
               </a-sub-menu>
               <a-sub-menu key="sub4">
                 <template #title>
@@ -138,7 +139,7 @@ onMounted(async () => {
 
   .header {
     @apply bg-white  shadow w-full;
-      .logo {
+    .logo {
       display: block;
       float: left;
       padding: 10px 20px;

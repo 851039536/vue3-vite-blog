@@ -1,21 +1,22 @@
-// import { ExceptionType } from "@/api/data/interData"
 
 export const formState: any = reactive({
   id: 0,
   name: '',
   issue: '',
   particulars: '',
-  create_time: '',
+  createTime: '',
   identity: 0,
   reply: '',
   phone: '',
-  typeId: 1
+  typeId: 1,
+  updateTime: '',
+  auditor: ''
 })
 
 export const state: any = reactive({
   count: 0,
   page: 1, //页码
-  pagesize: 8, //每页条数
+  pagesize: 6, //每页条数
   current: 1,
   visible: false
 })

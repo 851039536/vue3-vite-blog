@@ -117,6 +117,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'SnippetEdit',
         component: () => import('@/views/admin/snippet/SnippetEdit.vue')
       },
+      {
+        path: 'ExceptionTable',
+        name: 'ExceptionTable',
+        component: () => import('@/views/admin/adException/ExceptionTable.vue')
+      },
 
     ]
   }

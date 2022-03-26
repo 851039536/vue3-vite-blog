@@ -209,7 +209,7 @@ const handleOk = () => {
 
 <style lang="scss" scoped>
 .main-class {
-  @apply flex p-3;
+  @apply flex w-full p-2;
   @apply bg-white rounded-lg shadow items-center;
   .main-content {
     @apply flex-shrink-0 h-10 mr-2 w-10 inline-flex items-center justify-center;

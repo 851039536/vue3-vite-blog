@@ -23,6 +23,7 @@ export const resClassify: any = ref([])
 export const invisible = ref<boolean>(false)
 export const quVisible = ref<boolean>(false)
 export const quVisible2 = ref<boolean>(false)
+export const quVisible3 = ref<boolean>(false)
 export const edVisible = ref<boolean>(false)
 const columns = [
   { title: '名称', width: 40, dataIndex: 'name', key: 'id' },

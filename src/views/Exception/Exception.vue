@@ -29,13 +29,13 @@ const activeKey = ref('3')
       v-model:visible="state.visible"
       :footer="null"
       :mask="false"
-      :title="resData.resultData3.issue"
+      title="问题描述"
       :centered="true"
-      width="70%"
+      width="80%"
       wrap-class-name="full-modal"
     >
       <div class="font-bold mx-8 text-xl mb-4 p-1">
-        <p>问题描述</p>
+        <p>{{ resData.resultData3.issue }}</p>
       </div>
       <div class="mx-8 p-1">
         <p>{{ resData.resultData3.particulars }}</p>

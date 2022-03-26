@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { exception, exceptionType } from '@/api'
 import { message } from 'ant-design-vue'
-import { formState, resData, state, resType } from '../data'
+import { formState, resType } from '../data'
 
 const checkCode = ref('')
 const layout = {
@@ -12,12 +12,6 @@ const validateMessages = {
   required: '${label} is 不能为空!'
 }
 
-const GetFy1 = async () => {
-  await exception.GetFy(0, 'null', state.page, state.pagesize, 'id', true).then((result) => {
-    resData.resultData = result.data.data.items
-    state.count = result.data.data.totalCount
-  })
-}
 const onFinish = async () => {
   if (checkCode.value === 'merryte') {
     await exception.Add(formState).then((result) => {
@@ -26,10 +20,8 @@ const onFinish = async () => {
         formState.name = ''
         formState.issue = ''
         formState.particulars = ''
-        formState.create_time = ''
         formState.phone = ''
         formState.typeId = 1
-        GetFy1()
       }
     })
   } else {

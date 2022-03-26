@@ -7,7 +7,7 @@ const resType: any = ref([])
 const state2: any = reactive({
   count: 0,
   page: 1, //页码
-  pagesize: 5, //每页条数
+  pagesize: 6, //每页条数
   current: 1
 })
 const showModal = async (id: number) => {
@@ -69,7 +69,11 @@ onMounted(async () => {
         {{ item.exceptionTypes.name }}
       </div>
 
-      <div class="rounded bg-green-300 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">完成</div>
+      <div class="rounded bg-gray-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">
+        {{ item.updateTime }}
+      </div>
+
+      <div class="rounded bg-green-300 my-3 text-base text-center ml-4 px-2 text-gray-600 parent">以完成</div>
 
       <a
         class="rounded font-light bg-lime-100 my-3 text-base text-center ml-4 px-2 text-gray-600 parent"
